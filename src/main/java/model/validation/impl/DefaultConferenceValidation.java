@@ -1,0 +1,86 @@
+package model.validation.impl;
+
+import model.util.RegexManager;
+import model.validation.ConferenceValidation;
+
+import java.time.LocalDateTime;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class DefaultConferenceValidation implements ConferenceValidation {
+    private static volatile ConferenceValidation conferenceValidation;
+
+    private DefaultConferenceValidation() {
+    }
+
+    public static ConferenceValidation getInstance() {
+        ConferenceValidation localInstance = conferenceValidation;
+        if (localInstance == null) {
+            synchronized (DefaultUserValidation.class) {
+                localInstance = conferenceValidation;
+                if (localInstance == null) {
+                    conferenceValidation = new DefaultConferenceValidation();
+                    // logger.debug("Create first DefaultUserValidation instance");
+                }
+            }
+        }
+        // logger.debug("Return DefaultUserValidation instance");
+        return conferenceValidation;
+
+
+    }
+    @Override
+    public boolean titleValid(String title) {
+        return Pattern.matches(RegexManager.getProperty("title.ukr"), title);
+    }
+    @Override
+    public boolean titleEnValid(String title) {
+        return Pattern.matches(RegexManager.getProperty("title.en"), title);
+    }
+    @Override
+    public boolean descriptionValid(String description) {
+        if (description == null){return false;}
+        Pattern p = Pattern.compile(RegexManager.getProperty("description.ukr"), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
+        Matcher m = p.matcher(description);
+        return m.matches();
+    }
+    @Override
+    public boolean descriptionEnValid(String description) {
+        if (description == null){return false;}
+        Pattern p = Pattern.compile(RegexManager.getProperty("description.en"), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
+        Matcher m = p.matcher(description);
+        return m.matches();
+    }
+
+    @Override
+    public boolean dateTimeValid(LocalDateTime dateTime) {
+        return (Pattern.matches(RegexManager.getProperty("dateTime"), dateTime.toString())) &&
+                (dateTime.isAfter(LocalDateTime.now()));
+    }
+
+    @Override
+    public boolean placeValid(String place) {
+        if (place == null){return false;}
+        Pattern p = Pattern.compile(RegexManager.getProperty("place.ukr"), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
+        Matcher m = p.matcher(place);
+        return m.matches();
+    }
+    @Override
+    public boolean placeEnValid(String place) {
+        if (place == null){return false;}
+        Pattern p = Pattern.compile(RegexManager.getProperty("place.en"), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
+        Matcher m = p.matcher(place);
+        return m.matches();
+    }
+    @Override
+    public boolean lecturesCapacityValid(int lecturesCapacity) {
+        return lecturesCapacity > 0;
+    }
+
+    @Override
+    public boolean placeCapacity(int placeCapacity) {
+        return placeCapacity > 0;
+    }
+}
+
+
