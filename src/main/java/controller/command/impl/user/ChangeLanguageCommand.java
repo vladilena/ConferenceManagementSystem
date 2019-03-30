@@ -1,4 +1,4 @@
-package controller.command.impl.auth;
+package controller.command.impl.user;
 
 import controller.command.Command;
 import model.util.AttributesManager;
@@ -6,14 +6,11 @@ import model.util.PathManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-public class LogoutCommand implements Command {
+public class ChangeLanguageCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
-        session.getServletContext().removeAttribute(AttributesManager.getProperty("user.attribute"));
-        session.invalidate();
+        request.getSession().setAttribute("language",request.getParameter(AttributesManager.getProperty("language")));
         return PathManager.getProperty("redirect.page.main");
     }
 }

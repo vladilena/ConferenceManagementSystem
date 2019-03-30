@@ -8,25 +8,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<jstl:set var="language" value="${pageContext.request.locale}" scope="session"/>
+<c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : pageContext.request.locale}" scope="session" />
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="text"/>
 <html>
 <head>
     <title><fmt:message key="text.title.create.conference"/></title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
+    <%--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"--%>
+          <%--integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">--%>
+    <%--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"--%>
+            <%--integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"--%>
+            <%--crossorigin="anonymous"></script>--%>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap.css"/>">
+    <link rel="stylesheet" type="text/js" href="<c:url value="/resources/js/bootstrap.js"/>">
 </head>
 <body>
 <!-- HEADER -->
-<jsp:include page="template/header.jsp"/>
+<jsp:include page="../template/header.jsp"/>
 
 <!--SIDEBAR-->
-<jsp:include page="template/sidebar.jsp"/>
+<jsp:include page="../template/sidebar.jsp"/>
 
 
 <!--ALARMS-->
@@ -36,34 +39,34 @@
 <jstl:if test="${not empty requestScope.not_add_conf}">
     <div class="alert alert-danger" role="alert"><fmt:message key="text.alert.fault.create.conf"/></div>
 </jstl:if>
-<c:if test="${not empty invalidData}">
+<c:if test="${not empty requestScope.invalidData}">
     <div class="alert alert-danger capitalize">
         <strong><fmt:message key="text.alert.error"/></strong> <fmt:message key="text.alert.invalid-offer"/><br>
-        <c:if test="${not empty invalidData.invalidConfTitle}">
+        <c:if test="${not empty requestScope.invalidData.invalidConfTitle}">
             -<fmt:message key="text.alert.invalid-title-conf-ukr"/><br>
         </c:if>
-        <c:if test="${not empty invalidData.invalidConfTitleEn}">
+        <c:if test="${not empty requestScope.invalidData.invalidConfTitleEn}">
             -<fmt:message key="text.alert.invalid-title-conf-en"/><br>
         </c:if>
-        <c:if test="${not empty invalidData.invalidConfDescription}">
+        <c:if test="${not empty requestScope.invalidData.invalidConfDescription}">
             -<fmt:message key="text.alert.invalid-description-conf-ukr"/><br>
         </c:if>
-        <c:if test="${not empty invalidData.invalidConfDescriptionEn}">
+        <c:if test="${not empty requestScope.invalidData.invalidConfDescriptionEn}">
             -<fmt:message key="text.alert.invalid-description-conf-en"/><br>
         </c:if>
-        <c:if test="${not empty invalidData.invalidConfPlace}">
+        <c:if test="${not empty requestScope.invalidData.invalidConfPlace}">
             -<fmt:message key="text.alert.invalid-place-conf-ukr"/><br>
         </c:if>
-        <c:if test="${not empty invalidData.invalidConfPlaceEn}">
+        <c:if test="${not empty requestScope.invalidData.invalidConfPlaceEn}">
             -<fmt:message key="text.alert.invalid-place-conf-en"/><br>
         </c:if>
-        <c:if test="${not empty invalidData.invalidConfDateTime}">
+        <c:if test="${not empty requestScope.invalidData.invalidConfDateTime}">
             -<fmt:message key="text.alert.invalid-data-time-conf"/><br>
         </c:if>
-        <c:if test="${not empty invalidData.invalidConfLecturesCapacity}">
+        <c:if test="${not empty requestScope.vinvalidData.invalidConfLecturesCapacity}">
             -<fmt:message key="text.alert.invalid-conf-lectures-capacity"/><br>
         </c:if>
-        <c:if test="${not empty invalidData.invalidConfPlaceCapacity}">
+        <c:if test="${not empty requestScope.invalidData.invalidConfPlaceCapacity}">
             -<fmt:message key="text.alert.invalid-conf-place-capacity"/><br>
         </c:if>
     </div>
@@ -73,7 +76,7 @@
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
-        <form role="form" method="post" action="controller?action=create_conference">
+        <form role="form" method="post" action="${pageContext.request.contextPath}/controller?action=create_conference">
             <div class="form-group">
                 <label for="title_ukr"><fmt:message key="text.conference.title.ukr"/></label>
                 <input type="text" class="form-control" name="title_ukr" id="title_ukr"
@@ -131,6 +134,6 @@
 
 
 <!--FOOTER-->
-<jsp:include page="template/footer.jsp"/>
+<jsp:include page="../template/footer.jsp"/>
 </body>
 </html>

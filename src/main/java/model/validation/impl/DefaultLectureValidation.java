@@ -2,12 +2,17 @@ package model.validation.impl;
 
 import model.util.RegexManager;
 import model.validation.LectureValidation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DefaultLectureValidation implements LectureValidation {
     private static volatile LectureValidation lectureValidation;
+    private static final Logger LOGGER = LogManager.getLogger(DefaultLectureValidation.class);
+
+
 
     private DefaultLectureValidation() {
     }
@@ -19,11 +24,11 @@ public class DefaultLectureValidation implements LectureValidation {
                 localInstance = lectureValidation;
                 if(localInstance == null) {
                     lectureValidation = new DefaultLectureValidation();
-                    // logger.debug("Create first DefaultUserValidation instance");
+                     LOGGER.debug("Create first DefaultLectureValidation instance");
                 }
             }
         }
-        // logger.debug("Return DefaultUserValidation instance");
+         LOGGER.debug("Return DefaultLectureValidation instance");
         return lectureValidation;
     }
     @Override

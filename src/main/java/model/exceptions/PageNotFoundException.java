@@ -1,4 +1,4 @@
-package model.exception;
+package model.exceptions;
 
 public class PageNotFoundException extends RuntimeException {
     public PageNotFoundException(String message) {

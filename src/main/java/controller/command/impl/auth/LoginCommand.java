@@ -20,15 +20,15 @@ public class LoginCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
         User user = getUser(login, password);
 
         if (user != null) {
-            request.getSession().setAttribute("user", user);
-            return PathManager.getProperty("path.page.action.main");
+            request.getSession().setAttribute(AttributesManager.getProperty("user.attribute"), user);
+            request.getServletContext().setAttribute(AttributesManager.getProperty("user.attribute"), user);
+            return PathManager.getProperty("redirect.page.main");
         }
         request.setAttribute(AttributesManager.getProperty("loginError"), true);
         return PathManager.getProperty("path.page.login");

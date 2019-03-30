@@ -8,8 +8,12 @@ import model.entity.Lecture;
 import model.entity.Speaker;
 import model.entity.User;
 import model.service.LectureService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DefaultLectureService implements LectureService {
+    private static final Logger LOGGER = LogManager.getLogger(DefaultLectureService.class);
+
     private static volatile LectureService lectureService;
     private static LectureDao lectureDao;
     private static ConferenceDao conferenceDao;
@@ -26,11 +30,11 @@ public class DefaultLectureService implements LectureService {
                 localInstance = lectureService;
                 if (localInstance == null) {
                     lectureService = new DefaultLectureService();
-                    //  logger.debug("Create DefaultCategoryService instance");
+                      LOGGER.debug("Create DefaultLectureService instance");
                 }
             }
         }
-        // logger.debug("Return DefaultCategoryService instance");
+         LOGGER.debug("Return DefaultLectureService instance");
         return lectureService;
     }
 
@@ -43,6 +47,11 @@ public class DefaultLectureService implements LectureService {
         lecture.setMainSpeaker(speaker);
         lecture.setMainConference(conference);
         return lectureDao.create(lecture);
+    }
+
+    @Override
+    public boolean approve(long lectureId) {
+        return lectureDao.approve(lectureId);
     }
 }
 

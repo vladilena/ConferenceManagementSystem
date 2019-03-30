@@ -4,6 +4,8 @@ import model.dao.ConferenceDao;
 import model.dao.DaoFactory;
 import model.entity.Conference;
 import model.service.ConferenceService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -13,6 +15,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DefaultConferenceService implements ConferenceService {
+    private static final Logger LOGGER = LogManager.getLogger(DefaultConferenceService.class);
+
     private static volatile ConferenceService conferenceService;
     private static ConferenceDao conferenceDAO;
 
@@ -28,11 +32,11 @@ public class DefaultConferenceService implements ConferenceService {
                 localInstance = conferenceService;
                 if (localInstance == null) {
                     conferenceService = new DefaultConferenceService();
-                    //  logger.debug("Create DefaultCategoryService instance");
+                      LOGGER.debug("Create DefaultConferenceService instance");
                 }
             }
         }
-        // logger.debug("Return DefaultCategoryService instance");
+         LOGGER.debug("Return DefaultConferenceService instance");
         return conferenceService;
     }
 
@@ -42,7 +46,7 @@ public class DefaultConferenceService implements ConferenceService {
         List<Conference> ongoing = conferenceDAO.findAll();
         return ongoing.stream()
                 .filter(s -> s.getDateTime().isAfter(fromMillisToLocalDateTime(currentTIme)))
-                .sorted(Comparator.comparing(Conference::getDateTime))
+                .sorted(Comparator.comparing(Conference::getDateTime).reversed())
                 .collect(Collectors.toList());
     }
 
@@ -51,7 +55,7 @@ public class DefaultConferenceService implements ConferenceService {
         List<Conference> past = conferenceDAO.findAll();
         return past.stream()
                 .filter(s -> s.getDateTime().isBefore(fromMillisToLocalDateTime(currentTIme)))
-                .sorted(Comparator.comparing(Conference::getDateTime))
+                .sorted(Comparator.comparing(Conference::getDateTime).reversed())
                 .collect(Collectors.toList());
     }
 

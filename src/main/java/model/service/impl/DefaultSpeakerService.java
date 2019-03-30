@@ -4,10 +4,13 @@ import model.dao.DaoFactory;
 import model.dao.SpeakerDao;
 import model.entity.Speaker;
 import model.service.SpeakerService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 public class DefaultSpeakerService implements SpeakerService {
+    private static final Logger LOGGER = LogManager.getLogger(DefaultSpeakerService.class);
 
     private static volatile SpeakerService speakerService;
     private static SpeakerDao speakerDao;
@@ -25,11 +28,11 @@ public class DefaultSpeakerService implements SpeakerService {
                 localInstance = speakerService;
                 if (localInstance == null) {
                     speakerService = new DefaultSpeakerService();
-                    //  logger.debug("Create first DefaultLoginService instance");
+                      LOGGER.debug("Create first DefaultSpeakerService instance");
                 }
             }
         }
-        //logger.debug("Return DefaultLoginService instance");
+        LOGGER.debug("Return DefaultSpeakerService instance");
         return speakerService;
     }
 

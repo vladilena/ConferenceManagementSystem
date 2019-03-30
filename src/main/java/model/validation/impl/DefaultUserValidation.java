@@ -3,11 +3,15 @@ package model.validation.impl;
 
 import model.util.RegexManager;
 import model.validation.UserValidation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DefaultUserValidation implements UserValidation {
+    private static final Logger LOGGER = LogManager.getLogger(DefaultUserValidation.class);
+
     private static volatile UserValidation userValidation;
 
     private DefaultUserValidation() {
@@ -20,11 +24,11 @@ public class DefaultUserValidation implements UserValidation {
                 localInstance = userValidation;
                 if(localInstance == null) {
                     userValidation = new DefaultUserValidation();
-                   // logger.debug("Create first DefaultUserValidation instance");
+                    LOGGER.debug("Create first DefaultUserValidation instance");
                 }
             }
         }
-       // logger.debug("Return DefaultUserValidation instance");
+        LOGGER.debug("Return DefaultUserValidation instance");
         return userValidation;
     }
 

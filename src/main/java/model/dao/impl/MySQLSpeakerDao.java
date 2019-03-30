@@ -1,13 +1,15 @@
 package model.dao.impl;
 
 import model.dao.SpeakerDao;
-import model.dao.mapper.ConferenceMapper;
-import model.dao.mapper.LectureMapper;
-import model.dao.mapper.SpeakerMapper;
+import model.dao.mapper.impl.ConferenceMapper;
+import model.dao.mapper.impl.LectureMapper;
+import model.dao.mapper.impl.SpeakerMapper;
 import model.entity.Conference;
 import model.entity.Lecture;
 import model.entity.Speaker;
 import model.util.SQLManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,12 +18,15 @@ import java.util.List;
 import java.util.Map;
 
 public class MySQLSpeakerDao implements SpeakerDao {
+    private static final Logger LOGGER = LogManager.getLogger(MySQLSpeakerDao.class);
+
     private Connection connection;
     private SpeakerMapper speakerMapper;
     private LectureMapper lectureMapper;
     private ConferenceMapper conferenceMapper;
 
     MySQLSpeakerDao(Connection connection) {
+        LOGGER.debug("MySQLSpeakerDao constructor");
         this.connection = connection;
         speakerMapper = new SpeakerMapper();
         lectureMapper = new LectureMapper();
@@ -31,6 +36,7 @@ public class MySQLSpeakerDao implements SpeakerDao {
 
     @Override
     public boolean create(Speaker entity) {
+        LOGGER.debug("Try to insert into speaker table");
         boolean resultFlag = false;
         try (PreparedStatement stm = connection.prepareStatement(SQLManager.getProperty("insert.speaker"))) {
             stm.setLong(1, entity.getId());
@@ -39,8 +45,9 @@ public class MySQLSpeakerDao implements SpeakerDao {
             if(stm.executeUpdate()>0){
                 resultFlag = true;
             }
+            LOGGER.debug("Insert was successful " + entity);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Threw a SQLException, full stack trace follows:" + e);
         }
     return resultFlag;
     }
@@ -51,7 +58,7 @@ public class MySQLSpeakerDao implements SpeakerDao {
         Map<Long, Speaker> speakers = new HashMap<>();
         Map<Long, Lecture> lectures = new HashMap<>();
         Map<Long, Conference> conferences = new HashMap<>();
-
+        LOGGER.debug("Try to find speaker by id " + id);
         try (PreparedStatement stm = connection.prepareStatement(SQLManager.getProperty("find.speaker.by.id"))) {
             stm.setLong(1, id);
             ResultSet rs = stm.executeQuery();
@@ -61,8 +68,9 @@ public class MySQLSpeakerDao implements SpeakerDao {
                     result = speaker;
                 }
             }
+            LOGGER.debug("Select was successful " + result);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Threw a SQLException, full stack trace follows: " + e);
         }
         return result;
     }
@@ -71,7 +79,7 @@ public class MySQLSpeakerDao implements SpeakerDao {
     public List<Speaker> findAll() {
         List<Speaker> resultList = new ArrayList<>();
         Map<Long, Speaker> speakers = new HashMap<>();
-
+        LOGGER.debug("Try to find all speakers");
         try (Statement stm = connection.createStatement()) {
             ResultSet rs = stm.executeQuery(SQLManager.getProperty("find.all.speakers"));
             while (rs.next()) {
@@ -81,8 +89,9 @@ public class MySQLSpeakerDao implements SpeakerDao {
                     resultList.add(speaker);
                 }
             }
+            LOGGER.debug("Found all speakers successful " + resultList);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Threw a SQLException, full stack trace follows: " + e);
         }
         return resultList;
     }
@@ -90,6 +99,7 @@ public class MySQLSpeakerDao implements SpeakerDao {
     @Override
     public boolean update(Speaker entity) {
         boolean resultFlag = false;
+        LOGGER.debug("Try to update speaker");
         try (PreparedStatement stm = connection.prepareStatement(SQLManager.getProperty("update.speaker"))) {
             stm.setDouble(1, entity.getRating());
             stm.setDouble(2, entity.getBonus());
@@ -97,8 +107,9 @@ public class MySQLSpeakerDao implements SpeakerDao {
             if(stm.executeUpdate()>0){
                 resultFlag = true;
             }
+            LOGGER.debug("Successful update");
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Threw a SQLException, full stack trace follows: " + e);
         }
     return resultFlag;
     }
@@ -106,14 +117,17 @@ public class MySQLSpeakerDao implements SpeakerDao {
     @Override
     public boolean delete(long id) {
         //On cascade delete from user
+        LOGGER.error("Throw new UnsupportedOperationException");
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void close() {
+        LOGGER.debug("Try to close connection");
         try {
             connection.close();
         } catch (SQLException e) {
+            LOGGER.error("Threw a RuntimeException, full stack trace follows " + e);
             throw new RuntimeException(e);
         }
     }
@@ -134,18 +148,17 @@ private Speaker fillRelatedEntities(ResultSet rs,  Map<Long, Speaker> speakers, 
     @Override
     public boolean changeRating(int newRating, long speakerId) {
         boolean resultFlag = false;
+        LOGGER.debug("Try to change rating for speaker with id: "+speakerId);
         try (PreparedStatement stm = connection.prepareStatement(SQLManager.getProperty("update.speaker.change.rating"))) {
             stm.setDouble(1, newRating);
             stm.setLong(2, speakerId);
             if(stm.executeUpdate()>0){
                 resultFlag = true;
             }
+            LOGGER.debug("Changing was successful");
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Threw a SQLException, full stack trace follows: " + e);
         }
-
-
-
         return resultFlag;
     }
 //    public static void main(String[] args) {

@@ -10,22 +10,66 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
-        <url-pattern>/controller</url-pattern>
+        <url-pattern>/controller/*</url-pattern>
     </servlet-mapping>
+    <!--<error-page>-->
+        <!--<error-code>404</error-code>-->
+        <!--<location>/WEB-INF/view/error/error404.jsp</location>-->
+    <!--</error-page>-->
+    <!--<error-page>-->
+        <!--<error-code>500</error-code>-->
+        <!--<location>/WEB-INF/view/error/error500.jsp</location>-->
+    <!--</error-page>-->
     <error-page>
-        <error-code>404</error-code>
-        <location>/WEB-INF/view/error/error404.jsp</location>
-    </error-page>
-    <error-page>
-        <error-code>500</error-code>
-        <location>/WEB-INF/view/error/error500.jsp</location>
+        <exception-type>model.exceptions.PermissionErrorException</exception-type>
+        <location>/WEB-INF/view/error/permission.jsp</location>
     </error-page>
     <welcome-file-list>
         <welcome-file>/WEB-INF/view/main.jsp</welcome-file>
     </welcome-file-list>
+    <context-param>
+    <param-name>javax.servlet.jsp.jstl.fmt.fallbackLocale</param-name>
+    <param-value>uk</param-value>
+    </context-param>
+
+    <absolute-ordering>
+        <name>EncodingFilter</name>
+        <name>AccessFilter</name>
+    </absolute-ordering>
+
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>controller.filters.EncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <servlet-name>Controller</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AccessFilter</filter-name>
+        <filter-class>controller.filters.AccessFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AccessFilter</filter-name>
+        <servlet-name>Controller</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>controller.listeners.SessionListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>controller.listeners.LocaleListener</listener-class>
+    </listener>
 
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
         <param-value>text</param-value>
     </context-param>
+
+    <session-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
 </web-app>

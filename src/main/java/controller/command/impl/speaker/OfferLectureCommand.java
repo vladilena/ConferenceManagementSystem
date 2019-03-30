@@ -1,4 +1,4 @@
-package controller.command.impl;
+package controller.command.impl.speaker;
 
 import controller.command.Command;
 import model.dto.InvalidData;
@@ -25,7 +25,11 @@ public class OfferLectureCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        long conferenceId = Long.valueOf(request.getParameter("conference_id"));
+      //  long conferenceId = Long.valueOf(request.getParameter("conference_id"));
+
+        long conferenceId = Long.valueOf(request.getSession().getAttribute("conference_id").toString());
+        request.getSession().removeAttribute("conference_id");
+
         User user = (User) request.getSession().getAttribute("user");
         Lecture lecture = getLectureFromRequest(request);
 

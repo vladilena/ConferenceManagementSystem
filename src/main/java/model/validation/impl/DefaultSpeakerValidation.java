@@ -1,9 +1,13 @@
 package model.validation.impl;
 
 import model.validation.SpeakerValidation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DefaultSpeakerValidation implements SpeakerValidation {
     private static volatile SpeakerValidation speakerValidation;
+    private static final Logger LOGGER = LogManager.getLogger(DefaultSpeakerValidation.class);
+
 
     private DefaultSpeakerValidation() {
     }
@@ -15,11 +19,11 @@ public class DefaultSpeakerValidation implements SpeakerValidation {
                 localInstance = speakerValidation;
                 if(localInstance == null) {
                     speakerValidation = new DefaultSpeakerValidation();
-                    // logger.debug("Create first DefaultUserValidation instance");
+                     LOGGER.debug("Create first DefaultSpeakerValidation instance");
                 }
             }
         }
-        // logger.debug("Return DefaultUserValidation instance");
+         LOGGER.debug("Return DefaultSpeakerValidation instance");
         return speakerValidation;
     }
 

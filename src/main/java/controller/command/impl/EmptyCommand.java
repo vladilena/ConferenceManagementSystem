@@ -1,7 +1,7 @@
 package controller.command.impl;
 
 import controller.command.Command;
-import model.exception.PageNotFoundException;
+import model.exceptions.PageNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

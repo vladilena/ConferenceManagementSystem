@@ -1,4 +1,4 @@
-package controller.command.impl;
+package controller.command.impl.moderator;
 
 import controller.command.Command;
 import model.entity.Speaker;

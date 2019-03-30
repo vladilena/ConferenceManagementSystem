@@ -2,6 +2,8 @@ package model.validation.impl;
 
 import model.util.RegexManager;
 import model.validation.ConferenceValidation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
 import java.util.regex.Matcher;
@@ -9,6 +11,8 @@ import java.util.regex.Pattern;
 
 public class DefaultConferenceValidation implements ConferenceValidation {
     private static volatile ConferenceValidation conferenceValidation;
+    private static final Logger LOGGER = LogManager.getLogger(DefaultConferenceValidation.class);
+
 
     private DefaultConferenceValidation() {
     }
@@ -20,33 +24,41 @@ public class DefaultConferenceValidation implements ConferenceValidation {
                 localInstance = conferenceValidation;
                 if (localInstance == null) {
                     conferenceValidation = new DefaultConferenceValidation();
-                    // logger.debug("Create first DefaultUserValidation instance");
+                    LOGGER.debug(" Create first instance of DefaultConferenceValidation");
                 }
             }
         }
-        // logger.debug("Return DefaultUserValidation instance");
+        LOGGER.debug("Return DefaultConferenceValidation instance");
         return conferenceValidation;
 
 
     }
+
     @Override
     public boolean titleValid(String title) {
         return Pattern.matches(RegexManager.getProperty("title.ukr"), title);
     }
+
     @Override
     public boolean titleEnValid(String title) {
         return Pattern.matches(RegexManager.getProperty("title.en"), title);
     }
+
     @Override
     public boolean descriptionValid(String description) {
-        if (description == null){return false;}
+        if (description == null) {
+            return false;
+        }
         Pattern p = Pattern.compile(RegexManager.getProperty("description.ukr"), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
         Matcher m = p.matcher(description);
         return m.matches();
     }
+
     @Override
     public boolean descriptionEnValid(String description) {
-        if (description == null){return false;}
+        if (description == null) {
+            return false;
+        }
         Pattern p = Pattern.compile(RegexManager.getProperty("description.en"), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
         Matcher m = p.matcher(description);
         return m.matches();
@@ -54,24 +66,29 @@ public class DefaultConferenceValidation implements ConferenceValidation {
 
     @Override
     public boolean dateTimeValid(LocalDateTime dateTime) {
-        return (Pattern.matches(RegexManager.getProperty("dateTime"), dateTime.toString())) &&
-                (dateTime.isAfter(LocalDateTime.now()));
+        return dateTime.isAfter(LocalDateTime.now());
     }
 
     @Override
     public boolean placeValid(String place) {
-        if (place == null){return false;}
+        if (place == null) {
+            return false;
+        }
         Pattern p = Pattern.compile(RegexManager.getProperty("place.ukr"), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
         Matcher m = p.matcher(place);
         return m.matches();
     }
+
     @Override
     public boolean placeEnValid(String place) {
-        if (place == null){return false;}
+        if (place == null) {
+            return false;
+        }
         Pattern p = Pattern.compile(RegexManager.getProperty("place.en"), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
         Matcher m = p.matcher(place);
         return m.matches();
     }
+
     @Override
     public boolean lecturesCapacityValid(int lecturesCapacity) {
         return lecturesCapacity > 0;

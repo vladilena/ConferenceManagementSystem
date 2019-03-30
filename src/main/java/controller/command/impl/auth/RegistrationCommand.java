@@ -37,7 +37,8 @@ public class RegistrationCommand implements Command {
                 // logger.info("User was added to a database");
                 request.setAttribute(AttributesManager.getProperty("success.registration"), true);
                 request.getSession().setAttribute(AttributesManager.getProperty("user.attribute"), user);
-                resultPage = PathManager.getProperty("path.page.action.main");
+               request.getServletContext().setAttribute(AttributesManager.getProperty("user.attribute"), user);
+                resultPage = PathManager.getProperty("redirect.page.main");
             } else {
                 // logger.debug("User wasn't added to a database");
                 request.setAttribute(AttributesManager.getProperty("not.add.user"), true);

@@ -2,9 +2,11 @@ package controller;
 
 import controller.command.Command;
 import controller.command.CommandFactory;
-import model.exception.PageNotFoundException;
+import model.exceptions.PageNotFoundException;
+import model.util.PathManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class MainServlet extends HttpServlet {
-   // private static final Logger logger = LogManager.getLogger(MainServlet.class);
-    private static final String PAGE_SUFFIX = "jsp";
+    private static final Logger LOGGER = LogManager.getLogger(MainServlet.class);
+    private static final String PAGE_SUFFIX = "redirect:";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,48 +28,82 @@ public class MainServlet extends HttpServlet {
     }
 
     private void processUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        CommandFactory commandFactory = CommandFactory.getInstance();
-        Command command = commandFactory.getCommand(req);
-        String page = command.execute(req, resp);
-        resolvePagePath(page,req,resp);
-
+        try {
+            tryProcessRequest(req, resp);
+        } catch (PageNotFoundException e) {
+            LOGGER.debug("Threw a PageNotFoundException, full stack trace follows: ", e);
+            forwardToNotFoundErrorPage(req, resp);
+        } catch (Exception e) {
+            LOGGER.error("Threw an Exception, full stack trace follows: ", e);
+            forwardToServerErrorPage(req, resp);
+        }
     }
+
+    private void tryProcessRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if (!response.isCommitted()) {
+            String page = executeCommand(request, response);
+            resolvePagePath(page, request, response);
+        }
+    }
+
+    private String executeCommand(HttpServletRequest request, HttpServletResponse response) {
+        CommandFactory commandFactory = CommandFactory.getInstance();
+        Command command = commandFactory.getCommand(request);
+        return command.execute(request, response);
+    }
+
+//    private String executeCommand(HttpServletRequest request, HttpServletResponse response) {
+//        CommandFactory commandFactory = CommandFactory.getInstance();
+//        String path = request.getRequestURI();
+//        String changedPath = path.replaceAll(".*/controller/", "");
+//        Command command = commandFactory.getCommand(changedPath);
+//        return command.execute(request, response);
+//    }
 
     private void resolvePagePath(String page, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         try {
             if (page.contains(PAGE_SUFFIX))
-                forwardToPage(page, request, response);
-            else
                 redirectToPage(page, request, response);
+            else {
+                forwardToPage(page, request, response);
+            }
         } catch (PageNotFoundException e) {
-           // logger.debug("Threw a PageNotFoundException, stack trace: "+e);
-            forwardToNotFoundErrorPage(request, response);
+            LOGGER.error("Threw a PageNotFoundException, stack trace: " + e);
+           // forwardToNotFoundErrorPage(request, response);
         }
     }
 
     private void forwardToPage(String page, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // logger.info("Forward to: "+page);
-        RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-        dispatcher.forward(request, response);
+
+        LOGGER.info("Forward to: " + page);
+        request.getRequestDispatcher(page).forward(request, response);
+
     }
 
     private void redirectToPage(String page, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // logger.info("Redirect to "+page);
-        response.sendRedirect(request.getContextPath() + page);
+        LOGGER.info("Received path: " + page);
+        LOGGER.info("Redirect to " + request.getContextPath() + page.replace(PAGE_SUFFIX, "/controller"));
+        //response.sendRedirect(request.getContextPath() + page.replace(PAGE_SUFFIX, "/controller"));
+        response.sendRedirect(request.getContextPath() + page.replace(PAGE_SUFFIX, "/controller"));
+
     }
 
     private void forwardToNotFoundErrorPage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String page = "/error/error404.jsp";
+        String page = PathManager.getProperty("path.page.error.404");
         forwardToPage(page, request, response);
     }
 
+    private void forwardToServerErrorPage(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String page = PathManager.getProperty("path.page.error.500");
+        forwardToPage(page, request, response);
+    }
 }
 
 

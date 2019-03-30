@@ -4,8 +4,12 @@ import model.dao.DaoFactory;
 import model.dao.UserDao;
 import model.entity.User;
 import model.service.LoginService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DefaultLoginService implements LoginService {
+    private static final Logger LOGGER = LogManager.getLogger(DefaultLoginService.class);
+
     private static volatile LoginService loginService;
     private static UserDao userDao;
 
@@ -20,11 +24,11 @@ public class DefaultLoginService implements LoginService {
                 localInstance = loginService;
                 if(localInstance == null) {
                     loginService = new DefaultLoginService();
-                  //  logger.debug("Create first DefaultLoginService instance");
+                    LOGGER.debug("Create first DefaultLoginService instance");
                 }
             }
         }
-        //logger.debug("Return DefaultLoginService instance");
+        LOGGER.debug("Return DefaultLoginService instance");
         return loginService;
     }
 

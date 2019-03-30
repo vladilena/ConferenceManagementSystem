@@ -6,10 +6,13 @@ import model.entity.Role;
 import model.entity.User;
 import model.service.SpeakerService;
 import model.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Set;
 
 public class DefaultUserService implements UserService {
+    private static final Logger LOGGER = LogManager.getLogger(DefaultUserService.class);
     private static volatile UserService userService;
     private static UserDao userDao;
     private static SpeakerService speakerService;
@@ -27,11 +30,11 @@ public class DefaultUserService implements UserService {
                 localInstance = userService;
                 if (localInstance == null) {
                     userService = new DefaultUserService();
-                    //  logger.debug("Create first DefaultLoginService instance");
+                      LOGGER.debug("Create first DefaultUserService instance");
                 }
             }
         }
-        //logger.debug("Return DefaultLoginService instance");
+        LOGGER.debug("Return DefaultUserService instance");
         return userService;
     }
 

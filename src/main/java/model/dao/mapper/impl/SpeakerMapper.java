@@ -1,12 +1,17 @@
-package model.dao.mapper;
+package model.dao.mapper.impl;
 
+import model.dao.mapper.ObjectMapper;
 import model.entity.Speaker;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
 public class SpeakerMapper implements ObjectMapper<Speaker> {
+
+
     @Override
     public Speaker parseFromResultSet(ResultSet rs) throws SQLException {
             Speaker result = new Speaker();
