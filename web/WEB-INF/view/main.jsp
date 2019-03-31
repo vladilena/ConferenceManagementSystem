@@ -84,7 +84,7 @@
                             <div class="menu-bar">
                                 <form role="form" class="btn btn-success btn-sm" method="post"
                                       action="${pageContext.request.contextPath}/controller?action=redirect_conference">
-                                    <input type="hidden" name="id" value="${last_conference.id}">
+                                    <input type="hidden" name="conference_id" value="${last_conference.id}">
                                     <button type="submit" class="btn btn-success btn-sm"><fmt:message
                                             key="text.show.details"/></button>
                                 </form>

@@ -81,17 +81,6 @@ public class CommandFactory {
         return current;
     }
 
-//    public Command getCommand(String command) {
-//        Command current = new EmptyCommand();
-//        if (isInvalidCommand(command)) {
-//            LOGGER.info("There is no such command ");
-//            return current;
-//        }
-//        LOGGER.info("There is such command " + command);
-//        current = commands.getOrDefault(command, current);
-//        return current;
-//    }
-
 
     private boolean isInvalidCommand(String action) {
         return action == null || action.isEmpty();

@@ -1,10 +1,15 @@
-package model.dao.transaction;
+package model.transaction;
 
+
+import model.dao.impl.ConnectionPoolHolder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class TransactionManager {
+    private static final Logger LOGGER = LogManager.getLogger(TransactionManager.class);
 
     private Connection connection;
 
@@ -12,11 +17,9 @@ public class TransactionManager {
         return connection;
     }
 
-    public void begin() {
+    public void begin() throws SQLException {
         close();
-
-       // connection = //getConnection;
-
+        connection = ConnectionPoolHolder.getConnection();
         if(connection != null)
             beginTransaction();
     }
@@ -44,6 +47,7 @@ public class TransactionManager {
         try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
+            LOGGER.error("Threw a SQLException, full stack trace follows:",e);
             close();
         }
     }
@@ -53,6 +57,7 @@ public class TransactionManager {
             connection.commit();
             return true;
         } catch (SQLException e) {
+            LOGGER.error("Threw a SQLException, full stack trace follows:", e);
             close();
         }
         return false;
@@ -61,8 +66,10 @@ public class TransactionManager {
     private boolean rollbackTransaction() {
         try {
             connection.rollback();
+            LOGGER.debug("Statement was roll back");
             return true;
         } catch (SQLException e) {
+            LOGGER.error("Threw a SQLException, full stack trace follows:", e);
             close();
         }
         return false;
@@ -72,6 +79,7 @@ public class TransactionManager {
         try {
             connection.close();
         } catch (SQLException e) {
+            LOGGER.error("Threw a SQLException, full stack trace follows:",e);
         }
     }
 }

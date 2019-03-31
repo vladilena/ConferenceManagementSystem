@@ -146,7 +146,7 @@ public class MySQLConferenceDao implements ConferenceDao {
     }
 
     private void setGeneralParamsToPreparedStatement(PreparedStatement stm, Conference entity) throws SQLException {
-        LOGGER.debug("Try to set params to prepare statements");
+        LOGGER.debug("Set params to prepare statement");
         stm.setString(1, entity.getTitle());
         stm.setString(2, entity.getTitleEn());
         stm.setString(3, entity.getDescription());

@@ -24,7 +24,7 @@ public class RedirectSpeakersCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         List<Speaker> speakers = speakerService.getAll();
-        request.setAttribute(AttributesManager.getProperty("speaker_list"), speakers);
+        request.setAttribute(AttributesManager.getProperty("speaker.list"), speakers);
         return PathManager.getProperty("path.page.speakers");
     }
 }

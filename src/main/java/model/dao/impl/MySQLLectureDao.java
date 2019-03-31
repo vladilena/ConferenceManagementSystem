@@ -153,8 +153,8 @@ public class MySQLLectureDao implements LectureDao {
         Lecture lecture = lectureMapper.parseFromResultSet(rs);
         Speaker speaker = speakerMapper.parseFromResultSet(rs);
         Conference conference = conferenceMapper.parseFromResultSet(rs);
-        lecture = lectureMapper.makeUnique(lectures, lecture);
         speaker = speakerMapper.makeUnique(speakers, speaker);
+        lecture = lectureMapper.makeUnique(lectures, lecture);
         conference = conferenceMapper.makeUnique(conferences, conference);
         lecture.setMainSpeaker(speaker);
         lecture.setMainConference(conference);

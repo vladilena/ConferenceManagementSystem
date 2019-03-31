@@ -6,9 +6,11 @@ import model.entity.Role;
 import model.entity.User;
 import model.service.SpeakerService;
 import model.service.UserService;
+import model.transaction.TransactionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.SQLException;
 import java.util.Set;
 
 public class DefaultUserService implements UserService {
@@ -30,7 +32,7 @@ public class DefaultUserService implements UserService {
                 localInstance = userService;
                 if (localInstance == null) {
                     userService = new DefaultUserService();
-                      LOGGER.debug("Create first DefaultUserService instance");
+                    LOGGER.debug("Create first DefaultUserService instance");
                 }
             }
         }
@@ -42,15 +44,24 @@ public class DefaultUserService implements UserService {
         return userDao.getAllLogins();
     }
 
-    public boolean create(User user) {
+    public boolean create(User user) throws SQLException {
         boolean resultFlag = false;
 
-        if(user.getRole() == Role.USER){
+        if (user.getRole() == Role.USER) {
             resultFlag = userDao.create(user);
-        } else if (user.getRole() == Role.SPEAKER){
-            resultFlag = userDao.create(user) && speakerService.create(userDao.findIdByLogin(user.getLogin()));
+
+        } else if (user.getRole() == Role.SPEAKER) {
+            TransactionManager tm = new TransactionManager();
+            tm.begin();
+            if (userDao.create(user) && speakerService.create(userDao.findIdByLogin(user.getLogin()))) {
+                resultFlag = true;
+                tm.commit();
+            } else {
+                tm.rollback();
+            }
+            tm.close();
         }
-    return resultFlag;
+        return resultFlag;
     }
 
     @Override

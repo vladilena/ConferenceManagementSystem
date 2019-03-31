@@ -19,8 +19,8 @@ public class RedirectConferenceCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        long conferenceId = Long.valueOf(request.getParameter("conference_id"));
-        request.getSession().setAttribute("conference_id" ,request.getParameter("conference_id"));
+        long conferenceId = Long.valueOf(request.getParameter(AttributesManager.getProperty("conference.id")));
+        request.getSession().setAttribute(AttributesManager.getProperty("conference.id") ,request.getParameter(AttributesManager.getProperty("conference.id")));
         Conference conference = conferenceService.getById(conferenceId);
         request.setAttribute(AttributesManager.getProperty("conference"), conference);
         return PathManager.getProperty("path.page.conference");

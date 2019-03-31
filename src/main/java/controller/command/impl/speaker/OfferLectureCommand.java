@@ -10,11 +10,15 @@ import model.util.AttributesManager;
 import model.util.PathManager;
 import model.validation.LectureValidation;
 import model.validation.impl.DefaultLectureValidation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class OfferLectureCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(OfferLectureCommand.class);
+
     private static LectureService lectureService;
     private static LectureValidation validation;
 
@@ -25,58 +29,75 @@ public class OfferLectureCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-      //  long conferenceId = Long.valueOf(request.getParameter("conference_id"));
 
-        long conferenceId = Long.valueOf(request.getSession().getAttribute("conference_id").toString());
-        request.getSession().removeAttribute("conference_id");
-
-        User user = (User) request.getSession().getAttribute("user");
+        long conferenceId = Long.valueOf(request.getSession().getAttribute(AttributesManager.getProperty("conference.id")).toString());
+        User user = getUserFromRequest(request);
         Lecture lecture = getLectureFromRequest(request);
 
         InvalidData invalidData = inputChecked(lecture);
 
-        if(invalidData == null){
-            //valid
-            if(lectureService.create(lecture, user, conferenceId)){
-                request.setAttribute(AttributesManager.getProperty("success.offer"), true);
-            }else {
-                //not add
-                request.setAttribute(AttributesManager.getProperty("not.add.lecture"), true);
-            }
+
+        if (invalidData == null) {
+            LOGGER.debug("Validation was succeed");
+            tryToCreateLecture(request, lecture, user, conferenceId);
+        } else {
+            LOGGER.debug("Validation error");
             request.setAttribute(AttributesManager.getProperty("invalid.input.lecture"), true);
         }
-
         return PathManager.getProperty("path.page.offer");
     }
-    private InvalidData inputChecked(Lecture lecture){
-        InvalidData.Builder builder = InvalidData.newBuilder("invalidData");
+
+    private InvalidData inputChecked(Lecture lecture) {
+        InvalidData.Builder builder = InvalidData.newBuilder(AttributesManager.getProperty("invalidData"));
         boolean invalidDataFlag = false;
-        if(!validation.titleValid(lecture.getTitle())){
+        if (!validation.titleValid(lecture.getTitle())) {
+            LOGGER.debug("Invalid title ukr: " + lecture.getTitle());
             builder.setInvalidTitleAttr();
             invalidDataFlag = true;
         }
-        if(!validation.titleEnValid(lecture.getTitleEn())){
+        if (!validation.titleEnValid(lecture.getTitleEn())) {
+            LOGGER.debug("Invalid title en: " + lecture.getTitleEn());
             builder.setInvalidTitleEnAttr();
             invalidDataFlag = true;
         }
-        if(!validation.descriptionValid((lecture.getDescription()))){
+        if (!validation.descriptionValid((lecture.getDescription()))) {
+            LOGGER.debug("Invalid description ukr: " + lecture.getDescription());
             builder.setInvalidDescriptionAttr();
             invalidDataFlag = true;
         }
-        if(!validation.descriptionEnValid((lecture.getDescriptionEn()))){
+        if (!validation.descriptionEnValid((lecture.getDescriptionEn()))) {
+            LOGGER.debug("Invalid description en: " + lecture.getDescriptionEn());
             builder.setInvalidDescriptionEnAttr();
             invalidDataFlag = true;
         }
         return invalidDataFlag ? builder.build() : null;
     }
-    private Lecture getLectureFromRequest(HttpServletRequest request){
+
+    private Lecture getLectureFromRequest(HttpServletRequest request) {
+        LOGGER.debug("Get lecture from request");
         Lecture lecture = new Lecture();
-        lecture.setTitle(request.getParameter("title"));
-        lecture.setTitleEn(request.getParameter("title_en"));
-        lecture.setDescription(request.getParameter("description"));
-        lecture.setDescriptionEn(request.getParameter("description_en"));
+        lecture.setTitle(request.getParameter(AttributesManager.getProperty("title")));
+        lecture.setTitleEn(request.getParameter(AttributesManager.getProperty("title.en")));
+        lecture.setDescription(request.getParameter(AttributesManager.getProperty("description")));
+        lecture.setDescriptionEn(request.getParameter(AttributesManager.getProperty("description.en")));
         return lecture;
     }
+
+    private User getUserFromRequest(HttpServletRequest request) {
+        User user = null;
+        if (request.getSession() != null) {
+            user = (User) request.getSession().getAttribute("user");
+        }
+        return user;
+    }
+
+    private void tryToCreateLecture(HttpServletRequest request, Lecture lecture, User user, long conferenceId) {
+        if (lectureService.create(lecture, user, conferenceId)) {
+            request.setAttribute(AttributesManager.getProperty("success.offer"), true);
+            LOGGER.info("Lecture was created");
+        } else {
+            LOGGER.debug("A problem with creation was occurred");
+            request.setAttribute(AttributesManager.getProperty("not.add.lecture"), true);
+        }
+    }
 }
-
-

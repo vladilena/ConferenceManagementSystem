@@ -24,7 +24,7 @@ public class LocaleListener implements HttpSessionAttributeListener {
         if (se.getName().equals("language")) {
             LOGGER.debug("Get local string from request: "+se.getSession().getAttribute("language"));
             String locale = String.valueOf(se.getSession().getAttribute("language"));
-            LOGGER.debug("Set attribute locale: " + locale.substring(0, 2)+"-" +locale.substring(3, 5));
+            LOGGER.debug("Set attribute locale: " + locale.substring(0, 2)+"_" +locale.substring(3, 5));
             se.getSession().setAttribute("locale",
                     new Locale(locale.substring(0, 2), locale.substring(3, 5)));
         }

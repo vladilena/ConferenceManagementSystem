@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class MainServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(MainServlet.class);
-    private static final String PAGE_SUFFIX = "redirect:";
+    private static final String PAGE_REDIRECT = "redirect:";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -53,19 +53,12 @@ public class MainServlet extends HttpServlet {
         return command.execute(request, response);
     }
 
-//    private String executeCommand(HttpServletRequest request, HttpServletResponse response) {
-//        CommandFactory commandFactory = CommandFactory.getInstance();
-//        String path = request.getRequestURI();
-//        String changedPath = path.replaceAll(".*/controller/", "");
-//        Command command = commandFactory.getCommand(changedPath);
-//        return command.execute(request, response);
-//    }
 
     private void resolvePagePath(String page, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         try {
-            if (page.contains(PAGE_SUFFIX))
+            if (page.contains(PAGE_REDIRECT))
                 redirectToPage(page, request, response);
             else {
                 forwardToPage(page, request, response);
@@ -87,9 +80,8 @@ public class MainServlet extends HttpServlet {
     private void redirectToPage(String page, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         LOGGER.info("Received path: " + page);
-        LOGGER.info("Redirect to " + request.getContextPath() + page.replace(PAGE_SUFFIX, "/controller"));
-        //response.sendRedirect(request.getContextPath() + page.replace(PAGE_SUFFIX, "/controller"));
-        response.sendRedirect(request.getContextPath() + page.replace(PAGE_SUFFIX, "/controller"));
+        LOGGER.info("Redirect to " + request.getContextPath() + page.replace(PAGE_REDIRECT, "/controller"));
+        response.sendRedirect(request.getContextPath() + page.replace(PAGE_REDIRECT, "/controller"));
 
     }
 

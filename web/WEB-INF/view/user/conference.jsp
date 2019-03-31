@@ -42,6 +42,13 @@
 <jstl:if test="${not empty requestScope.not_approved}">
     <div class="alert alert-danger" role="alert"><fmt:message key="text.alert.not.approved"/></div>
 </jstl:if>
+<jstl:if test="${not empty requestScope.not_enough_lect}">
+    <div class="alert alert-danger" role="alert"><fmt:message key="text.alert.not.enough.lect"/></div>
+</jstl:if>
+<jstl:if test="${not empty requestScope.not_enough_places}">
+    <div class="alert alert-danger" role="alert"><fmt:message key="text.alert.not.enough.places"/></div>
+</jstl:if>
+
 <!--CONTENT-->
 <div class="row">
     <div class="col-2"></div>
@@ -69,7 +76,7 @@
                 <jstl:if test="${'SPEAKER' == sessionScope.user.role.name() ||
                                 'MODERATOR' == sessionScope.user.role.name()}">
                     <form role="form" class="btn btn-success btn-sm" method="post"
-                          action="${pageContext.request.contextPath}/controller?action=redirect_offer_lecture&conference_id=${requestScope.conference.id}">
+                          action="${pageContext.request.contextPath}/controller?action=redirect_offer_lecture">
                         <input type="hidden" name="conference_id" value="${requestScope.conference.id}">
                         <button type="submit" class="btn btn-success btn-sm"><fmt:message
                                 key="text.offer.lecture"/></button>

@@ -14,7 +14,6 @@ import java.util.List;
 
 
 public class MainCommand implements Command {
-    private final static String USER = "user";
     private static ConferenceService conferenceService;
 
 
@@ -24,7 +23,7 @@ public class MainCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        User user = (User) request.getSession().getAttribute(USER);
+        User user = (User) request.getSession().getAttribute(AttributesManager.getProperty("user"));
         if (user != null) {
             long currentTIme = request.getSession().getCreationTime();
             List<Conference> ongoing = conferenceService.getOngoingConferences(currentTIme);
