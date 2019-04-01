@@ -15,7 +15,6 @@ public class SQLManager {
     }
 
     public static String getProperty(String key) {
-        LOGGER.info("Before get property from 'SQL_statements.properties'");
 
         return resourceBundle.getString(key);
     }

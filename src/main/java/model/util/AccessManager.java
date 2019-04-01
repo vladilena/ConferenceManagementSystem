@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import java.util.*;
 
 public class AccessManager {
-
     private static final Map<String, List<String>> permittedCommandMap = new HashMap<>();
     private final static Logger LOGGER = LogManager.getLogger(AccessManager.class);
 
@@ -74,9 +73,11 @@ public class AccessManager {
     public boolean isSecuredPage(String urlPattern) {
         for (Role role : Role.values()) {
             if (urlPattern.contains(role.toString().toLowerCase())) {
+                LOGGER.debug("Page is secured");
                 return true;
             }
         }
+        LOGGER.debug("Page isn't secured");
         return false;
     }
 

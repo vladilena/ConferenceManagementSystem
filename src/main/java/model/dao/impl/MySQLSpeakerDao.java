@@ -42,14 +42,14 @@ public class MySQLSpeakerDao implements SpeakerDao {
             stm.setLong(1, entity.getId());
             stm.setDouble(2, entity.getRating());
             stm.setDouble(3, entity.getBonus());
-            if(stm.executeUpdate()>0){
+            if (stm.executeUpdate() > 0) {
                 resultFlag = true;
             }
             LOGGER.debug("Insert was successful " + entity);
         } catch (SQLException e) {
             LOGGER.error("Threw a SQLException, full stack trace follows:" + e);
         }
-    return resultFlag;
+        return resultFlag;
     }
 
     @Override
@@ -62,8 +62,8 @@ public class MySQLSpeakerDao implements SpeakerDao {
         try (PreparedStatement stm = connection.prepareStatement(SQLManager.getProperty("find.speaker.by.id"))) {
             stm.setLong(1, id);
             ResultSet rs = stm.executeQuery();
-            while (rs.next()){
-                Speaker speaker = fillRelatedEntities(rs, speakers, lectures ,conferences);
+            while (rs.next()) {
+                Speaker speaker = fillRelatedEntities(rs, speakers, lectures, conferences);
                 if (!speaker.equals(result)) {
                     result = speaker;
                 }
@@ -104,14 +104,14 @@ public class MySQLSpeakerDao implements SpeakerDao {
             stm.setDouble(1, entity.getRating());
             stm.setDouble(2, entity.getBonus());
             stm.setLong(3, entity.getId());
-            if(stm.executeUpdate()>0){
+            if (stm.executeUpdate() > 0) {
                 resultFlag = true;
             }
             LOGGER.debug("Successful update");
         } catch (SQLException e) {
             LOGGER.error("Threw a SQLException, full stack trace follows: " + e);
         }
-    return resultFlag;
+        return resultFlag;
     }
 
     @Override
@@ -131,28 +131,27 @@ public class MySQLSpeakerDao implements SpeakerDao {
             throw new RuntimeException(e);
         }
     }
-private Speaker fillRelatedEntities(ResultSet rs,  Map<Long, Speaker> speakers, Map<Long, Lecture> lectures, Map<Long, Conference> conferences) throws SQLException {
-    Speaker speaker = speakerMapper.parseFromResultSet(rs);
-    Lecture lecture = lectureMapper.parseFromResultSet(rs);
-    Conference conference = conferenceMapper.parseFromResultSet(rs);
-    speaker = speakerMapper.makeUnique(speakers, speaker);
-    lecture = lectureMapper.makeUnique(lectures, lecture);
-    conference = conferenceMapper.makeUnique(conferences, conference);
-    lecture.setMainConference(conference);
-    lecture.setMainSpeaker(speaker);
-    speaker.getLectures().add(lecture);
 
-  return speaker;
-}
+    private Speaker fillRelatedEntities(ResultSet rs, Map<Long, Speaker> speakers, Map<Long, Lecture> lectures, Map<Long, Conference> conferences) throws SQLException {
+        Speaker speaker = speakerMapper.parseFromResultSet(rs);
+        speaker = speakerMapper.makeUnique(speakers, speaker);
+        if (rs.getString("lecture_id") != null) {
+            Lecture lecture = lectureMapper.parseFromResultSet(rs);
+            lecture = lectureMapper.makeUnique(lectures, lecture);
+            lecture.setMainSpeaker(speaker);
+            speaker.getLectures().add(lecture);
+        }
+        return speaker;
+    }
 
     @Override
     public boolean changeRating(int newRating, long speakerId) {
         boolean resultFlag = false;
-        LOGGER.debug("Try to change rating for speaker with id: "+speakerId);
+        LOGGER.debug("Try to change rating for speaker with id: " + speakerId);
         try (PreparedStatement stm = connection.prepareStatement(SQLManager.getProperty("update.speaker.change.rating"))) {
             stm.setDouble(1, newRating);
             stm.setLong(2, speakerId);
-            if(stm.executeUpdate()>0){
+            if (stm.executeUpdate() > 0) {
                 resultFlag = true;
             }
             LOGGER.debug("Changing was successful");

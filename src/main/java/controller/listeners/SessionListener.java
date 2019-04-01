@@ -18,8 +18,7 @@ public class SessionListener implements HttpSessionListener {
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
         LOGGER.debug("Session destroyed");
-        se.getSession().getServletContext().removeAttribute(
-                (String) se.getSession().getAttribute(AttributesManager.getProperty("user")));
+        se.getSession().getServletContext().removeAttribute((AttributesManager.getProperty("user")));
     }
 }
 

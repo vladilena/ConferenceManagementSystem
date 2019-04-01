@@ -1,7 +1,6 @@
 package controller.filters;
 
 
-
 import model.entity.User;
 import model.exceptions.PermissionErrorException;
 import model.util.AccessManager;
@@ -12,25 +11,20 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class AccessFilter implements Filter {
-private final static Logger LOGGER = LogManager.getLogger(AccessFilter.class);
+public class AccessFilter extends AbstractFilter {
+    private final static Logger LOGGER = LogManager.getLogger(AccessFilter.class);
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
-
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        final HttpServletRequest request = (HttpServletRequest) servletRequest;
-
+    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+        LOGGER.debug("Start of Access filter");
         String uri = request.getRequestURI();
         User user = getUserFromRequestSession(request);
         String userRole = null;
-        if(user!=null){
+        if (user != null) {
             userRole = user.getRole().toString();
         }
 
@@ -44,7 +38,7 @@ private final static Logger LOGGER = LogManager.getLogger(AccessFilter.class);
                 throw new PermissionErrorException();
             }
         }
-        filterChain.doFilter(servletRequest, servletResponse);
+        filterChain.doFilter(request, response);
     }
 
     private User getUserFromRequestSession(HttpServletRequest request) {
@@ -52,13 +46,10 @@ private final static Logger LOGGER = LogManager.getLogger(AccessFilter.class);
         User user = null;
         if (session != null)
             user = (User) session.getAttribute(AttributesManager.getProperty("user"));
+        LOGGER.debug("Get user from request: " + user);
         return user;
     }
 
-    @Override
-    public void destroy() {
-
-    }
 }
 
 

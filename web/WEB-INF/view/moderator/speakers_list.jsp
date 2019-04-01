@@ -16,11 +16,6 @@
 <html>
 <head>
     <title><fmt:message key="text.title.speakers.list"/></title>
-    <%--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"--%>
-          <%--integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">--%>
-    <%--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"--%>
-            <%--integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"--%>
-            <%--crossorigin="anonymous"></script>--%>
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap.css"/>">
     <link rel="stylesheet" type="text/js" href="<c:url value="/resources/js/bootstrap.js"/>">
 </head>
@@ -44,13 +39,37 @@
 
 <!--CONTENT-->
 <jstl:forEach items="${requestScope.speakers}" var="speaker">
-    <ul class="menu">
-        <li><b><fmt:message key="text.user.login"/></b> ${speaker.login}</li>
-        <li><b><fmt:message key="text.user.email"/></b> ${speaker.email}</li>
-        <li><b><fmt:message key="text.user.first.name"/></b> ${speaker.firstName}</li>
-        <li><b><fmt:message key="text.user.last.name"/></b> ${speaker.lastName}</li>
-        <li><b><fmt:message key="text.user.rating"/></b> ${speaker.rating}</li>
-    </ul>
+    <jstl:choose>
+        <jstl:when test="${language == 'uk_UA'}">
+            <ul class="menu">
+                <li><b><fmt:message key="text.user.login"/></b> ${speaker.login}</li>
+                <li><b><fmt:message key="text.user.email"/></b> ${speaker.email}</li>
+                <li><b><fmt:message key="text.user.first.name"/></b> ${speaker.firstName}</li>
+                <li><b><fmt:message key="text.user.last.name"/></b> ${speaker.lastName}</li>
+                <li><b><fmt:message key="text.user.rating"/></b> ${speaker.rating}</li>
+            </ul>
+        </jstl:when>
+        <jstl:when test="${language == 'en_US'}">
+            <ul class="menu">
+                <li><b><fmt:message key="text.user.login"/></b> ${speaker.login}</li>
+                <li><b><fmt:message key="text.user.email"/></b> ${speaker.email}</li>
+                <li><b><fmt:message key="text.user.first.name"/></b> ${speaker.firstNameEn}</li>
+                <li><b><fmt:message key="text.user.last.name"/></b> ${speaker.lastNameEn}</li>
+                <li><b><fmt:message key="text.user.rating"/></b> ${speaker.rating}</li>
+            </ul>
+        </jstl:when>
+        <jstl:otherwise>
+            <ul class="menu">
+                <li><b><fmt:message key="text.user.login"/></b> ${speaker.login}</li>
+                <li><b><fmt:message key="text.user.email"/></b> ${speaker.email}</li>
+                <li><b><fmt:message key="text.user.first.name"/></b> ${speaker.firstName}</li>
+                <li><b><fmt:message key="text.user.last.name"/></b> ${speaker.lastName}</li>
+                <li><b><fmt:message key="text.user.rating"/></b> ${speaker.rating}</li>
+            </ul>
+        </jstl:otherwise>
+    </jstl:choose>
+
+
     <form role="form" class="btn btn-success btn-sm" method="post"
           action="${pageContext.request.contextPath}/controller?action=change_rating">
         <input type="hidden" name="speaker_id" value="${speaker.id}">

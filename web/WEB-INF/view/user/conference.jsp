@@ -16,11 +16,6 @@
 <html>
 <head>
     <title><fmt:message key="text.title.conference"/></title>
-    <%--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"--%>
-          <%--integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">--%>
-    <%--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"--%>
-            <%--integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"--%>
-            <%--crossorigin="anonymous"></script>--%>
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap.css"/>">
     <link rel="stylesheet" type="text/js" href="<c:url value="/resources/js/bootstrap.js"/>">
 </head>
@@ -54,14 +49,39 @@
     <div class="col-2"></div>
     <div class="col-8">
         <jstl:if test="${not empty requestScope.conference}">
-            <ul class="menu">
-                <li><b><fmt:message key="text.conference.title"/></b> ${requestScope.conference.title}</li>
-                <li><b><fmt:message key="text.conference.description"/></b> ${requestScope.conference.description}</li>
-                <li><b><fmt:message key="text.conference.dateTime"/></b> ${requestScope.conference.dateTime}</li>
-                <li><b><fmt:message key="text.conference.place"/></b> ${requestScope.conference.place}</li>
-                <li><b><fmt:message key="text.conference.placeCapacity"/></b> ${requestScope.conference.placeCapacity}
-                </li>
-            </ul>
+            <jstl:choose>
+                <jstl:when test="${language == 'uk_UA'}">
+                    <ul class="menu">
+                        <li><b><fmt:message key="text.conference.title"/></b> ${requestScope.conference.title}</li>
+                        <li><b><fmt:message key="text.conference.description"/></b> ${requestScope.conference.description}</li>
+                        <li><b><fmt:message key="text.conference.dateTime"/></b> ${requestScope.conference.dateTime}</li>
+                        <li><b><fmt:message key="text.conference.place"/></b> ${requestScope.conference.place}</li>
+                        <li><b><fmt:message key="text.conference.placeCapacity"/></b> ${requestScope.conference.placeCapacity}
+                        </li>
+                    </ul>
+                </jstl:when>
+                <jstl:when test="${language == 'en_US'}">
+                    <ul class="menu">
+                        <li><b><fmt:message key="text.conference.title"/></b> ${requestScope.conference.titleEn}</li>
+                        <li><b><fmt:message key="text.conference.description"/></b> ${requestScope.conference.descriptionEn}</li>
+                        <li><b><fmt:message key="text.conference.dateTime"/></b> ${requestScope.conference.dateTime}</li>
+                        <li><b><fmt:message key="text.conference.place"/></b> ${requestScope.conference.placeEn}</li>
+                        <li><b><fmt:message key="text.conference.placeCapacity"/></b> ${requestScope.conference.placeCapacity}
+                        </li>
+                    </ul>
+                </jstl:when>
+                <jstl:otherwise>
+                    <ul class="menu">
+                        <li><b><fmt:message key="text.conference.title"/></b> ${requestScope.conference.title}</li>
+                        <li><b><fmt:message key="text.conference.description"/></b> ${requestScope.conference.description}</li>
+                        <li><b><fmt:message key="text.conference.dateTime"/></b> ${requestScope.conference.dateTime}</li>
+                        <li><b><fmt:message key="text.conference.place"/></b> ${requestScope.conference.place}</li>
+                        <li><b><fmt:message key="text.conference.placeCapacity"/></b> ${requestScope.conference.placeCapacity}
+                        </li>
+                    </ul>
+                </jstl:otherwise>
+            </jstl:choose>
+
             <jstl:if test="${not empty requestScope.conference.placeCapacity}">
                 <jstl:if test="${'USER' == sessionScope.user.role.name() ||
                                 'SPEAKER' == sessionScope.user.role.name() ||
@@ -91,15 +111,38 @@
                     </form>
                 </jstl:if>
             </jstl:if>
+            <hr/>
+            <hr/>
             <jstl:forEach items="${requestScope.conference.conferenceLectures}" var="lecture">
                 <jstl:if test="${lecture.approved == true}">
-                    <ul class="menu">
-                        <li><b><fmt:message key="text.lecture.start.time"/></b> ${lecture.startTime}</li>
-                        <li><b><fmt:message key="text.lecture.title"/></b> ${lecture.title}</li>
-                        <li><b><fmt:message key="text.lecture.description"/></b> ${lecture.description}</li>
-                        <li><b><fmt:message key="text.lecture.speaker"/></b> ${lecture.mainSpeaker.firstName} ${lecture.mainSpeaker.lastName}</li>
+                    <jstl:choose>
+                        <jstl:when test="${language == 'uk_UA'}">
+                            <ul class="menu">
+                                <li><b><fmt:message key="text.lecture.start.time"/></b> ${lecture.startTime}</li>
+                                <li><b><fmt:message key="text.lecture.title"/></b> ${lecture.title}</li>
+                                <li><b><fmt:message key="text.lecture.description"/></b> ${lecture.description}</li>
+                                <li><b><fmt:message key="text.lecture.speaker"/></b> ${lecture.mainSpeaker.firstName} ${lecture.mainSpeaker.lastName}</li>
+                            </ul>
+                        </jstl:when>
+                        <jstl:when test="${language == 'en_US'}">
+                            <ul class="menu">
+                                <li><b><fmt:message key="text.lecture.start.time"/></b> ${lecture.startTime}</li>
+                                <li><b><fmt:message key="text.lecture.title"/></b> ${lecture.titleEn}</li>
+                                <li><b><fmt:message key="text.lecture.description"/></b> ${lecture.descriptionEn}</li>
+                                <li><b><fmt:message key="text.lecture.speaker"/></b> ${lecture.mainSpeaker.firstNameEn} ${lecture.mainSpeaker.lastNameEn}</li>
 
-                    </ul>
+                            </ul>
+                        </jstl:when>
+                        <jstl:otherwise>
+                            <ul class="menu">
+                                <li><b><fmt:message key="text.lecture.start.time"/></b> ${lecture.startTime}</li>
+                                <li><b><fmt:message key="text.lecture.title"/></b> ${lecture.title}</li>
+                                <li><b><fmt:message key="text.lecture.description"/></b> ${lecture.description}</li>
+                                <li><b><fmt:message key="text.lecture.speaker"/></b> ${lecture.mainSpeaker.firstName} ${lecture.mainSpeaker.lastName}</li>
+                            </ul>
+                        </jstl:otherwise>
+                    </jstl:choose>
+
                     <jstl:if test="${'MODERATOR' == sessionScope.user.role.name()}">
                         <form role="form" class="btn btn-success btn-sm" method="post"
                               action="${pageContext.request.contextPath}/controller?action=redirect_change_lecture">
@@ -110,13 +153,36 @@
                     </jstl:if>
                 </jstl:if>
                 <jstl:if test="${lecture.approved == false}">
-                    <ul class="menu">
-                        <li><b><fmt:message key="text.lecture.start.time"/></b> ${lecture.startTime}</li>
-                        <li><b><fmt:message key="text.lecture.title"/></b> ${lecture.title}</li>
-                        <li><b><fmt:message key="text.lecture.description"/></b> ${lecture.description}</li>
-                        <li><b><fmt:message key="text.lecture.speaker"/></b> ${lecture.mainSpeaker.firstName} ${lecture.mainSpeaker.lastName}</li>
+                    <jstl:choose>
+                        <jstl:when test="${language == 'uk_UA'}">
+                            <ul class="menu">
+                                <li><b><fmt:message key="text.lecture.start.time"/></b> ${lecture.startTime}</li>
+                                <li><b><fmt:message key="text.lecture.title"/></b> ${lecture.title}</li>
+                                <li><b><fmt:message key="text.lecture.description"/></b> ${lecture.description}</li>
+                                <li><b><fmt:message key="text.lecture.speaker"/></b> ${lecture.mainSpeaker.firstName} ${lecture.mainSpeaker.lastName}</li>
 
-                    </ul>
+                            </ul>
+                        </jstl:when>
+                        <jstl:when test="${language == 'en_US'}">
+                            <ul class="menu">
+                                <li><b><fmt:message key="text.lecture.start.time"/></b> ${lecture.startTime}</li>
+                                <li><b><fmt:message key="text.lecture.title"/></b> ${lecture.titleEn}</li>
+                                <li><b><fmt:message key="text.lecture.description"/></b> ${lecture.descriptionEn}</li>
+                                <li><b><fmt:message key="text.lecture.speaker"/></b> ${lecture.mainSpeaker.firstNameEn} ${lecture.mainSpeaker.lastNameEn}</li>
+
+                            </ul>
+                        </jstl:when>
+                        <jstl:otherwise>
+                            <ul class="menu">
+                                <li><b><fmt:message key="text.lecture.start.time"/></b> ${lecture.startTime}</li>
+                                <li><b><fmt:message key="text.lecture.title"/></b> ${lecture.title}</li>
+                                <li><b><fmt:message key="text.conference.description"/></b> ${lecture.description}</li>
+                                <li><b><fmt:message key="text.lecture.speaker"/></b> ${lecture.mainSpeaker.firstName} ${lecture.mainSpeaker.lastName}</li>
+
+                            </ul>
+                        </jstl:otherwise>
+                    </jstl:choose>
+
                     <jstl:if test="${'MODERATOR' == sessionScope.user.role.name()}">
                         <form role="form" class="btn btn-success btn-sm" method="post"
                               action="${pageContext.request.contextPath}/controller?action=approve">
@@ -126,6 +192,7 @@
                         </form>
                     </jstl:if>
                 </jstl:if>
+                <hr/>
             </jstl:forEach>
         </jstl:if>
     </div>

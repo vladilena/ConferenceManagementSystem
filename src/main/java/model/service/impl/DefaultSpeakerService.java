@@ -55,6 +55,11 @@ public class DefaultSpeakerService implements SpeakerService {
     public List<Speaker> getAll() {
         return speakerDao.findAll();
     }
+
+    @Override
+    public Speaker getById(long id) {
+        return speakerDao.findById(id);
+    }
 }
 
 

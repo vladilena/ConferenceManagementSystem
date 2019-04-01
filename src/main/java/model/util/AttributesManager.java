@@ -13,7 +13,6 @@ public class AttributesManager {
     private AttributesManager() {
     }
     public static String getProperty(String key) {
-        LOGGER.info("Before get property from 'attributes.properties'");
         return resourceBundle.getString(key);
     }
 }

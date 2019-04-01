@@ -15,7 +15,6 @@ public class PathManager {
     }
 
     public static String getProperty(String key) {
-        LOGGER.info("Before get property from 'path_configuration.properties'");
 
         return resourceBundle.getString(key);
     }

@@ -15,7 +15,6 @@ public class RegexManager {
     }
 
     public static String getProperty(String key) {
-        LOGGER.info("Before get property from 'regex_container.properties'");
 
         return resourceBundle.getString(key);
     }
