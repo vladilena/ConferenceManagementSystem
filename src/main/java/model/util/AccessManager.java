@@ -81,14 +81,10 @@ public class AccessManager {
         return false;
     }
 
-    public boolean checkPermission(String urlPattern, String role) {
-        if (urlPattern.contains(role)) {
-            String command = urlPattern.replaceFirst(".*/", "");
-            return permittedCommandMap.get(role.toLowerCase()).contains(command);
-        }
-        return false;
+    public boolean checkPermission(String urlPattern, String role, String command) {
+        role = role.toLowerCase();
+            return (permittedCommandMap.get(role)).contains(command);
     }
-
 
 }
 

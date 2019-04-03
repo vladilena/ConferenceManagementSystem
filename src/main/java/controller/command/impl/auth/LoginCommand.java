@@ -31,6 +31,7 @@ public class LoginCommand implements Command {
                 request.getParameter(AttributesManager.getProperty("password")));
 
         if (user != null) {
+            user.setPassword("");
             LOGGER.debug("Registration was succeed with login: " + user.getLogin());
             request.getSession().setAttribute(AttributesManager.getProperty("user"), user);
             request.getServletContext().setAttribute(AttributesManager.getProperty("user"), user);

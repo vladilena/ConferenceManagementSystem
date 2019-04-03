@@ -11,7 +11,7 @@
     <div class="col-10">
 
         <div class="menu-bar">
-            <jstl:if test="${'SPEAKER' == sessionScope.user.role}">
+            <jstl:if test="${'SPEAKER' == sessionScope.user.role || 'USER' == sessionScope.user.role}">
                 <a class="btn btn-success btn-sm" href="${pageContext.request.contextPath}/controller?action=redirect_profile" role="button"><fmt:message
                         key="text.profile"/></a>
             </jstl:if>

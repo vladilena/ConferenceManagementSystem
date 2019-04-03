@@ -1,8 +1,9 @@
-package controller;
+package controller.servlet;
 
 import controller.command.Command;
 import controller.command.CommandFactory;
 import model.exceptions.PageNotFoundException;
+import model.exceptions.PermissionErrorException;
 import model.util.PathManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,6 +34,9 @@ public class MainServlet extends HttpServlet {
         } catch (PageNotFoundException e) {
             LOGGER.debug("Threw a PageNotFoundException, full stack trace follows: ", e);
             forwardToNotFoundErrorPage(req, resp);
+        } catch (PermissionErrorException e){
+            LOGGER.error("Threw an PermissionErrorException, full stack trace follows: ", e);
+            forwardToPermissionErrorPage(req, resp);
         } catch (Exception e) {
             LOGGER.error("Threw an Exception, full stack trace follows: ", e);
             forwardToServerErrorPage(req, resp);
@@ -65,7 +69,7 @@ public class MainServlet extends HttpServlet {
             }
         } catch (PageNotFoundException e) {
             LOGGER.error("Threw a PageNotFoundException, stack trace: " + e);
-           // forwardToNotFoundErrorPage(request, response);
+            forwardToNotFoundErrorPage(request, response);
         }
     }
 
@@ -94,6 +98,10 @@ public class MainServlet extends HttpServlet {
     private void forwardToServerErrorPage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String page = PathManager.getProperty("path.page.error.500");
+        forwardToPage(page, request, response);
+    }
+    private void  forwardToPermissionErrorPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String page = PathManager.getProperty("path.page.error.perm");
         forwardToPage(page, request, response);
     }
 }

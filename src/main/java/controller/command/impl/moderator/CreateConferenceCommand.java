@@ -36,6 +36,7 @@ public class CreateConferenceCommand implements Command {
             tryToCreateConference(conference, request);
         } else {
             LOGGER.debug("Invalid input");
+            request.setAttribute(AttributesManager.getProperty("invalid.conference"), conference);
             request.setAttribute(AttributesManager.getProperty("invalid.input.conf"), true);
         }
         return PathManager.getProperty("path.page.create.conference");

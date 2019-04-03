@@ -9,7 +9,7 @@ import controller.command.impl.moderator.ChangeRatingCommand;
 import controller.command.impl.moderator.CreateConferenceCommand;
 import controller.command.impl.redirect.*;
 import controller.command.impl.speaker.OfferLectureCommand;
-import controller.command.impl.user.ChangeLanguageCommand;
+import controller.command.impl.ChangeLanguageCommand;
 import controller.command.impl.user.SubscribeOnConference;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,7 +45,7 @@ public class CommandFactory {
         commands.put("create_conference", new CreateConferenceCommand());
         commands.put("change_rating", new ChangeRatingCommand());
         commands.put("participate", new SubscribeOnConference());
-        // commands.put("change_conference", new );
+       //  commands.put("change_conference", new ChangeConferenceCommand());
         // commands.put("send_invitations", new );
         commands.put("approve", new ApproveLectureCommand());
         // commands.put("change_lecture", new );
@@ -73,10 +73,10 @@ public class CommandFactory {
         Command current = new EmptyCommand();
         String action = request.getParameter("action");
         if (isInvalidCommand(action)) {
-            LOGGER.info("There is no such command " + request.getMethod() +"  "+ request.getRequestURI());
+            LOGGER.info("Command isn't found: " + request.getMethod() +"  "+ request.getRequestURI());
             return current;
         }
-        LOGGER.info("There is such command " + action);
+        LOGGER.info("Found command: " + action);
         current = commands.getOrDefault(action, current);
         return current;
     }

@@ -42,6 +42,7 @@ public class OfferLectureCommand implements Command {
             tryToCreateLecture(request, lecture, user, conferenceId);
         } else {
             LOGGER.debug("Validation error");
+            request.setAttribute(AttributesManager.getProperty("invalid.lecture"), lecture);
             request.setAttribute(AttributesManager.getProperty("invalid.input.lecture"), true);
         }
         return PathManager.getProperty("path.page.offer");

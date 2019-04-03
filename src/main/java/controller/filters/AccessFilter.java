@@ -11,34 +11,47 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class AccessFilter extends AbstractFilter {
+public class AccessFilter implements Filter {
     private final static Logger LOGGER = LogManager.getLogger(AccessFilter.class);
+    private static AccessManager manager;
+
+    public AccessFilter() {
+        manager = new AccessManager();
+    }
 
     @Override
-    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
+
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         LOGGER.debug("Start of Access filter");
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
         String uri = request.getRequestURI();
         User user = getUserFromRequestSession(request);
         String userRole = null;
+        String email = null;
         if (user != null) {
             userRole = user.getRole().toString();
+            email = user.getEmail();
         }
-
-        AccessManager manager = new AccessManager();
-
+        String command = request.getParameter("action");
         if (manager.isSecuredPage(uri)) {
-            boolean hasPermission = manager.checkPermission(uri, userRole);
+            boolean hasPermission = manager.checkPermission(uri, userRole, command);
             if (!hasPermission) {
-                String email = user.getEmail();
-                LOGGER.error("Unauthorized access, email: " + (email == null ? "unregistered" : email));
-                throw new PermissionErrorException();
+                LOGGER.error("Unauthorized access, email: " + (email == null ? "unregistered" : email) + ", role: " + userRole);
+                throw new PermissionErrorException("Unauthorized access");
             }
         }
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(servletRequest, servletResponse);
+    }
+
+    @Override
+    public void destroy() {
+
     }
 
     private User getUserFromRequestSession(HttpServletRequest request) {

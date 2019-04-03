@@ -13,12 +13,8 @@ public class TransactionManager {
 
     private Connection connection;
 
-    public Connection getConnection() {
-        return connection;
-    }
 
     public void begin() throws SQLException {
-        close();
         connection = ConnectionPoolHolder.getConnection();
         if(connection != null)
             beginTransaction();

@@ -72,51 +72,63 @@
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
+
+        <c:set var="in_conf" value="${requestScope.invalid_conference}" scope="request" />
+
         <form role="form" method="post" action="${pageContext.request.contextPath}/controller?action=create_conference">
             <div class="form-group">
                 <label for="title_ukr"><fmt:message key="text.conference.title.ukr"/></label>
                 <input type="text" class="form-control" name="title_ukr" id="title_ukr"
+                       value="${in_conf.title}"
                        placeholder="<fmt:message key="text.input.conference.title.ukr"/>" required>
             </div>
             <div class="form-group">
                 <label for="title_en"><fmt:message key="text.conference.title.en"/></label>
                 <input type="text" class="form-control" name="title_en" id="title_en"
+                       value="${in_conf.titleEn}"
                        placeholder="<fmt:message key="text.input.conference.title.en"/>" required>
             </div>
             <div class="form-group">
                 <label for="description_ukr"><fmt:message key="text.conference.description.ukr"/></label>
                 <input type="text" class="form-control" name="description_ukr" id="description_ukr"
+                       value="${in_conf.description}"
                        placeholder="<fmt:message key="text.input.conference.description.ukr"/>" required>
             </div>
             <div class="form-group">
                 <label for="description_en"><fmt:message key="text.conference.description.en"/></label>
                 <input type="text" class="form-control" name="description_en" id="description_en"
+                       value="${in_conf.descriptionEn}"
                        placeholder="<fmt:message key="text.input.conference.description.en"/>" required>
             </div>
             <div class="form-group">
                 <label for="place_ukr"><fmt:message key="text.conference.place.ukr"/></label>
                 <input type="text" class="form-control" name="place_ukr" id="place_ukr"
+                       value="${in_conf.place}"
                        placeholder="<fmt:message key="text.input.conference.place.ukr"/>" required>
             </div>
             <div class="form-group">
                 <label for="place_en"><fmt:message key="text.conference.place.en"/></label>
                 <input type="text" class="form-control" name="place_en" id="place_en"
+                       value="${in_conf.placeEn}"
                        placeholder="<fmt:message key="text.input.conference.place.en"/>" required>
             </div>
 
             <div class="form-group">
                 <label for="date"><fmt:message key="text.conference.dateTime"/></label>
                 <input type="datetime-local" class="form-control" name="date_time" id="date"
+                       value="${in_conf.dateTime}"
                        placeholder="<fmt:message key="text.input.conference.dateTime"/>" required>
             </div>
             <div class="form-group">
                 <label for="lecturesCapacity"><fmt:message key="text.conference.lecturesCapacity"/></label>
                 <input type="number" class="form-control" name="lectures_capacity" id="lecturesCapacity"
+                       value="${in_conf.lecturesCapacity}"
                        placeholder="<fmt:message key="text.input.conference.lecturesCapacity"/>" required>
             </div>
             <div class="form-group">
                 <label for="placeCapacity"><fmt:message key="text.conference.placeCapacity"/></label>
                 <input type="number" class="form-control" name="place_capacity" id="placeCapacity"
+                       value="${in_conf.placeCapacity}"
                        placeholder="<fmt:message key="text.input.conference.placeCapacity"/>" required>
             </div>
 

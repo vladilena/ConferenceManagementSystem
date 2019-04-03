@@ -60,11 +60,13 @@
             </div>
         </c:if>
 
-        <br/>
+        <br/><c:set var="in_user" value="${requestScope.invalid_user}" scope="request" />
+
         <form role="form" method="post" action="${pageContext.request.contextPath}/controller?action=register">
             <div class="form-group ${requestScope.invalidData.invalidLogin} has-feedback">
                 <label for="login"><fmt:message key="text.login"/></label>
                 <input type="text" class="form-control" name="login" id="login"
+                       value="${in_user.login}"
                        placeholder="<fmt:message key="text.create.your.login"/>" required>
             </div>
             <div class="form-group ${requestScope.invalidData.invalidPassword} has-feedback">
@@ -75,34 +77,39 @@
             <div class="form-group ${requestScope.invalidData.invalidEmail} has-feedback">
                 <label for="email"><fmt:message key="text.email"/></label>
                 <input type="email" class="form-control" name="email" id="email"
+                       value="${in_user.email}"
                        placeholder="<fmt:message key="text.your.email"/>" required>
             </div>
             <div class="form-group ${requestScope.invalidData.invalidFirstName} has-feedback">
                 <label for="firstName"><fmt:message key="text.first.name"/></label>
                 <input type="text" class="form-control" name="firstName" id="firstName"
+                       value="${in_user.firstName}"
                        placeholder="<fmt:message key="text.first.name"/>" required>
             </div>
             <div class="form-group ${requestScope.invalidData.invalidFirstNameEn} has-feedback">
                 <label for="firstName_en"><fmt:message key="text.first.name.en"/></label>
                 <input type="text" class="form-control" name="firstName_en" id="firstName_en"
+                       value="${in_user.firstNameEn}"
                        placeholder="<fmt:message key="text.first.name.en"/>" required>
             </div>
             <div class="form-group ${requestScope.invalidData.invalidLastName} has-feedback">
                 <label for="lastName"><fmt:message key="text.last.name"/></label>
                 <input type="text" class="form-control" name="lastName" id="lastName"
+                       value="${in_user.lastName}"
                        placeholder="<fmt:message key="text.last.name"/>" required>
             </div>
             <div class="form-group ${requestScope.invalidData.invalidLastNameEn} has-feedback">
                 <label for="lastName_en"><fmt:message key="text.last.name.en"/></label>
                 <input type="text" class="form-control" name="lastName_en" id="lastName_en"
+                       value="${in_user.lastNameEn}"
                        placeholder="<fmt:message key="text.last.name.en"/>" required>
             </div>
 
             <label class="radio-inline">
-                <input type="radio" name="role" id="radio1" value="SPEAKER" required> Speaker
+                <input type="radio" name="role" id="radio1" value="SPEAKER" required><fmt:message key="text.speaker"/>
             </label>
             <label class="radio-inline">
-                <input type="radio" name="role" id="radio2" value="USER" required> User
+                <input type="radio" name="role" id="radio2" value="USER" required><fmt:message key="text.user"/>
             </label>
             <p class="help-block"><fmt:message key="text.help.registration"/></p>
             <button type="submit" class="btn btn-success"><fmt:message key="text.registration"/></button>

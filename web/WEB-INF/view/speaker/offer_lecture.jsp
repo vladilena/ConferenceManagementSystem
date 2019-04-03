@@ -50,29 +50,38 @@
         </c:if>
     </div>
 </c:if>
+
 <!--CONTENT-->
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
+
+
+        <c:set var="in_lect" value="${requestScope. invalid_lecture}" scope="request" />
+
         <form role="form" method="post" action="${pageContext.request.contextPath}/controller?action=offer_lecture">
             <div class="form-group">
                 <label for="title"><fmt:message key="text.lecture.title"/></label>
                 <input type="text" class="form-control" name="title" id="title"
+                       value="${in_lect.title}"
                        placeholder="<fmt:message key="text.input.lecture.title"/>" required>
             </div>
             <div class="form-group">
                 <label for="title_en"><fmt:message key="text.lecture.title.en"/></label>
                 <input type="text" class="form-control" name="title_en" id="title_en"
+                       value="${in_lect.titleEn}"
                        placeholder="<fmt:message key="text.input.lecture.title.en"/>" required>
             </div>
             <div class="form-group">
                 <label for="desc"><fmt:message key="text.lecture.description"/></label>
                 <input type="text" class="form-control" name="description" id="desc"
+                       value="${in_lect.description}"
                        placeholder="<fmt:message key="text.input.lecture.description"/>" required>
             </div>
             <div class="form-group">
                 <label for="desc_en"><fmt:message key="text.lecture.description.en"/></label>
                 <input type="text" class="form-control" name="description_en" id="desc_en"
+                       value="${in_lect.descriptionEn}"
                        placeholder="<fmt:message key="text.input.lecture.description.en"/>" required>
             </div>
             <button type="submit" class="btn btn-success"><fmt:message key="text.offer"/></button>

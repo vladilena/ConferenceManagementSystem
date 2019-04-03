@@ -35,13 +35,13 @@ public class RegistrationCommand implements Command {
 
         InvalidData invalidData = inputChecked(user);
 
-
         if (invalidData == null) {
             LOGGER.info("User is valid");
             resultPage = tryToCreateUser(request, user, resultPage);
 
         } else {
             LOGGER.debug("User is invalid");
+            request.setAttribute(AttributesManager.getProperty("invalid.user"), user);
             request.setAttribute(AttributesManager.getProperty("invalid.registration.data"), invalidData);
         }
 
@@ -108,6 +108,7 @@ public class RegistrationCommand implements Command {
     private String tryToCreateUser(HttpServletRequest request, User user, String resultPage) {
         if (createUser(user)) {
             LOGGER.info("User was added to a database");
+            user.setPassword("");
             request.setAttribute(AttributesManager.getProperty("success.registration"), true);
             request.getSession().setAttribute(AttributesManager.getProperty("user"), user);
             request.getServletContext().setAttribute(AttributesManager.getProperty("user"), user);

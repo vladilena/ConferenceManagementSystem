@@ -1,6 +1,5 @@
 package controller.listeners;
 
-import model.entity.User;
 import model.util.AttributesManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

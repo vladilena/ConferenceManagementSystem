@@ -1,4 +1,4 @@
-package controller.command.impl.user;
+package controller.command.impl;
 
 import controller.command.Command;
 import model.util.AttributesManager;

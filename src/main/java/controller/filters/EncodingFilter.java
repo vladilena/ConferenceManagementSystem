@@ -6,18 +6,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class EncodingFilter extends AbstractFilter {
+public class EncodingFilter implements Filter {
     private static final String ENCODING = "UTF-8";
     private static final String CONTENT_TYPE = "text/html";
-    
+
+
     @Override
-    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
+
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+
         request.setCharacterEncoding(ENCODING);
         response.setContentType(CONTENT_TYPE);
         response.setCharacterEncoding(ENCODING);
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
+    @Override
+    public void destroy() {
 
+    }
 }
 

@@ -132,17 +132,28 @@
                 </jstl:choose>
             </jstl:when>
             <jstl:otherwise>
-                <div class="text" >
-                    <p><fmt:message key="text.about.project"/></p>
+
+                <div class="text-justify" >
+                    <fmt:message key="text.about.project"/>
                     <br/>
                     <br/>
                     <br/>
-                    <p><fmt:message key="text.need.be.registered"/></p>
+                    <fmt:message key="text.need.be.registered"/>
                 </div>
             </jstl:otherwise>
         </jstl:choose>
     </div>
     <div class="col-2"></div>
+<%--<div class="row">--%>
+    <%--<div class="col-12">--%>
+        <%--<div class="container-fluid">--%>
+            <%--<img src="/resources/img/conference.png" alt="">--%>
+        <%--</div>--%>
+    <%--</div>--%>
+</div>
+
+
+
 </div>
 <!--FOOTER-->
 <jsp:include page="template/footer.jsp"/>

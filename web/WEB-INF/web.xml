@@ -6,20 +6,20 @@
 
     <servlet>
         <servlet-name>Controller</servlet-name>
-        <servlet-class>controller.MainServlet</servlet-class>
+        <servlet-class>controller.servlet.MainServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
         <url-pattern>/controller/*</url-pattern>
     </servlet-mapping>
-    <!--<error-page>-->
-        <!--<error-code>404</error-code>-->
-        <!--<location>/WEB-INF/view/error/error404.jsp</location>-->
-    <!--</error-page>-->
-    <!--<error-page>-->
-        <!--<error-code>500</error-code>-->
-        <!--<location>/WEB-INF/view/error/error500.jsp</location>-->
-    <!--</error-page>-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/view/error/error404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/view/error/error500.jsp</location>
+    </error-page>
     <error-page>
         <exception-type>model.exceptions.PermissionErrorException</exception-type>
         <location>/WEB-INF/view/error/permission.jsp</location>
@@ -45,6 +45,8 @@
         <filter-name>EncodingFilter</filter-name>
         <servlet-name>Controller</servlet-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
 
     <filter>
@@ -55,6 +57,8 @@
         <filter-name>AccessFilter</filter-name>
         <servlet-name>Controller</servlet-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
 
     <listener>
