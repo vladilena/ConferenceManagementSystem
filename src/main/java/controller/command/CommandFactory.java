@@ -4,9 +4,7 @@ import controller.command.impl.*;
 import controller.command.impl.auth.LoginCommand;
 import controller.command.impl.auth.LogoutCommand;
 import controller.command.impl.auth.RegistrationCommand;
-import controller.command.impl.moderator.ApproveLectureCommand;
-import controller.command.impl.moderator.ChangeRatingCommand;
-import controller.command.impl.moderator.CreateConferenceCommand;
+import controller.command.impl.moderator.*;
 import controller.command.impl.redirect.*;
 import controller.command.impl.speaker.OfferLectureCommand;
 import controller.command.impl.ChangeLanguageCommand;
@@ -45,11 +43,14 @@ public class CommandFactory {
         commands.put("create_conference", new CreateConferenceCommand());
         commands.put("change_rating", new ChangeRatingCommand());
         commands.put("participate", new SubscribeOnConference());
-       //  commands.put("change_conference", new ChangeConferenceCommand());
+        commands.put("change_conference", new ChangeConferenceCommand());
         // commands.put("send_invitations", new );
+       // commands.put("create_report", new);
         commands.put("approve", new ApproveLectureCommand());
-        // commands.put("change_lecture", new );
+        commands.put("change_lecture", new ChangeLectureCommand());
+        commands.put("delete_lecture", new DeleteLectureCommand());
         commands.put("change_language", new ChangeLanguageCommand());
+        commands.put("delete_conference", new DeleteConferenceCommand());
 
     }
 
@@ -73,7 +74,7 @@ public class CommandFactory {
         Command current = new EmptyCommand();
         String action = request.getParameter("action");
         if (isInvalidCommand(action)) {
-            LOGGER.info("Command isn't found: " + request.getMethod() +"  "+ request.getRequestURI());
+            LOGGER.info("Command isn't found: " + request.getMethod() + "  " + request.getRequestURI());
             return current;
         }
         LOGGER.info("Found command: " + action);

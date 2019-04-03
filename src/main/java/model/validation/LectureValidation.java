@@ -1,7 +1,9 @@
 package model.validation;
 
+import java.time.LocalDateTime;
+
 public interface LectureValidation {
-    boolean startTimeValid(String startTime);
+    boolean startTimeValid(LocalDateTime lectureTime, LocalDateTime conferenceTime);
 
     boolean titleValid(String title);
 

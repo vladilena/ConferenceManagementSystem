@@ -5,6 +5,7 @@ import model.validation.LectureValidation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,9 +32,10 @@ public class DefaultLectureValidation implements LectureValidation {
          LOGGER.debug("Return DefaultLectureValidation instance");
         return lectureValidation;
     }
+
     @Override
-    public boolean startTimeValid(String startTime) {
-        return Pattern.matches(RegexManager.getProperty("startTime"), startTime);
+    public boolean startTimeValid(LocalDateTime lectureTime, LocalDateTime conferenceTime) {
+        return lectureTime.getDayOfYear()==conferenceTime.getDayOfYear();
     }
 
     @Override

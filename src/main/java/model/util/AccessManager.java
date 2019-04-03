@@ -34,6 +34,8 @@ public class AccessManager {
         moderatorCommand.add("send_invitations");
         moderatorCommand.add("approve");
         moderatorCommand.add("change_lecture");
+        moderatorCommand.add("delete_conference");
+        moderatorCommand.add("delete_lecture");
 
         List<String> speakerCommand = new ArrayList<>();
         speakerCommand.add("main");

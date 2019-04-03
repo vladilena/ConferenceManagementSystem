@@ -3,10 +3,7 @@ package model.service.impl;
 import model.dao.ConferenceDao;
 import model.dao.DaoFactory;
 import model.dao.LectureDao;
-import model.entity.Conference;
-import model.entity.Lecture;
-import model.entity.Speaker;
-import model.entity.User;
+import model.entity.*;
 import model.service.LectureService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,12 +36,9 @@ public class DefaultLectureService implements LectureService {
     }
 
     @Override
-    public boolean create(Lecture lecture, User user, long conferenceId) {
-        Speaker speaker = new Speaker();
-        speaker.setId(user.getId());
+    public boolean create(Lecture lecture, long conferenceId) {
         Conference conference = conferenceDao.findById(conferenceId);
         lecture.setStartTime(conference.getDateTime());
-        lecture.setMainSpeaker(speaker);
         lecture.setMainConference(conference);
         return lectureDao.create(lecture);
     }
@@ -52,6 +46,21 @@ public class DefaultLectureService implements LectureService {
     @Override
     public boolean approve(long lectureId) {
         return lectureDao.approve(lectureId);
+    }
+
+    @Override
+    public Lecture getById(long lectureId) {
+        return lectureDao.findById(lectureId);
+    }
+
+    @Override
+    public boolean update(Lecture lecture) {
+        return lectureDao.update(lecture);
+    }
+
+    @Override
+    public boolean delete(long lectureId) {
+        return lectureDao.delete(lectureId);
     }
 }
 

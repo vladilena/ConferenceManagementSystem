@@ -21,10 +21,15 @@ public class InvalidData {
     private String invalidConfDateTime;
     private String invalidConfLecturesCapacity;
     private String invalidConfPlaceCapacity;
+    private String invalidLectureStartTime;
 
 
     private InvalidData() {
 
+    }
+
+    public String getInvalidLectureStartTime() {
+        return invalidLectureStartTime;
     }
 
     public String getInvalidConfTitle() {
@@ -133,10 +138,12 @@ public class InvalidData {
             InvalidData.this.invalidFirstName = attribute;
             return this;
         }
+
         public Builder setInvalidFirstNameEnAttr() {
             InvalidData.this.invalidFirstNameEn = attribute;
             return this;
         }
+
         public Builder setInvalidPasswordAttr() {
             InvalidData.this.invalidPassword = attribute;
             return this;
@@ -146,63 +153,81 @@ public class InvalidData {
             InvalidData.this.invalidLastName = attribute;
             return this;
         }
+
         public Builder setInvalidLastNameEnAttr() {
             InvalidData.this.invalidLastNameEn = attribute;
             return this;
         }
+
         public Builder setInvalidTitleAttr() {
             InvalidData.this.invalidTitle = attribute;
             return this;
         }
+
         public Builder setInvalidTitleEnAttr() {
             InvalidData.this.invalidTitleEn = attribute;
             return this;
         }
+
         public Builder setInvalidDescriptionAttr() {
             InvalidData.this.invalidDescription = attribute;
             return this;
         }
+
         public Builder setInvalidDescriptionEnAttr() {
             InvalidData.this.invalidDescriptionEn = attribute;
             return this;
         }
+
         public Builder setInvalidConfTitleAttr() {
             InvalidData.this.invalidConfTitle = attribute;
             return this;
         }
+
         public Builder setInvalidConfTitleEnAttr() {
             InvalidData.this.invalidConfTitleEn = attribute;
             return this;
         }
+
         public Builder setInvalidConfDescriptionAttr() {
             InvalidData.this.invalidConfDescription = attribute;
             return this;
         }
+
         public Builder setInvalidConfDescriptionEnAttr() {
             InvalidData.this.invalidConfDescriptionEn = attribute;
             return this;
         }
+
         public Builder setInvalidConfPlaceAttr() {
             InvalidData.this.invalidConfPlace = attribute;
             return this;
         }
+
         public Builder setInvalidConfPlaceEnAttr() {
             InvalidData.this.invalidConfPlaceEn = attribute;
             return this;
         }
+
         public Builder setInvalidConfDateTimeAttr() {
             InvalidData.this.invalidConfDateTime = attribute;
             return this;
         }
+
         public Builder setInvalidConfLecturesCapacityAttr() {
             InvalidData.this.invalidConfLecturesCapacity = attribute;
             return this;
         }
+
         public Builder setInvalidConfPlaceCapacityAttr() {
             InvalidData.this.invalidConfPlaceCapacity = attribute;
             return this;
         }
 
+        public Builder setInvalidLectureStartTimeAttr() {
+            InvalidData.this.invalidLectureStartTime = attribute;
+            return this;
+        }
 
         public InvalidData build() {
             return InvalidData.this;

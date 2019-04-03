@@ -69,6 +69,16 @@ public class DefaultConferenceService implements ConferenceService {
         return conferenceDAO.create(conference);
     }
 
+    @Override
+    public boolean update(Conference conference) {
+        return conferenceDAO.update(conference);
+    }
+
+    @Override
+    public boolean delete(long conferenceId) {
+        return conferenceDAO.delete(conferenceId);
+    }
+
 
     private LocalDateTime fromMillisToLocalDateTime(long millis) {
         return LocalDateTime.ofInstant(Instant.ofEpochMilli(millis), ZoneId.systemDefault());

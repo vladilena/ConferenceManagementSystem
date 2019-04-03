@@ -100,6 +100,7 @@ public class MySQLLectureDao implements LectureDao {
         LOGGER.debug("Try to update lecture");
         try (PreparedStatement stm = connection.prepareStatement(SQLManager.getProperty("update.lecture"))) {
             setGeneralParamsToPreparedStatement(stm, entity);
+            stm.setLong(8, entity.getMainSpeaker().getId());
             stm.setLong(9, entity.getId());
             if (stm.executeUpdate() > 0) {
                 resultFlag = true;
@@ -168,7 +169,7 @@ public class MySQLLectureDao implements LectureDao {
         boolean resultFlag = false;
         LOGGER.debug("Try to approve lecture");
         try (PreparedStatement stm = connection.prepareStatement(SQLManager.getProperty("approve.lecture"))) {
-            stm.setLong(1,lectureId);
+            stm.setLong(1, lectureId);
             if (stm.executeUpdate() > 0) {
                 resultFlag = true;
             }

@@ -1,37 +1,35 @@
-package controller.command.impl.redirect;
+package controller.command.impl.moderator;
 
 import controller.command.Command;
 import model.entity.Lecture;
-import model.entity.Speaker;
 import model.service.LectureService;
-import model.service.SpeakerService;
 import model.service.impl.DefaultLectureService;
-import model.service.impl.DefaultSpeakerService;
 import model.util.AttributesManager;
 import model.util.PathManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
 
-public class RedirectChangeLecture implements Command {
+public class DeleteLectureCommand implements Command {
+    private static Logger LOGGER = LogManager.getLogger(DeleteLectureCommand.class);
     private static LectureService lectureService;
-    private static SpeakerService speakerService;
 
-    public RedirectChangeLecture(){
+    public DeleteLectureCommand() {
         lectureService = DefaultLectureService.getInstance();
-        speakerService = DefaultSpeakerService.getInstance();
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         long lectureId = Long.valueOf(request.getParameter(AttributesManager.getProperty("lecture.id")));
-        //long conferenceId = Long.valueOf(request.getParameter(AttributesManager.getProperty("conference.id")));
+        if (lectureService.delete(lectureId)) {
+            LOGGER.debug("Lecture was deleted succeed");
+            return PathManager.getProperty("redirect.page.main");
+        }
+        LOGGER.debug("Delete wasn't succeed");
         Lecture lecture = lectureService.getById(lectureId);
-        List<Speaker> speakers = speakerService.getAll();
         request.setAttribute(AttributesManager.getProperty("lecture"), lecture);
-        request.setAttribute(AttributesManager.getProperty("speakers"), speakers);
         return PathManager.getProperty("path.page.change.lecture");
     }
 }
