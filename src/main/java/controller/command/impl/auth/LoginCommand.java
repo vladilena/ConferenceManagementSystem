@@ -26,28 +26,25 @@ public class LoginCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+        String resultPage = PathManager.getProperty("path.page.login");
 
         User user = getUserFromDB(request.getParameter(AttributesManager.getProperty("login")),
                 request.getParameter(AttributesManager.getProperty("password")));
 
         if (user != null) {
-            user.setPassword("");
-            LOGGER.debug("Registration was succeed with login: " + user.getLogin());
-            request.getSession().setAttribute(AttributesManager.getProperty("user"), user);
-            request.getServletContext().setAttribute(AttributesManager.getProperty("user"), user);
-            return PathManager.getProperty("redirect.page.main");
+            resultPage = tryToLogin(user, request);
         } else {
             LOGGER.debug("There is no such user in DB");
             request.setAttribute(AttributesManager.getProperty("loginError"), true);
-            return PathManager.getProperty("path.page.login");
         }
+        return resultPage;
     }
 
     private User getUserFromDB(String login, String password) {
         User user = null;
         if (checkLoginAndPassword(login, password)) {
             user = loginService.login(login, password);
-        }else {
+        } else {
             LOGGER.debug("Invalid input for login or password");
         }
         return user;
@@ -57,6 +54,28 @@ public class LoginCommand implements Command {
         return login != null && password != null
                 && validation.loginValid(login)
                 && validation.passwordValid(password);
+    }
+
+    private boolean setIfUserUnique(User user, HttpServletRequest request) {
+        if (request.getServletContext().getAttribute(AttributesManager.getProperty("current.session.login")) == null) {
+            user.setPassword("");
+            request.getSession().setAttribute(AttributesManager.getProperty("user"), user);
+            request.getServletContext().setAttribute(AttributesManager.getProperty("current.session.login"), user.getLogin());
+            return true;
+        } else {
+            request.setAttribute(AttributesManager.getProperty("user.already.login"), true);
+        }
+        return false;
+    }
+
+    private String tryToLogin(User user, HttpServletRequest request) {
+        if (setIfUserUnique(user, request)) {
+            LOGGER.debug("Registration was succeed with login: " + user.getLogin());
+            return PathManager.getProperty("redirect.page.main");
+        } else {
+            LOGGER.debug("User with this login already wxists in session: " + user.getLogin());
+        }
+        return PathManager.getProperty("path.page.login");
     }
 }
 

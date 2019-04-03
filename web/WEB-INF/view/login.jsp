@@ -27,6 +27,9 @@
 <jstl:if test="${not empty requestScope.loginError}">
     <div class="alert alert-danger" role="alert"><fmt:message key="text.not.exist"/></div>
 </jstl:if>
+<jstl:if test="${not empty requestScope.user_already_login}">
+    <div class="alert alert-danger" role="alert"><fmt:message key="text.already.login"/></div>
+</jstl:if>
 
 <!--CONTENT-->
 <div class="row">
