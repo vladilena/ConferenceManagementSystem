@@ -10,23 +10,16 @@
 <%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : pageContext.request.locale}" scope="session" />
-<fmt:setLocale value="${language}"/>
+<c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'uk_UA'}"
+       scope="session"/>
 <fmt:setBundle basename="text"/>
 <html>
 <head>
     <title><fmt:message key="text.title.create.conference"/></title>
-
-    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap.css"/>">
-    <link rel="stylesheet" type="text/js" href="<c:url value="/resources/js/bootstrap.js"/>">
 </head>
 <body>
 <!-- HEADER -->
 <jsp:include page="../template/header.jsp"/>
-
-<!--SIDEBAR-->
-<jsp:include page="../template/sidebar.jsp"/>
-
 
 <!--ALARMS-->
 <jstl:if test="${not empty requestScope.success_offer}">
@@ -69,13 +62,14 @@
 </c:if>
 
 <!--CONTENT-->
+<div class="bg">
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
 
         <c:set var="in_conf" value="${requestScope.invalid_conference}" scope="request" />
 
-        <form role="form" method="post" action="${pageContext.request.contextPath}/controller?action=create_conference">
+        <form role="form" method="post" action="${pageContext.request.contextPath}/conf?action=create_conference">
             <div class="form-group">
                 <label for="title_ukr"><fmt:message key="text.conference.title.ukr"/></label>
                 <input type="text" class="form-control" name="title_ukr" id="title_ukr"
@@ -131,14 +125,18 @@
                        value="${in_conf.placeCapacity}"
                        placeholder="<fmt:message key="text.input.conference.placeCapacity"/>" required>
             </div>
-
-            <button type="submit" class="btn btn-success"><fmt:message key="text.create"/></button>
+            <button type="submit" class="btn btn-block btn-outline-dark" style="background-color: #5a6268; color: #c8cbcf"><fmt:message
+                    key="text.create"/></button>
         </form>
     </div>
     <div class="col-3"></div>
 </div>
 
-
+<br/>
+<br/>
+<br/>
+<br/>
+</div>
 
 
 <!--FOOTER-->

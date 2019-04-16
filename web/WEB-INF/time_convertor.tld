@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+
+
+    <description>Date format</description>
+    <tlib-version>1.0</tlib-version>
+    <short-name>dt</short-name>
+    <uri>time_convertor.tld</uri>
+
+
+
+    <tag>
+
+        <name>dateFrm</name>
+        <tag-class>com.training.vladilena.util.TimeFormatConvertation</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>date</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.time.LocalDateTime</type>
+        </attribute>
+        <attribute>
+            <name>local</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+</taglib>

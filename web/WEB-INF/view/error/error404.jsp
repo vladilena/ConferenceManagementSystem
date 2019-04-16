@@ -12,6 +12,9 @@
     <link rel="stylesheet" type="text/js" href="<c:url value="/resources/js/bootstrap.js"/>">
 </head>
 <body>
+<!-- HEADER -->
+<jsp:include page="/WEB-INF/view/template/header.jsp"/>
+
 <div class="row">
     <div class="col-3">
         <img src="/resources/img/404.jpg" class="img-responsive" alt="">

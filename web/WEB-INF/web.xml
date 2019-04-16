@@ -6,11 +6,11 @@
 
     <servlet>
         <servlet-name>Controller</servlet-name>
-        <servlet-class>controller.servlet.MainServlet</servlet-class>
+        <servlet-class>com.training.vladilena.controller.servlet.MainServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
-        <url-pattern>/controller/*</url-pattern>
+        <url-pattern>/conf/*</url-pattern>
     </servlet-mapping>
     <error-page>
         <error-code>404</error-code>
@@ -21,7 +21,7 @@
         <location>/WEB-INF/view/error/error500.jsp</location>
     </error-page>
     <error-page>
-        <exception-type>model.exceptions.PermissionErrorException</exception-type>
+        <exception-type>com.training.vladilena.model.exceptions.PermissionErrorException</exception-type>
         <location>/WEB-INF/view/error/permission.jsp</location>
     </error-page>
     <welcome-file-list>
@@ -29,7 +29,7 @@
     </welcome-file-list>
     <context-param>
     <param-name>javax.servlet.jsp.jstl.fmt.fallbackLocale</param-name>
-    <param-value>uk</param-value>
+    <param-value>uk-UA</param-value>
     </context-param>
 
     <absolute-ordering>
@@ -39,7 +39,7 @@
 
     <filter>
         <filter-name>EncodingFilter</filter-name>
-        <filter-class>controller.filters.EncodingFilter</filter-class>
+        <filter-class>com.training.vladilena.controller.filters.EncodingFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
@@ -51,7 +51,7 @@
 
     <filter>
         <filter-name>AccessFilter</filter-name>
-        <filter-class>controller.filters.AccessFilter</filter-class>
+        <filter-class>com.training.vladilena.controller.filters.AccessFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>AccessFilter</filter-name>
@@ -62,11 +62,22 @@
     </filter-mapping>
 
     <listener>
-        <listener-class>controller.listeners.SessionListener</listener-class>
+        <listener-class>com.training.vladilena.controller.listeners.SessionListener</listener-class>
     </listener>
+
+    <!--<listener>-->
+        <!--<listener-class>com.training.vladilena.controller.listeners.LocaleListener</listener-class>-->
+    <!--</listener>-->
+
     <listener>
-        <listener-class>controller.listeners.LocaleListener</listener-class>
+        <listener-class>com.training.vladilena.controller.listeners.UpcomingEventListener</listener-class>
     </listener>
+
+    <listener>
+    <listener-class>com.training.vladilena.controller.listeners.BonusesListener</listener-class>
+    </listener>
+
+
 
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
@@ -76,4 +87,13 @@
     <session-config>
         <tracking-mode>COOKIE</tracking-mode>
     </session-config>
+
+    <!-- tld -->
+    <jsp-config>
+        <taglib>
+            <taglib-uri>time_convertor.tld</taglib-uri>
+            <taglib-location>WEB-INF/time_convertor.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+
 </web-app>
