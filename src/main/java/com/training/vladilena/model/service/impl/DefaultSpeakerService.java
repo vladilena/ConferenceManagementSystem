@@ -46,26 +46,34 @@ public class DefaultSpeakerService implements SpeakerService {
         return speakerService;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean create(long userId) {
         Speaker speaker = new Speaker();
         speaker.setId(userId);
         return speakerDao.create(speaker);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean changeRating(double newRating, long speakerId) {
         return speakerDao.changeRating(newRating, speakerId);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean transferBonus(long speakerId) {
         Speaker speaker = speakerDao.findById(speakerId);
         BigDecimal bonus = calculateBonus(speaker.getRating());
         return speakerDao.transferBonus(bonus, speakerId);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean getBonus(long speakerId) {
         return speakerDao.transferBonus(BigDecimal.ZERO, speakerId);
@@ -83,12 +91,16 @@ public class DefaultSpeakerService implements SpeakerService {
         }
         return BigDecimal.valueOf(rating).multiply(coefficient);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Speaker> getAll() {
         return speakerDao.findAll();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Speaker getById(long id) {
         return speakerDao.findById(id);

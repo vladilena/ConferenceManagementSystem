@@ -1,11 +1,7 @@
 package com.training.vladilena.model.dao.impl;
 
 import com.training.vladilena.model.dao.SpeakerDao;
-import com.training.vladilena.model.dao.mapper.impl.ConferenceMapper;
-import com.training.vladilena.model.dao.mapper.impl.LectureMapper;
 import com.training.vladilena.model.dao.mapper.impl.SpeakerMapper;
-import com.training.vladilena.model.entity.Conference;
-import com.training.vladilena.model.entity.Lecture;
 import com.training.vladilena.model.entity.Speaker;
 import com.training.vladilena.util.SQLManager;
 import org.apache.logging.log4j.LogManager;
@@ -28,13 +24,11 @@ public class MySQLSpeakerDao implements SpeakerDao {
 
     private Connection connection;
     private SpeakerMapper speakerMapper;
-    private LectureMapper lectureMapper;
 
     public MySQLSpeakerDao(Connection connection) {
         LOGGER.debug("MySQLSpeakerDao constructor");
         this.connection = connection;
         speakerMapper = new SpeakerMapper();
-        lectureMapper = new LectureMapper();
     }
 
     /**
@@ -63,19 +57,11 @@ public class MySQLSpeakerDao implements SpeakerDao {
     @Override
     public Speaker findById(long id) {
         Speaker result = null;
-        Map<Long, Speaker> speakers = new HashMap<>();
-        Map<Long, Lecture> lectures = new HashMap<>();
-        Map<Long, Conference> conferences = new HashMap<>();
         LOGGER.debug("Try to find speaker by id " + id);
         try (PreparedStatement stm = connection.prepareStatement(SQLManager.getProperty("find.speaker.by.id"))) {
             stm.setLong(1, id);
             ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                Speaker speaker = fillRelatedEntities(rs, speakers, lectures, conferences);
-                if (!speaker.equals(result)) {
-                    result = speaker;
-                }
-            }
+            result = speakerMapper.parseFromResultSet(rs, false);
             LOGGER.debug("Select was successful");
         } catch (SQLException e) {
             LOGGER.error("Threw a SQLException, full stack trace follows: " + e);
@@ -93,11 +79,9 @@ public class MySQLSpeakerDao implements SpeakerDao {
         try (Statement stm = connection.createStatement()) {
             ResultSet rs = stm.executeQuery(SQLManager.getProperty("find.all.speakers"));
             while (rs.next()) {
-                Speaker speaker = speakerMapper.parseFromResultSet(rs);
+                Speaker speaker = speakerMapper.parseFromResultSet(rs, true);
                 speaker = speakerMapper.makeUnique(speakers, speaker);
-                if (!resultList.contains(speaker)) {
-                    resultList.add(speaker);
-                }
+                resultList.add(speaker);
             }
             LOGGER.debug("Found all speakers successful");
         } catch (SQLException e) {
@@ -147,18 +131,6 @@ public class MySQLSpeakerDao implements SpeakerDao {
             throw new RuntimeException(e);
         }
     }
-
-    private Speaker fillRelatedEntities(ResultSet rs, Map<Long, Speaker> speakers, Map<Long, Lecture> lectures, Map<Long, Conference> conferences) throws SQLException {
-        Speaker speaker = speakerMapper.parseFromResultSet(rs);
-        speaker = speakerMapper.makeUnique(speakers, speaker);
-        if (rs.getString("lecture_id") != null) {
-            Lecture lecture = lectureMapper.parseFromResultSet(rs);
-            lecture = lectureMapper.makeUnique(lectures, lecture);
-            lecture.setMainSpeaker(speaker);
-            speaker.getLectures().add(lecture);
-        }
-        return speaker;
-    }
     /**
      * {@inheritDoc}
      */
@@ -198,7 +170,6 @@ public class MySQLSpeakerDao implements SpeakerDao {
         }
         return resultFlag;
     }
-
 }
 
 

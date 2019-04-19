@@ -40,7 +40,9 @@ public class DefaultRoleService implements RoleService {
         LOGGER.debug("Return DefaultRoleService instance");
         return roleService;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Role> getAll() {
         return roleDAO.findAll();

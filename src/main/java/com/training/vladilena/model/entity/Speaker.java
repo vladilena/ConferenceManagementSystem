@@ -134,7 +134,7 @@ public class Speaker extends User {
         return "Speaker{" +super.toString()+
                 "rating=" + rating +
                 ", bonus=" + bonus +
-               // ", lectures=" + lectures +
+                ", lectures=" + lectures +
                 "} " ;
     }
 }

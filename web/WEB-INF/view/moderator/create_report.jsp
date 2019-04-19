@@ -74,14 +74,14 @@
                            value="${report.providedLecturesAmount}">
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="registeredAmount" class="col-sm-4 col-form-label"><fmt:message
-                        key="text.report.registered.amount"/></label>
-                <div class="col-sm-8">
-                    <input type="number" readonly class="form-control-plaintext" name="registered_participants"
-                           id="registeredAmount"
-                           value="${report.registeredParticipantsAmount}">
-                </div>
+            <%--<div class="form-group row">--%>
+                <%--<label for="registeredAmount" class="col-sm-4 col-form-label"><fmt:message--%>
+                        <%--key="text.report.registered.amount"/></label>--%>
+                <%--<div class="col-sm-8">--%>
+                    <%--<input type="number" readonly class="form-control-plaintext" name="registered_participants"--%>
+                           <%--id="registeredAmount"--%>
+                           <%--value="${report.registeredParticipantsAmount}">--%>
+                <%--</div>--%>
             </div>
             <div class="form-group row">
                 <label for="actualAmount" class="col-sm-4 col-form-label"><fmt:message

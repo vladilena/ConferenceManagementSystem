@@ -1,7 +1,6 @@
 package com.training.vladilena.controller.command.impl.moderator;
 
 import com.training.vladilena.controller.command.Command;
-import com.training.vladilena.model.entity.Conference;
 import com.training.vladilena.model.entity.Lecture;
 import com.training.vladilena.model.service.LectureService;
 import com.training.vladilena.model.service.impl.DefaultLectureService;
@@ -34,7 +33,7 @@ public class DeleteLectureCommand implements Command {
         Lecture lecture = lectureService.getById(lectureId);
         if (lectureService.delete(lectureId)) {
             LOGGER.debug("Lecture was deleted succeed");
-            request.setAttribute(AttributesManager.getProperty("conference.id"),lecture.getMainConference().getId());
+            request.setAttribute(AttributesManager.getProperty("conference.id"),request.getSession().getAttribute(AttributesManager.getProperty("conference.id")));
             return PathManager.getProperty("redirect.path.page.conference");
         }else {
             LOGGER.debug("Delete wasn't succeed");

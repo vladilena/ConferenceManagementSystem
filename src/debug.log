@@ -1,2 +1,40 @@
-2019-04-15 21:05:10 DEBUG SessionListener:21 - Session destroyed
-2019-04-15 21:05:10 DEBUG SessionListener:21 - Session destroyed
+2019-04-18 19:34:01 DEBUG AccessFilter:33 - Start of Access filter
+2019-04-18 19:34:01 DEBUG AccessManager:88 - Page isn't secured
+2019-04-18 19:34:01 DEBUG CommandFactory:78 - Return CommandFactory instance
+2019-04-18 19:34:01 INFO  CommandFactory:89 - Found command: redirect_conference
+2019-04-18 19:34:01 DEBUG MySQLConferenceDao:60 - Try to find conference by id
+2019-04-18 19:34:01 DEBUG ConferenceMapper:39 - Try to parse from conference with relations
+2019-04-18 19:34:01 DEBUG LectureMapper:53 - Try to find out if lecture is empty in result set
+2019-04-18 19:34:01 DEBUG ConferenceMapper:91 - Try to parse from related table(s)
+2019-04-18 19:34:01 DEBUG LectureMapper:32 - Try to parse from lecture without relations
+2019-04-18 19:34:01 DEBUG SpeakerMapper:53 - Try to find out if speaker is empty in result set
+2019-04-18 19:34:01 INFO  LectureMapper:46 - Try to make lecture unique
+2019-04-18 19:34:01 INFO  ConferenceMapper:50 - Try to make conference unique
+2019-04-18 19:34:01 DEBUG LectureMapper:53 - Try to find out if lecture is empty in result set
+2019-04-18 19:34:01 DEBUG ConferenceMapper:91 - Try to parse from related table(s)
+2019-04-18 19:34:01 DEBUG LectureMapper:32 - Try to parse from lecture without relations
+2019-04-18 19:34:01 DEBUG SpeakerMapper:53 - Try to find out if speaker is empty in result set
+2019-04-18 19:34:01 INFO  LectureMapper:46 - Try to make lecture unique
+2019-04-18 19:34:01 INFO  ConferenceMapper:50 - Try to make conference unique
+2019-04-18 19:34:01 DEBUG LectureMapper:53 - Try to find out if lecture is empty in result set
+2019-04-18 19:34:01 DEBUG ConferenceMapper:91 - Try to parse from related table(s)
+2019-04-18 19:34:01 DEBUG LectureMapper:32 - Try to parse from lecture without relations
+2019-04-18 19:34:01 DEBUG SpeakerMapper:53 - Try to find out if speaker is empty in result set
+2019-04-18 19:34:01 INFO  LectureMapper:46 - Try to make lecture unique
+2019-04-18 19:34:01 INFO  ConferenceMapper:50 - Try to make conference unique
+2019-04-18 19:34:01 DEBUG LectureMapper:53 - Try to find out if lecture is empty in result set
+2019-04-18 19:34:01 DEBUG ConferenceMapper:91 - Try to parse from related table(s)
+2019-04-18 19:34:01 DEBUG LectureMapper:32 - Try to parse from lecture without relations
+2019-04-18 19:34:01 DEBUG SpeakerMapper:53 - Try to find out if speaker is empty in result set
+2019-04-18 19:34:01 INFO  LectureMapper:46 - Try to make lecture unique
+2019-04-18 19:34:01 INFO  ConferenceMapper:50 - Try to make conference unique
+2019-04-18 19:34:01 DEBUG LectureMapper:53 - Try to find out if lecture is empty in result set
+2019-04-18 19:34:01 DEBUG ConferenceMapper:91 - Try to parse from related table(s)
+2019-04-18 19:34:01 DEBUG LectureMapper:32 - Try to parse from lecture without relations
+2019-04-18 19:34:01 DEBUG SpeakerMapper:53 - Try to find out if speaker is empty in result set
+2019-04-18 19:34:01 INFO  LectureMapper:46 - Try to make lecture unique
+2019-04-18 19:34:01 INFO  ConferenceMapper:50 - Try to make conference unique
+2019-04-18 19:34:01 DEBUG MySQLConferenceDao:67 - Select was successful
+2019-04-18 19:34:01 DEBUG MainServlet:86 - Forward to: /WEB-INF/view/moderator/speaker/user/conference.jsp
+2019-04-18 19:34:01 DEBUG AccessFilter:33 - Start of Access filter
+2019-04-18 19:34:01 DEBUG AccessManager:84 - Page is secured

@@ -7,8 +7,6 @@ import com.training.vladilena.model.service.ConferenceService;
 import com.training.vladilena.model.service.impl.DefaultConferenceService;
 import com.training.vladilena.util.AttributesManager;
 import com.training.vladilena.util.PathManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +41,8 @@ public class RedirectCreateReportCommand implements Command {
         request.setAttribute(AttributesManager.getProperty("report"), report);
         return PathManager.getProperty("path.page.create.report");
     }
+
+
 }
 
 

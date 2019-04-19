@@ -78,7 +78,7 @@ public class Report {
                 ", \nConference title in English '" + conferenceTitleEn + '\'' +
                 ", \nDate and time " + dateTime +
                 ", \nProvided lectures amount " + providedLecturesAmount +
-                ", \nRegistered participants amount " + registeredParticipantsAmount +
+              //  ", \nRegistered participants amount " + registeredParticipantsAmount +
                 ", \nActual participants amount " + actualParticipantsAmount
                 + "\n";
     }

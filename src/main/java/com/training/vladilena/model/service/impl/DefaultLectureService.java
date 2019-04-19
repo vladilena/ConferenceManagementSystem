@@ -41,7 +41,9 @@ public class DefaultLectureService implements LectureService {
          LOGGER.debug("Return DefaultLectureService instance");
         return lectureService;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean create(Lecture lecture, long conferenceId) {
         Conference conference = conferenceDao.findById(conferenceId);
@@ -49,22 +51,30 @@ public class DefaultLectureService implements LectureService {
         lecture.setMainConference(conference);
         return lectureDao.create(lecture);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean approve(long lectureId) {
         return lectureDao.approve(lectureId);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Lecture getById(long lectureId) {
         return lectureDao.findById(lectureId);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean update(Lecture lecture) {
         return lectureDao.update(lecture);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean delete(long lectureId) {
         return lectureDao.delete(lectureId);

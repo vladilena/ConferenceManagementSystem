@@ -46,7 +46,9 @@ public class DefaultConferenceService implements ConferenceService {
         return conferenceService;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Conference> getOngoingConferences(long currentTIme) {
         List<Conference> ongoing = conferenceDAO.findAll();
@@ -55,7 +57,9 @@ public class DefaultConferenceService implements ConferenceService {
                 .sorted(Comparator.comparing(Conference::getDateTime).reversed())
                 .collect(Collectors.toList());
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Conference> getLastConferences(long currentTIme) {
         List<Conference> past = conferenceDAO.findAll();
@@ -64,30 +68,40 @@ public class DefaultConferenceService implements ConferenceService {
                 .sorted(Comparator.comparing(Conference::getDateTime).reversed())
                 .collect(Collectors.toList());
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Conference getById(long id) {
         return conferenceDAO.findById(id);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean create(Conference conference) {
         return conferenceDAO.create(conference);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean update(Conference conference) {
         return conferenceDAO.update(conference);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean delete(long conferenceId) {
         return conferenceDAO.delete(conferenceId);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Conference> getOngoingInOneWeekOrLess(long millis) {
-        List<Conference> conferences = conferenceDAO.findAll();
+        List<Conference> conferences = conferenceDAO.findAllSubscribed();
         LocalDateTime currentTime = fromMillisToLocalDateTime(millis);
         return conferences.stream()
                 .filter(s -> s.getDateTime().plusDays(ONGOING_DAYS).isAfter(currentTime))

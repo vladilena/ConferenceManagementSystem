@@ -1,14 +1,9 @@
 package com.training.vladilena.model.dao.impl;
 
 import com.training.vladilena.model.dao.ConferenceDao;
+import com.training.vladilena.model.dao.DaoFactory;
 import com.training.vladilena.model.dao.mapper.impl.ConferenceMapper;
-import com.training.vladilena.model.dao.mapper.impl.LectureMapper;
-import com.training.vladilena.model.dao.mapper.impl.SpeakerMapper;
-import com.training.vladilena.model.dao.mapper.impl.UserMapper;
 import com.training.vladilena.model.entity.Conference;
-import com.training.vladilena.model.entity.Lecture;
-import com.training.vladilena.model.entity.Speaker;
-import com.training.vladilena.model.entity.User;
 import com.training.vladilena.util.SQLManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 /**
  * The {@code MySQLConferenceDao} class implements {@link ConferenceDao}
  * and specified for MySQL DB
@@ -29,18 +25,13 @@ public class MySQLConferenceDao implements ConferenceDao {
 
     private Connection connection;
     private ConferenceMapper conferenceMapper;
-    private LectureMapper lectureMapper;
-    private UserMapper userMapper;
-    private SpeakerMapper speakerMapper;
 
     public MySQLConferenceDao(Connection connection) {
         LOGGER.debug("MySQLConferenceDao constructor");
         this.connection = connection;
         conferenceMapper = new ConferenceMapper();
-        lectureMapper = new LectureMapper();
-        userMapper = new UserMapper();
-        speakerMapper = new SpeakerMapper();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -59,32 +50,27 @@ public class MySQLConferenceDao implements ConferenceDao {
         }
         return resultFlag;
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public Conference findById(long id) {
         Conference result = null;
-        Map<Long, Conference> conferences = new HashMap<>();
-        Map<Long, User> users = new HashMap<>();
-        Map<Long, Lecture> lectures = new HashMap<>();
-        Map<Long, Speaker> speakers = new HashMap<>();
         LOGGER.debug("Try to find conference by id");
         try (PreparedStatement stm = connection.prepareStatement(SQLManager.getProperty("find.conference.by.id"))) {
             stm.setLong(1, id);
             ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                Conference conference = fillRelatedEntities(rs, conferences, users, lectures, speakers);
-                if (!conference.equals(result)) {
-                    result = conference;
-                }
-            }
+                Conference conference = conferenceMapper.parseFromResultSet(rs, false);
+                result = conference;
+
             LOGGER.debug("Select was successful");
         } catch (SQLException e) {
             LOGGER.error("Threw a SQLException, full stack trace follows: " + e);
         }
         return result;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -92,14 +78,12 @@ public class MySQLConferenceDao implements ConferenceDao {
     public List<Conference> findAll() {
         List<Conference> resultList = new ArrayList<>();
         Map<Long, Conference> conferences = new HashMap<>();
-        Map<Long, User> users = new HashMap<>();
-        Map<Long, Lecture> lectures = new HashMap<>();
-        Map<Long, Speaker> speakers = new HashMap<>();
         LOGGER.debug("Try to find all conferences");
         try (Statement stm = connection.createStatement()) {
             ResultSet rs = stm.executeQuery(SQLManager.getProperty("find.all.conferences"));
             while (rs.next()) {
-                Conference conference = fillRelatedEntities(rs, conferences, users, lectures, speakers);
+                Conference conference = conferenceMapper.parseFromResultSet(rs, true);
+                conference = conferenceMapper.makeUnique(conferences, conference);
                 if (!resultList.contains(conference)) {
                     resultList.add(conference);
                 }
@@ -130,6 +114,7 @@ public class MySQLConferenceDao implements ConferenceDao {
         }
         return resultFlag;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -148,6 +133,7 @@ public class MySQLConferenceDao implements ConferenceDao {
         }
         return resultFlag;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -175,35 +161,24 @@ public class MySQLConferenceDao implements ConferenceDao {
         stm.setInt(9, entity.getPlaceCapacity());
     }
 
-    private Conference fillRelatedEntities(ResultSet rs, Map<Long, Conference> conferences, Map<Long, User> users, Map<Long, Lecture> lectures, Map<Long, Speaker> speakers) throws SQLException {
-        Conference conference = conferenceMapper.parseFromResultSet(rs);
-        conference = conferenceMapper.makeUnique(conferences, conference);
-        User user;
-        Lecture lecture;
-        Speaker speaker;
+    @Override
+    public List<Conference> findAllSubscribed() {
+        List<Conference> resultList = new ArrayList<>();
+        LOGGER.debug("Try to find all conferences with subscribed users");
+        try (Statement stm = connection.createStatement()) {
+            ResultSet rs = stm.executeQuery(SQLManager.getProperty("find.all.subscribed.conferences"));
+            resultList = conferenceMapper.parseFromResultSetSubscribed(rs);
+            LOGGER.debug("Found all subscribed conferences successful ");
+        } catch (SQLException e) {
+            LOGGER.error("Threw a SQLException, full stack trace follows: " + e);
+        }
+        return resultList;
+    }
 
-        if (rs.getLong("user_id") != 0) {
-            user =
-                    userMapper.parseFromResultSet(rs);
-            user = userMapper.makeUnique(users, user);
-            if (!conference.getRegisteredParticipants().contains(user)) {
-                conference.getRegisteredParticipants().add(user);
-            }
-        }
-        if (rs.getLong("lecture_id") != 0) {
-            lecture = lectureMapper.parseFromResultSet(rs);
-            lecture = lectureMapper.makeUnique(lectures, lecture);
-            if (!conference.getConferenceLectures().contains(lecture)) {
-                conference.getConferenceLectures().add(lecture);
-                lecture.setMainConference(conference);
-            }
-            if (rs.getLong("speaker_id") != 0) {
-                speaker = speakerMapper.parseFromResultSet(rs);
-                speaker = speakerMapper.makeUnique(speakers, speaker);
-                lecture.setMainSpeaker(speaker);
-            }
-        }
-        return conference;
+
+    public static void main(String[] args) {
+        ConferenceDao dao = DaoFactory.getInstance().getConferenceDao();
+        System.out.println(dao.findAllSubscribed());
     }
 }
 

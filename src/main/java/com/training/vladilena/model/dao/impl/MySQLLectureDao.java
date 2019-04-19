@@ -1,12 +1,8 @@
 package com.training.vladilena.model.dao.impl;
 
 import com.training.vladilena.model.dao.LectureDao;
-import com.training.vladilena.model.dao.mapper.impl.ConferenceMapper;
 import com.training.vladilena.model.dao.mapper.impl.LectureMapper;
-import com.training.vladilena.model.dao.mapper.impl.SpeakerMapper;
-import com.training.vladilena.model.entity.Conference;
 import com.training.vladilena.model.entity.Lecture;
-import com.training.vladilena.model.entity.Speaker;
 import com.training.vladilena.util.SQLManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,15 +23,11 @@ public class MySQLLectureDao implements LectureDao {
 
     private Connection connection;
     private LectureMapper lectureMapper;
-    private SpeakerMapper speakerMapper;
-    private ConferenceMapper conferenceMapper;
 
     public MySQLLectureDao(Connection connection) {
         LOGGER.debug("MySQLLectureDao constructor");
         this.connection = connection;
         lectureMapper = new LectureMapper();
-        speakerMapper = new SpeakerMapper();
-        conferenceMapper = new ConferenceMapper();
     }
     /**
      * {@inheritDoc}
@@ -62,17 +54,14 @@ public class MySQLLectureDao implements LectureDao {
     public Lecture findById(long id) {
         Lecture result = null;
         Map<Long, Lecture> lectures = new HashMap<>();
-        Map<Long, Speaker> speakers = new HashMap<>();
-        Map<Long, Conference> conferences = new HashMap<>();
         LOGGER.debug("Try to find lecture by id");
         try (PreparedStatement stm = connection.prepareStatement(SQLManager.getProperty("find.lecture.by.id"))) {
             stm.setLong(1, id);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                Lecture lecture = fillRelatedEntities(rs, lectures, speakers, conferences);
-                if (!lecture.equals(result)) {
+                Lecture lecture = lectureMapper.parseFromResultSet(rs, false);
+                lecture = lectureMapper.makeUnique(lectures, lecture);
                     result = lecture;
-                }
             }
             LOGGER.debug("Select was successful ");
         } catch (SQLException e) {
@@ -87,16 +76,13 @@ public class MySQLLectureDao implements LectureDao {
     public List<Lecture> findAll() {
         List<Lecture> resultList = new ArrayList<>();
         Map<Long, Lecture> lectures = new HashMap<>();
-        Map<Long, Speaker> speakers = new HashMap<>();
-        Map<Long, Conference> conferences = new HashMap<>();
         LOGGER.debug("Try to find all lectures");
         try (Statement stm = connection.createStatement()) {
             ResultSet rs = stm.executeQuery(SQLManager.getProperty("find.all.lectures"));
             while (rs.next()) {
-                Lecture lecture = fillRelatedEntities(rs, lectures, speakers, conferences);
-                if (!resultList.contains(lecture)) {
+                Lecture lecture = lectureMapper.parseFromResultSet(rs, true);
+                lecture = lectureMapper.makeUnique(lectures, lecture);
                     resultList.add(lecture);
-                }
             }
             LOGGER.debug("Found all lectures successful");
         } catch (SQLException e) {
@@ -167,17 +153,6 @@ public class MySQLLectureDao implements LectureDao {
         stm.setLong(7, entity.getMainConference().getId());
     }
 
-    private Lecture fillRelatedEntities(ResultSet rs, Map<Long, Lecture> lectures, Map<Long, Speaker> speakers, Map<Long, Conference> conferences) throws SQLException {
-        Lecture lecture = lectureMapper.parseFromResultSet(rs);
-        Speaker speaker = speakerMapper.parseFromResultSet(rs);
-        Conference conference = conferenceMapper.parseFromResultSet(rs);
-        speaker = speakerMapper.makeUnique(speakers, speaker);
-        lecture = lectureMapper.makeUnique(lectures, lecture);
-        conference = conferenceMapper.makeUnique(conferences, conference);
-        lecture.setMainSpeaker(speaker);
-        lecture.setMainConference(conference);
-        return lecture;
-    }
     /**
      * {@inheritDoc}
      */

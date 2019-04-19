@@ -119,7 +119,7 @@ public class Lecture {
                 ", description_en='" + descriptionEn + '\'' +
                 ", mainSpeaker=" + mainSpeaker +
                 ", isApproved=" + isApproved +
-               // ", mainConference=" + mainConference +
+                ", mainConference=" + mainConference +
                 '}';
     }
 }

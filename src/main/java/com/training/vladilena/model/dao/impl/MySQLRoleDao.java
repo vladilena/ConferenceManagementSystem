@@ -48,7 +48,7 @@ public class MySQLRoleDao implements RoleDao {
             stm.setLong(1, id);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                role = roleMapper.parseFromResultSet(rs);
+                role = roleMapper.parseFromResultSet(rs, false);
             }
             LOGGER.debug("Select was successful");
 
@@ -67,7 +67,7 @@ public class MySQLRoleDao implements RoleDao {
         try (Statement stm = connection.createStatement()) {
             ResultSet rs = stm.executeQuery(SQLManager.getProperty("find.all.roles"));
             while (rs.next()) {
-                result.add(roleMapper.parseFromResultSet(rs));
+                result.add(roleMapper.parseFromResultSet(rs, false));
             }
             LOGGER.debug("Found all roles successful");
         } catch (SQLException e) {
@@ -116,7 +116,7 @@ public class MySQLRoleDao implements RoleDao {
             stm.setString(1, name);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                role = roleMapper.parseFromResultSet(rs);
+                role = roleMapper.parseFromResultSet(rs, false);
             }
             LOGGER.debug("Found role successful");
         } catch (SQLException e) {

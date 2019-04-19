@@ -2,7 +2,6 @@ package com.training.vladilena.model.dao.impl;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.training.vladilena.model.dao.UserDao;
-import com.training.vladilena.model.dao.mapper.impl.RoleMapper;
 import com.training.vladilena.model.dao.mapper.impl.UserMapper;
 import com.training.vladilena.model.entity.Role;
 import com.training.vladilena.model.entity.User;
@@ -23,13 +22,11 @@ public class MySQLUserDao implements UserDao {
 
     private Connection connection;
     private UserMapper userMapper;
-    private RoleMapper roleMapper;
 
     public MySQLUserDao(Connection connection) {
         LOGGER.debug("MySQLUserDao constructor");
         this.connection = connection;
         userMapper = new UserMapper();
-        roleMapper = new RoleMapper();
     }
 
     /**
@@ -57,16 +54,14 @@ public class MySQLUserDao implements UserDao {
     public User findById(long id) {
         User result = null;
         Map<Long, User> users = new HashMap<>();
-        Map<Long, Role> roles = new HashMap<>();
         LOGGER.debug("Try to find speaker by id " + id);
         try (PreparedStatement stm = connection.prepareStatement(SQLManager.getProperty("user.by.id"))) {
             stm.setLong(1, id);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                User user = fillRelatedEntities(rs, users, roles);
-                if (!user.equals(result)) {
-                    result = user;
-                }
+                User user = userMapper.parseFromResultSet(rs, true);
+                user = userMapper.makeUnique(users, user);
+                result = user;
             }
             LOGGER.debug("Select was successful");
         } catch (SQLException e) {
@@ -81,15 +76,13 @@ public class MySQLUserDao implements UserDao {
     public List<User> findAll() {
         List<User> resultList = new ArrayList<>();
         Map<Long, User> users = new HashMap<>();
-        Map<Long, Role> roles = new HashMap<>();
         LOGGER.debug("Try to find all speakers");
         try (Statement stm = connection.createStatement()) {
             ResultSet rs = stm.executeQuery(SQLManager.getProperty("find.all.users"));
             while (rs.next()) {
-                User user = fillRelatedEntities(rs, users, roles);
-                if (!resultList.contains(user)) {
-                    resultList.add(user);
-                }
+                User user = userMapper.parseFromResultSet(rs, true);
+                user = userMapper.makeUnique(users, user);
+                resultList.add(user);
             }
             LOGGER.debug("Found all users successful");
         } catch (SQLException e) {
@@ -155,16 +148,14 @@ public class MySQLUserDao implements UserDao {
     public User findByLogin(String login) {
         User result = null;
         Map<Long, User> users = new HashMap<>();
-        Map<Long, Role> roles = new HashMap<>();
         LOGGER.debug("Try to find user by login: " + login);
         try (PreparedStatement stm = connection.prepareStatement(SQLManager.getProperty("user.by.login"))) {
             stm.setString(1, login);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                User user = fillRelatedEntities(rs, users, roles);
-                if (!user.equals(result)) {
+                User user = userMapper.parseFromResultSet(rs, false);
+                user = userMapper.makeUnique(users, user);
                     result = user;
-                }
             }
             LOGGER.debug("Successful find");
         } catch (SQLException e) {
@@ -226,17 +217,8 @@ public class MySQLUserDao implements UserDao {
         } else if (entity.getRole() == Role.SPEAKER) {
             stm.setLong(8, 2);
         }
-
     }
 
-    private User fillRelatedEntities(ResultSet rs, Map<Long, User> users, Map<Long, Role> roles) throws SQLException {
-        User user = userMapper.parseFromResultSet(rs);
-        Role role = roleMapper.parseFromResultSet(rs);
-        user = userMapper.makeUnique(users, user);
-        role = roleMapper.makeUnique(roles, role);
-        user.setRole(role);
-        return user;
-    }
     /**
      * {@inheritDoc}
      */
@@ -247,7 +229,6 @@ public class MySQLUserDao implements UserDao {
         try (PreparedStatement stm = connection.prepareStatement(SQLManager.getProperty("subscribe.on.conference"))) {
             stm.setLong(1, userId);
             stm.setLong(2, conferenceId);
-
             try {
                 stm.executeUpdate();
                 resultFlag = true;

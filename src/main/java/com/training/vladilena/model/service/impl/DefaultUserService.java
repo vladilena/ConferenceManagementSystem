@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.Set;
+
 /**
  * {@inheritDoc}
  */
@@ -25,6 +26,7 @@ public class DefaultUserService implements UserService {
         userDao = DaoFactory.getInstance().getUserDao();
         speakerService = DefaultSpeakerService.getInstance();
     }
+
     /**
      * Always return same {@link DefaultUserService} instance
      *
@@ -44,11 +46,17 @@ public class DefaultUserService implements UserService {
         LOGGER.debug("Return DefaultUserService instance");
         return userService;
     }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Set<String> getAllUsersLogins() {
         return userDao.getAllLogins();
     }
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean create(User user) throws SQLException {
         boolean resultFlag = false;
 
@@ -69,6 +77,9 @@ public class DefaultUserService implements UserService {
         return resultFlag;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean subscribeOnConference(long userId, long conferenceId) {
         return userDao.subscribeOnConference(userId, conferenceId);

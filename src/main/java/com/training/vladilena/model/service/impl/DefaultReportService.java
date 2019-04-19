@@ -40,7 +40,9 @@ public class DefaultReportService implements ReportService {
         LOGGER.debug("Return DefaultReportService instance");
         return reportService;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean create(Report report) {
         report.setId(counter++);
