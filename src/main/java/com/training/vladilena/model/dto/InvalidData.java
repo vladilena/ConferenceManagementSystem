@@ -1,4 +1,5 @@
 package com.training.vladilena.model.dto;
+
 /**
  * The {@code InvalidData} class is a data transfer object that is used to inform the view layer
  * about the incorrect input data from the user and determine what kind of class that is used for input field
@@ -28,7 +29,8 @@ public class InvalidData {
     private String invalidConfPlaceCapacity;
     private String invalidLectureStartTime;
 
-    private InvalidData() {}
+    private InvalidData() {
+    }
 
     public String getInvalidLectureStartTime() {
         return invalidLectureStartTime;
@@ -113,6 +115,7 @@ public class InvalidData {
     public String getInvalidLastName() {
         return invalidLastName;
     }
+
     /**
      * Returns {@link Builder} for building {@link InvalidData} object
      *
@@ -122,13 +125,16 @@ public class InvalidData {
     public static Builder newBuilder(String attribute) {
         return new InvalidData().new Builder(attribute);
     }
+
     /**
      * The {@code Builder} is an inner class which building {@link InvalidData} instance
      *
      * @author Vladlena Ushakova
      */
     public class Builder {
-        /** The value is used to specifies what class use in view layer */
+        /**
+         * The value is used to specifies what class use in view layer
+         */
         private final String attribute;
 
         private Builder(String attribute) {
@@ -239,6 +245,7 @@ public class InvalidData {
             InvalidData.this.invalidLectureStartTime = attribute;
             return this;
         }
+
         public InvalidData build() {
             return InvalidData.this;
         }

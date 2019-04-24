@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  * The {@code DeleteConferenceCommand} class implements {@link Command}
  * and is used for deleting the {@link Conference} from the database by Moderator
@@ -24,6 +25,7 @@ public class DeleteConferenceCommand implements Command {
     public DeleteConferenceCommand() {
         conferenceService = DefaultConferenceService.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */

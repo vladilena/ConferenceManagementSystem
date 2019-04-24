@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  * The {@code ChangeLanguageCommand} class implements {@link Command}
  * and is used for changing the language and redirect to previous command
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ChangeLanguageCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(ChangeLanguageCommand.class);
+
     /**
      * {@inheritDoc}
      */

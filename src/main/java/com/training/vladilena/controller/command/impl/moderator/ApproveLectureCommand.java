@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  * The {@code ApproveLectureCommand} class implements {@link Command} and is used for
  * changing {@code isApproved} status of {@link Lecture} to true by Moderator
@@ -29,6 +30,7 @@ public class ApproveLectureCommand implements Command {
         lectureService = DefaultLectureService.getInstance();
         conferenceService = DefaultConferenceService.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */

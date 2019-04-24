@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 /**
  * The {@code MainServlet} class extends {@link HttpServlet} is a controller that receives
  * and forwards all requests or redirect to the desired page
@@ -22,15 +23,17 @@ import java.io.IOException;
 public class MainServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(MainServlet.class);
     private static final String PAGE_SUFFIX = "jsp";
+
     /**
-     *  {@inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processUser(req, resp);
     }
+
     /**
-     *  {@inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

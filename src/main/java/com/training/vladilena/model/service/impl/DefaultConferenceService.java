@@ -13,6 +13,7 @@ import java.time.ZoneId;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
 /**
  * {@inheritDoc}
  */
@@ -26,6 +27,7 @@ public class DefaultConferenceService implements ConferenceService {
     private DefaultConferenceService() {
         conferenceDAO = DaoFactory.getInstance().getConferenceDao();
     }
+
     /**
      * Always return same {@link DefaultConferenceService} instance
      *
@@ -57,6 +59,7 @@ public class DefaultConferenceService implements ConferenceService {
                 .sorted(Comparator.comparing(Conference::getDateTime).reversed())
                 .collect(Collectors.toList());
     }
+
     /**
      * {@inheritDoc}
      */
@@ -68,6 +71,7 @@ public class DefaultConferenceService implements ConferenceService {
                 .sorted(Comparator.comparing(Conference::getDateTime).reversed())
                 .collect(Collectors.toList());
     }
+
     /**
      * {@inheritDoc}
      */
@@ -75,6 +79,7 @@ public class DefaultConferenceService implements ConferenceService {
     public Conference getById(long id) {
         return conferenceDAO.findById(id);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -82,6 +87,7 @@ public class DefaultConferenceService implements ConferenceService {
     public boolean create(Conference conference) {
         return conferenceDAO.create(conference);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -89,6 +95,7 @@ public class DefaultConferenceService implements ConferenceService {
     public boolean update(Conference conference) {
         return conferenceDAO.update(conference);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -96,6 +103,7 @@ public class DefaultConferenceService implements ConferenceService {
     public boolean delete(long conferenceId) {
         return conferenceDAO.delete(conferenceId);
     }
+
     /**
      * {@inheritDoc}
      */

@@ -19,10 +19,10 @@
     <title><fmt:message key="text.title.offer.lecture"/></title>
 </head>
 <body>
-<!-- HEADER -->
+<%-- HEADER --%>
 <jsp:include page="../../template/header.jsp"/>
 
-<!--ALARMS-->
+<%--ALARMS--%>
 <jstl:if test="${not empty requestScope.success_offer}">
     <div class="alert alert-success" role="alert"><fmt:message key="text.alert.success.offer.lecture"/></div>
 </jstl:if>
@@ -47,11 +47,14 @@
     </div>
 </c:if>
 
-<!--CONTENT-->
+<%--CONTENT--%>
 <div class="bg">
     <div class="row">
         <div class="col-3"></div>
         <div class="col-6">
+            <br/>
+            <br/>
+            <br/>
             <c:set var="in_lect" value="${requestScope. invalid_lecture}" scope="request"/>
             <div class="container-fluid">
                 <form role="form" method="post"
@@ -80,7 +83,8 @@
                                value="${in_lect.descriptionEn}"
                                placeholder="<fmt:message key="text.input.lecture.description.en"/>" required>
                     </div>
-                    <button type="submit" class="btn btn-block btn-outline-dark" style="background-color: #5a6268; color: #c8cbcf"><fmt:message
+                    <button type="submit" class="btn btn-block btn-outline-dark"
+                            style="background-color: #5a6268; color: #c8cbcf"><fmt:message
                             key="text.offer"/></button>
                 </form>
             </div>
@@ -88,7 +92,8 @@
         <div class="col-3"></div>
     </div>
 </div>
-<!--FOOTER-->
+
+<%--FOOTER--%>
 <jsp:include page="../../template/footer.jsp"/>
 
 </body>

@@ -1,13 +1,14 @@
 package com.training.vladilena.model.service.regular_services;
 
+import com.training.vladilena.model.dao.SpeakerDao;
 import com.training.vladilena.model.entity.Speaker;
 import com.training.vladilena.model.service.SpeakerService;
 import com.training.vladilena.model.service.impl.DefaultSpeakerService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import  com.training.vladilena.model.dao.SpeakerDao;
 
 import java.util.List;
+
 /**
  * The {@code DefaultTransferSpeakerBonuses} service is a class to transfer bonuses using {@link SpeakerDao}
  *
@@ -25,7 +26,9 @@ public class DefaultTransferSpeakerBonuses implements Runnable {
     public void run() {
         List<Speaker> speakers = speakerService.getAll();
         LOGGER.debug("Try to transfer bonus for each speaker");
-        speakers.forEach(speaker -> speakerService.transferBonus(speaker.getId()));
+        speakers.stream()
+                .filter(speaker -> speaker.getBonus() > 0)
+                .forEach(speaker -> speakerService.transferBonus(speaker.getId()));
     }
 }
 

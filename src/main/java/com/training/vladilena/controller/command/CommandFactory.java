@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
+
 /**
  * The {@code CommandFactory} is a class which depending on the request parameter
  * generate the {@link Command} class instance to execute
@@ -26,8 +27,11 @@ import java.util.Map;
 public class CommandFactory {
     private static final Logger LOGGER = LogManager.getLogger(CommandFactory.class);
     private static volatile CommandFactory factory;
-    /**Map that stores the string representation of commands and their instances */
+    /**
+     * Map that stores the string representation of commands and their instances
+     */
     private final Map<String, Command> commands;
+
     /**
      * Constructor which initialize {@code commands}
      */
@@ -61,6 +65,7 @@ public class CommandFactory {
         commands.put("delete_conference", new DeleteConferenceCommand());
         commands.put("get_bonus", new GetBonusCommand());
     }
+
     /**
      * @return always return the same {@link CommandFactory} instance
      */

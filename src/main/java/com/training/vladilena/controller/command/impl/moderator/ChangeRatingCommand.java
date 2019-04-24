@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+
 /**
  * The {@code ChangeRatingCommand} class implements {@link Command}
  * and is used for editing the {@link Speaker}'s rating by Moderator
@@ -29,6 +30,7 @@ public class ChangeRatingCommand implements Command {
         speakerService = DefaultSpeakerService.getInstance();
         validation = DefaultSpeakerValidation.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */

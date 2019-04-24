@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+
 /**
  * The {@code GenerateConference} interface is used for get {@link Conference}'s parameters
  * from request and validate them
@@ -19,9 +20,11 @@ import java.time.LocalDateTime;
 public interface GenerateConference {
     Logger LOGGER = LogManager.getLogger(GenerateConference.class);
     ConferenceValidation validation = DefaultConferenceValidation.getInstance();
+
     /**
      * The default method which get parameters from request and
      * generate them into {@link Conference}
+     *
      * @param request is an HttpServletRequest request
      * @return instance of {@link Conference}
      */
@@ -38,12 +41,14 @@ public interface GenerateConference {
         conference.setPlaceCapacity(Integer.valueOf(request.getParameter(AttributesManager.getProperty("place.capacity"))));
         return conference;
     }
+
     /**
      * The default method which get {@link Conference} and validate it
+     *
      * @param conference is a Conference to validate
      * @return {@link InvalidData} instance if conference is invalid, else return null
      */
-    default  InvalidData inputChecked(Conference conference) {
+    default InvalidData inputChecked(Conference conference) {
         InvalidData.Builder builder = InvalidData.newBuilder(AttributesManager.getProperty("invalidData"));
         boolean invalidDataFlag = false;
         if (!validation.titleValid(conference.getTitle())) {

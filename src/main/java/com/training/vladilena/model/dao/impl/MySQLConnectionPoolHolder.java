@@ -29,7 +29,8 @@ public class MySQLConnectionPoolHolder implements ConnectionPoolHolder {
         return ds.getConnection();
     }
 
-    private MySQLConnectionPoolHolder(){ }
+    private MySQLConnectionPoolHolder() {
+    }
 }
 
 

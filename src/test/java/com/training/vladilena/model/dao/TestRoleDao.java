@@ -5,24 +5,25 @@ import com.training.vladilena.model.dao.impl.MySQLRoleDao;
 import com.training.vladilena.model.entity.Role;
 import com.training.vladilena.util.TestConnectionPoolHolder;
 import com.training.vladilena.util.TestDataBaseManager;
-import org.junit.*;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-@RunWith(MockitoJUnitRunner.class)
-public class TestRoleDao {
+@ExtendWith(MockitoExtension.class)
+ class TestRoleDao {
     private static RoleDao roleDao;
 
-
-    @BeforeClass
-    public static void setUpClass() {
+    @BeforeAll
+     static void setUpClass() {
         TestDataBaseManager.setUpTestDDL();
         TestDataBaseManager.setUpTestDML();
         try {
@@ -30,11 +31,10 @@ public class TestRoleDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Test
-    public void findAllTest() throws SQLException {
+     void findAllTest() throws SQLException {
         List<Role> expectedRoles = new ArrayList<>();
         expectedRoles.add(RoleBuilder.getBuilder().constructRole(Role.MODERATOR).build());
         expectedRoles.add(RoleBuilder.getBuilder().constructRole(Role.SPEAKER).build());
@@ -45,10 +45,8 @@ public class TestRoleDao {
         assertEquals(expectedRoles, actualRoles);
     }
 
-
-
     @Test
-    public void findByNameTest() {
+    void findByNameTest() {
         Role expectedRole = RoleBuilder.getBuilder().constructRole(Role.MODERATOR).build();
 
         Role actualRole = roleDao.findByName(Role.MODERATOR.name());
@@ -56,32 +54,31 @@ public class TestRoleDao {
         assertEquals(expectedRole, actualRole);
     }
 
-
-
     @Test
-    public void findByIdTest() {
+     void findByIdTest() {
         Role expectedRole = RoleBuilder.getBuilder().constructRole(Role.MODERATOR).build();
         Role actualRole = roleDao.findById(1);
 
         assertEquals(expectedRole, actualRole);
     }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void createTest(){
+    @Test
+    void createTest(){
         Role role = RoleBuilder.getBuilder().constructRole(Role.USER).build();
-        roleDao.create(role);
+        assertThrows(UnsupportedOperationException.class, ()->roleDao.create(role));
+
     }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void updateTest(){
+    @Test
+     void updateTest(){
         Role role = RoleBuilder.getBuilder().constructRole(Role.USER).build();
-        roleDao.update(role);
+        assertThrows(UnsupportedOperationException.class, ()->roleDao.update(role));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void deleteTest(){
+    @Test
+     void deleteTest(){
         Role role = RoleBuilder.getBuilder().constructRole(Role.USER).build();
-        roleDao.delete(role.getId());
+        assertThrows(UnsupportedOperationException.class, ()->roleDao.delete(role.getId()));
     }
 }
 

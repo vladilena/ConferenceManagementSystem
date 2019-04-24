@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  * The {@code SubscribeOnConference} class implements {@link Command}
  * and is used for subscribe {@link User} on {@link Conference}

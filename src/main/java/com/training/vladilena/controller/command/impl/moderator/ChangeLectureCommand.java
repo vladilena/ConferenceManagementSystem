@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.List;
+
 /**
  * The {@code ChangeLectureCommand} class implements {@link Command}, {@link GenerateLecture}
  * and is used for editing the {@link Lecture} by Moderator
@@ -35,6 +36,7 @@ public class ChangeLectureCommand implements Command, GenerateLecture {
         speakerService = DefaultSpeakerService.getInstance();
         conferenceService = DefaultConferenceService.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */

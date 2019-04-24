@@ -4,7 +4,9 @@ import com.training.vladilena.controller.command.Command;
 import com.training.vladilena.controller.command.GenerateUser;
 import com.training.vladilena.model.dto.InvalidData;
 import com.training.vladilena.model.entity.User;
+import com.training.vladilena.model.service.LoginService;
 import com.training.vladilena.model.service.UserService;
+import com.training.vladilena.model.service.impl.DefaultLoginService;
 import com.training.vladilena.model.service.impl.DefaultUserService;
 import com.training.vladilena.util.AttributesManager;
 import com.training.vladilena.util.PathManager;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.Set;
+
 /**
  * The {@code RegistrationCommand} class implements {@link Command},{@link GenerateUser}
  * and is used for new user creation and log in after
@@ -25,10 +28,13 @@ import java.util.Set;
 public class RegistrationCommand implements Command, GenerateUser {
     private static final Logger LOGGER = LogManager.getLogger(RegistrationCommand.class);
     private static UserService userService;
+    private static LoginService loginService;
 
     public RegistrationCommand() {
         userService = DefaultUserService.getInstance();
+        loginService = DefaultLoginService.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -36,12 +42,13 @@ public class RegistrationCommand implements Command, GenerateUser {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         String resultPage = PathManager.getProperty("path.page.registration");
         User user = getUserFromRequest(request);
+        String initialPassword = user.getPassword();
         InvalidData invalidData = inputChecked(user);
 
         if (invalidData == null) {
             LOGGER.info("User is valid");
             user.setPassword(new SecurityHash().hashFunction(user.getPassword()));
-            resultPage = tryToCreateUser(request, user);
+            resultPage = tryToCreateUser(request, user, initialPassword);
 
         } else {
             LOGGER.debug("User is invalid");
@@ -51,12 +58,11 @@ public class RegistrationCommand implements Command, GenerateUser {
         return resultPage;
     }
 
-    private String tryToCreateUser(HttpServletRequest request, User user) {
+    private String tryToCreateUser(HttpServletRequest request, User user, String initialPassword) {
         String resultPage = PathManager.getProperty("path.page.registration");
         if (createUser(user, request)) {
             LOGGER.info("User was added to a database");
-            user.setPassword("");
-            loginUser(request, user);
+            loginUser(request, user, initialPassword);
             resultPage = PathManager.getProperty("redirect.page.main");
         } else {
             LOGGER.debug("User wasn't added to a database");
@@ -81,9 +87,9 @@ public class RegistrationCommand implements Command, GenerateUser {
         return result;
     }
 
-    private static void loginUser(HttpServletRequest request, User user) {
+    private static void loginUser(HttpServletRequest request, User user, String initialPassword) {
         if (request.getSession().getServletContext().getAttribute(user.getLogin()) == null) {
-            user.setPassword("");
+            user = loginService.login(user.getLogin(), initialPassword);
             request.getSession().setAttribute(AttributesManager.getProperty("user"), user);
             request.getSession().getServletContext().setAttribute(user.getLogin(), true);
         }

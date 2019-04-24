@@ -15,11 +15,11 @@ public class UserBuilder implements Builder<User> {
     }
 
     public UserBuilder constructUser(Long template, Builder<Role> roleBuilder) {
-        if(template != null) {
+        if (template != null) {
             user.setId(template);
             user.setLogin("login" + template);
             user.setPassword("password" + template);
-            user.setEmail("email@ukr.net"+template);
+            user.setEmail("email@ukr.net" + template);
             user.setFirstName("text");
             user.setFirstNameEn("text");
             user.setLastName("text");
@@ -31,11 +31,11 @@ public class UserBuilder implements Builder<User> {
     }
 
     public UserBuilder constructUser(Long template) {
-        if(template != null) {
+        if (template != null) {
             user.setId(template);
             user.setLogin("login" + template);
             user.setPassword("password" + template);
-            user.setEmail("email@ukr.net"+template);
+            user.setEmail("email@ukr.net" + template);
             user.setFirstName("text");
             user.setFirstNameEn("text");
             user.setLastName("text");

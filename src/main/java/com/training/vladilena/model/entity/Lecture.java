@@ -2,6 +2,7 @@ package com.training.vladilena.model.entity;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+
 /**
  * The {@code Lecture} class represents a lecture which related to {@link Conference}
  * and {@link Speaker}

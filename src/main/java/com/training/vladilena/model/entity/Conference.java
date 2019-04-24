@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 /**
  * The {@code Conference} class represents a conference which contains lists of
  * {@link Lecture} and {@link User}

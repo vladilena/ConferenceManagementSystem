@@ -1,40 +1,15 @@
-2019-04-18 19:34:01 DEBUG AccessFilter:33 - Start of Access filter
-2019-04-18 19:34:01 DEBUG AccessManager:88 - Page isn't secured
-2019-04-18 19:34:01 DEBUG CommandFactory:78 - Return CommandFactory instance
-2019-04-18 19:34:01 INFO  CommandFactory:89 - Found command: redirect_conference
-2019-04-18 19:34:01 DEBUG MySQLConferenceDao:60 - Try to find conference by id
-2019-04-18 19:34:01 DEBUG ConferenceMapper:39 - Try to parse from conference with relations
-2019-04-18 19:34:01 DEBUG LectureMapper:53 - Try to find out if lecture is empty in result set
-2019-04-18 19:34:01 DEBUG ConferenceMapper:91 - Try to parse from related table(s)
-2019-04-18 19:34:01 DEBUG LectureMapper:32 - Try to parse from lecture without relations
-2019-04-18 19:34:01 DEBUG SpeakerMapper:53 - Try to find out if speaker is empty in result set
-2019-04-18 19:34:01 INFO  LectureMapper:46 - Try to make lecture unique
-2019-04-18 19:34:01 INFO  ConferenceMapper:50 - Try to make conference unique
-2019-04-18 19:34:01 DEBUG LectureMapper:53 - Try to find out if lecture is empty in result set
-2019-04-18 19:34:01 DEBUG ConferenceMapper:91 - Try to parse from related table(s)
-2019-04-18 19:34:01 DEBUG LectureMapper:32 - Try to parse from lecture without relations
-2019-04-18 19:34:01 DEBUG SpeakerMapper:53 - Try to find out if speaker is empty in result set
-2019-04-18 19:34:01 INFO  LectureMapper:46 - Try to make lecture unique
-2019-04-18 19:34:01 INFO  ConferenceMapper:50 - Try to make conference unique
-2019-04-18 19:34:01 DEBUG LectureMapper:53 - Try to find out if lecture is empty in result set
-2019-04-18 19:34:01 DEBUG ConferenceMapper:91 - Try to parse from related table(s)
-2019-04-18 19:34:01 DEBUG LectureMapper:32 - Try to parse from lecture without relations
-2019-04-18 19:34:01 DEBUG SpeakerMapper:53 - Try to find out if speaker is empty in result set
-2019-04-18 19:34:01 INFO  LectureMapper:46 - Try to make lecture unique
-2019-04-18 19:34:01 INFO  ConferenceMapper:50 - Try to make conference unique
-2019-04-18 19:34:01 DEBUG LectureMapper:53 - Try to find out if lecture is empty in result set
-2019-04-18 19:34:01 DEBUG ConferenceMapper:91 - Try to parse from related table(s)
-2019-04-18 19:34:01 DEBUG LectureMapper:32 - Try to parse from lecture without relations
-2019-04-18 19:34:01 DEBUG SpeakerMapper:53 - Try to find out if speaker is empty in result set
-2019-04-18 19:34:01 INFO  LectureMapper:46 - Try to make lecture unique
-2019-04-18 19:34:01 INFO  ConferenceMapper:50 - Try to make conference unique
-2019-04-18 19:34:01 DEBUG LectureMapper:53 - Try to find out if lecture is empty in result set
-2019-04-18 19:34:01 DEBUG ConferenceMapper:91 - Try to parse from related table(s)
-2019-04-18 19:34:01 DEBUG LectureMapper:32 - Try to parse from lecture without relations
-2019-04-18 19:34:01 DEBUG SpeakerMapper:53 - Try to find out if speaker is empty in result set
-2019-04-18 19:34:01 INFO  LectureMapper:46 - Try to make lecture unique
-2019-04-18 19:34:01 INFO  ConferenceMapper:50 - Try to make conference unique
-2019-04-18 19:34:01 DEBUG MySQLConferenceDao:67 - Select was successful
-2019-04-18 19:34:01 DEBUG MainServlet:86 - Forward to: /WEB-INF/view/moderator/speaker/user/conference.jsp
-2019-04-18 19:34:01 DEBUG AccessFilter:33 - Start of Access filter
-2019-04-18 19:34:01 DEBUG AccessManager:84 - Page is secured
+2019-04-24 14:35:12 DEBUG AccessFilter:34 - Start of Access filter
+2019-04-24 14:35:12 DEBUG AccessManager:89 - Page isn't secured
+2019-04-24 14:35:12 DEBUG CommandFactory:83 - Return CommandFactory instance
+2019-04-24 14:35:12 INFO  CommandFactory:94 - Found command: create_report
+2019-04-24 14:35:12 DEBUG CreateReportCommand:43 - Report is valid
+2019-04-24 14:35:12 DEBUG CreateReportCommand:66 - Report was created
+2019-04-24 14:35:12 DEBUG MainServlet:89 - Forward to: /WEB-INF/view/moderator/create_report.jsp
+2019-04-24 14:35:12 DEBUG AccessFilter:34 - Start of Access filter
+2019-04-24 14:35:12 DEBUG AccessManager:85 - Page is secured
+2019-04-24 14:35:12 DEBUG LocaleListener:30 - Get local string from request: uk_UA
+2019-04-24 14:35:12 DEBUG LocaleListener:32 - Set attribute locale: uk_UA
+2019-04-24 14:35:12 DEBUG LocaleListener:30 - Get local string from request: uk_UA
+2019-04-24 14:35:12 DEBUG LocaleListener:32 - Set attribute locale: uk_UA
+2019-04-24 14:35:12 DEBUG LocaleListener:30 - Get local string from request: uk_UA
+2019-04-24 14:35:12 DEBUG LocaleListener:32 - Set attribute locale: uk_UA

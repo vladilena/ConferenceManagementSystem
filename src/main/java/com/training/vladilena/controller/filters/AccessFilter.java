@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+
 /**
  * The {@code AccessFilter} class implements {@link Filter}, {@link GenerateUser}
  * and is used to check if user has a permission to see a page or execute a command

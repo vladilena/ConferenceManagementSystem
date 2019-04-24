@@ -20,10 +20,10 @@
 </head>
 <body>
 
-<!-- HEADER -->
+<%-- HEADER --%>
 <jsp:include page="/WEB-INF/view/template/header.jsp"/>
 
-<!--ALARMS-->
+<%--ALARMS--%>
 <jstl:if test="${not empty requestScope.not_change}">
     <div class="alert alert-danger" role="alert"><fmt:message key="text.not.change.rating"/></div>
 </jstl:if>
@@ -34,12 +34,12 @@
     <div class="alert alert-success" role="alert"><fmt:message key="text.success.change.rating"/></div>
 </jstl:if>
 
-<!--CONTENT-->
+<%--CONTENT--%>
 
 <div class="bg">
     <div class="cust1">
-    <jstl:forEach items="${requestScope.speakers}" var="speaker">
-        <div class="container">
+        <jstl:forEach items="${requestScope.speakers}" var="speaker">
+            <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="row">
@@ -81,12 +81,12 @@
                         </div>
                     </div>
                 </div>
-        </div>
-        <br/>
-    </jstl:forEach>
+            </div>
+            <br/>
+        </jstl:forEach>
     </div>
 </div>
-<!--FOOTER-->
+<%--FOOTER--%>
 <jsp:include page="/WEB-INF/view/template/footer.jsp"/>
 </body>
 </html>

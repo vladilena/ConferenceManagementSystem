@@ -2,6 +2,7 @@ package com.training.vladilena.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * The {@code Speaker} class extends {@link User} and expand his rights
  *
@@ -131,11 +132,11 @@ public class Speaker extends User {
 
     @Override
     public String toString() {
-        return "Speaker{" +super.toString()+
+        return "Speaker{" + super.toString() +
                 "rating=" + rating +
                 ", bonus=" + bonus +
                 ", lectures=" + lectures +
-                "} " ;
+                "} ";
     }
 }
 

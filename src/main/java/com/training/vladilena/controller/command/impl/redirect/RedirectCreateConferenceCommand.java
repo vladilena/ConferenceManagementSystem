@@ -5,6 +5,7 @@ import com.training.vladilena.util.PathManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  * The {@code RedirectCreateConferenceCommand} class implements {@link Command}
  * and is used for redirect to the create conference page

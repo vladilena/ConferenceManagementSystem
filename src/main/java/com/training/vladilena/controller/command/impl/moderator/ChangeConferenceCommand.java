@@ -11,6 +11,7 @@ import com.training.vladilena.util.PathManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  * The {@code ChangeConferenceCommand} class implements {@link Command}, {@link GenerateConference}
  * and is used for editing the {@link Conference} by Moderator
@@ -23,6 +24,7 @@ public class ChangeConferenceCommand implements Command, GenerateConference {
     public ChangeConferenceCommand() {
         conferenceService = DefaultConferenceService.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -43,7 +45,8 @@ public class ChangeConferenceCommand implements Command, GenerateConference {
         }
         return PathManager.getProperty("path.page.change.conference");
     }
-    private void tryToUpdateConference(Conference conference, HttpServletRequest request){
+
+    private void tryToUpdateConference(Conference conference, HttpServletRequest request) {
         if (conferenceService.update(conference)) {
             LOGGER.info("Conference was updated");
             request.setAttribute(AttributesManager.getProperty("success.update"), true);

@@ -1,7 +1,7 @@
 package com.training.vladilena.controller.command;
 
 import com.training.vladilena.controller.command.impl.EmptyCommand;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class TestCommandFactory {
+class TestCommandFactory {
     @Test
-    public void whenWrongCommandCameThenReturnEmptyCommand() {
+    void whenWrongCommandCameThenReturnEmptyCommand() {
         String action = "wrongCommand";
         final CommandFactory factory = CommandFactory.getInstance();
         final HttpServletRequest request = mock(HttpServletRequest.class);

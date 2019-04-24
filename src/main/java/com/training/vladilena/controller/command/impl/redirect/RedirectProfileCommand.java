@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  * The {@code RedirectProfileCommand} class implements {@link Command}
  * and is used for redirect to the profile page and fill it with {@link Speaker} data
@@ -26,6 +27,7 @@ public class RedirectProfileCommand implements Command, GenerateUser {
     public RedirectProfileCommand() {
         speakerService = DefaultSpeakerService.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -33,10 +35,10 @@ public class RedirectProfileCommand implements Command, GenerateUser {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         User user = getUserFromSession(request);
         Speaker speaker = speakerService.getById(user.getId());
-        if(speaker!=null){
+        if (speaker != null) {
             LOGGER.debug("Speaker exists");
             request.setAttribute(AttributesManager.getProperty("speaker"), speaker);
-        }else {
+        } else {
             LOGGER.debug("Speaker not exists");
             request.setAttribute(AttributesManager.getProperty("not.exist.speaker"), true);
         }

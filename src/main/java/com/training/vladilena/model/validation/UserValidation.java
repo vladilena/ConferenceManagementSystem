@@ -1,5 +1,7 @@
 package com.training.vladilena.model.validation;
+
 import com.training.vladilena.model.entity.User;
+
 /**
  * The {@code UserValidation} is a interface which provide method to validate {@link User}
  *

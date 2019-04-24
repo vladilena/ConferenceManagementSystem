@@ -2,6 +2,7 @@ package com.training.vladilena.util;
 
 
 import java.util.ResourceBundle;
+
 /**
  * The {@code AttributesManager} class used to obtain the properties
  * by key from {@code "attributes.properties"} file which has information
@@ -11,7 +12,10 @@ import java.util.ResourceBundle;
  */
 public class AttributesManager {
     private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("attributes");
-    private AttributesManager() {}
+
+    private AttributesManager() {
+    }
+
     /**
      * Method which is used to get value of the property obtained by the key
      *

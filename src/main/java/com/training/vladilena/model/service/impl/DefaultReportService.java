@@ -12,6 +12,7 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 /**
  * {@inheritDoc}
  */
@@ -20,7 +21,9 @@ public class DefaultReportService implements ReportService {
     private static int counter = 1;
     private static volatile ReportService reportService;
 
-    private DefaultReportService() {}
+    private DefaultReportService() {
+    }
+
     /**
      * Always return same {@link DefaultReportService} instance
      *
@@ -40,6 +43,7 @@ public class DefaultReportService implements ReportService {
         LOGGER.debug("Return DefaultReportService instance");
         return reportService;
     }
+
     /**
      * {@inheritDoc}
      */

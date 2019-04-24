@@ -1,9 +1,7 @@
 package com.training.vladilena.util;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.util.ResourceBundle;
+
 /**
  * The {@code ConnectionDBManager} class used to obtain the properties
  * by key from {@code "connectionDB.properties"} file which has information
@@ -13,7 +11,10 @@ import java.util.ResourceBundle;
  */
 public class ConnectionDBManager {
     private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("connectionDB");
-    private ConnectionDBManager() {}
+
+    private ConnectionDBManager() {
+    }
+
     /**
      * Method which is used to get value of the property obtained by the key
      *
@@ -22,6 +23,7 @@ public class ConnectionDBManager {
      */
     public static String getProperty(String key) {
         return resourceBundle.getString(key);
-}}
+    }
+}
 
 

@@ -8,6 +8,7 @@ import javax.servlet.ServletContextListener;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 /**
  * The {@code UpcomingEventListener} class implements {@link ServletContextListener}
  * and is used to execute {@link DefaultSendInvitationsService} periodically
@@ -15,16 +16,16 @@ import java.util.concurrent.TimeUnit;
  * @author Vladlena Ushakova
  */
 public class UpcomingEventListener implements ServletContextListener {
-    private ScheduledExecutorService scheduler;
 
     /**
-     *  The method planned to execute {@link DefaultSendInvitationsService} with
-     *  initial delay and period
+     * The method planned to execute {@link DefaultSendInvitationsService} with
+     * initial delay and period
+     *
      * @param event is a ServletContextEvent event
      */
     @Override
     public void contextInitialized(ServletContextEvent event) {
-        scheduler = Executors.newSingleThreadScheduledExecutor();
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         Runnable command = new DefaultSendInvitationsService();
         long initialDelay = Long.valueOf(BusinessLogicManager.getProperty("initial.delay.mail"));
         TimeUnit unit = TimeUnit.DAYS;

@@ -10,6 +10,7 @@ import com.training.vladilena.util.PathManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+
 /**
  * The {@code RedirectSpeakersCommand} class implements {@link Command}
  * and is used for redirect to the speakers list page and  fill it with data
@@ -22,6 +23,7 @@ public class RedirectSpeakersCommand implements Command {
     public RedirectSpeakersCommand() {
         speakerService = DefaultSpeakerService.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */

@@ -8,6 +8,7 @@ import com.training.vladilena.model.entity.Lecture;
 import com.training.vladilena.model.service.LectureService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 /**
  * {@inheritDoc}
  */
@@ -22,6 +23,7 @@ public class DefaultLectureService implements LectureService {
         lectureDao = DaoFactory.getInstance().getLectureDao();
         conferenceDao = DaoFactory.getInstance().getConferenceDao();
     }
+
     /**
      * Always return same {@link DefaultLectureService} instance
      *
@@ -34,13 +36,14 @@ public class DefaultLectureService implements LectureService {
                 localInstance = lectureService;
                 if (localInstance == null) {
                     lectureService = new DefaultLectureService();
-                      LOGGER.debug("Create DefaultLectureService instance");
+                    LOGGER.debug("Create DefaultLectureService instance");
                 }
             }
         }
-         LOGGER.debug("Return DefaultLectureService instance");
+        LOGGER.debug("Return DefaultLectureService instance");
         return lectureService;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -51,6 +54,7 @@ public class DefaultLectureService implements LectureService {
         lecture.setMainConference(conference);
         return lectureDao.create(lecture);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -58,6 +62,7 @@ public class DefaultLectureService implements LectureService {
     public boolean approve(long lectureId) {
         return lectureDao.approve(lectureId);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -65,6 +70,7 @@ public class DefaultLectureService implements LectureService {
     public Lecture getById(long lectureId) {
         return lectureDao.findById(lectureId);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -72,6 +78,7 @@ public class DefaultLectureService implements LectureService {
     public boolean update(Lecture lecture) {
         return lectureDao.update(lecture);
     }
+
     /**
      * {@inheritDoc}
      */

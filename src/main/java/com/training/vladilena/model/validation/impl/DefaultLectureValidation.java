@@ -15,55 +15,67 @@ public class DefaultLectureValidation implements LectureValidation {
 
     private DefaultLectureValidation() {
     }
+
     /**
      * Always return same {@link DefaultLectureValidation} instance
      *
      * @return always return same {@link DefaultLectureValidation} instance
      */
-    public static LectureValidation getInstance(){
+    public static LectureValidation getInstance() {
         LectureValidation localInstance = lectureValidation;
-        if(localInstance == null) {
+        if (localInstance == null) {
             synchronized (DefaultUserValidation.class) {
                 localInstance = lectureValidation;
-                if(localInstance == null) {
+                if (localInstance == null) {
                     lectureValidation = new DefaultLectureValidation();
-                     LOGGER.debug("Create first DefaultLectureValidation instance");
+                    LOGGER.debug("Create first DefaultLectureValidation instance");
                 }
             }
         }
-         LOGGER.debug("Return DefaultLectureValidation instance");
+        LOGGER.debug("Return DefaultLectureValidation instance");
         return lectureValidation;
     }
 
     @Override
     public boolean startTimeValid(LocalDateTime lectureTime, LocalDateTime conferenceTime) {
-        return lectureTime.getDayOfYear()==conferenceTime.getDayOfYear();
+        return lectureTime.getDayOfYear() == conferenceTime.getDayOfYear();
     }
 
     @Override
     public boolean titleValid(String title) {
-        if (title == null){return false;}
+        if (title == null) {
+            return false;
+        }
         Pattern p = Pattern.compile(RegexManager.getProperty("lect.title.ukr"), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
         Matcher m = p.matcher(title);
         return m.matches();
     }
+
     @Override
     public boolean titleEnValid(String title) {
-        if (title == null){return false;}
+        if (title == null) {
+            return false;
+        }
         Pattern p = Pattern.compile(RegexManager.getProperty("lect.title.en"), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
         Matcher m = p.matcher(title);
         return m.matches();
     }
+
     @Override
     public boolean descriptionValid(String description) {
-        if (description == null){return false;}
+        if (description == null) {
+            return false;
+        }
         Pattern p = Pattern.compile(RegexManager.getProperty("lect.description.ukr"), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
         Matcher m = p.matcher(description);
         return m.matches();
     }
+
     @Override
     public boolean descriptionEnValid(String description) {
-        if (description == null){return false;}
+        if (description == null) {
+            return false;
+        }
         Pattern p = Pattern.compile(RegexManager.getProperty("lect.description.en"), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
         Matcher m = p.matcher(description);
         return m.matches();

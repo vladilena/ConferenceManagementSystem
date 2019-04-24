@@ -1,10 +1,10 @@
 package com.training.vladilena.util;
 
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 /**
  * The {@code TimeFormatConvertation} class is used to convert date and time pattern
  * depends on user's local

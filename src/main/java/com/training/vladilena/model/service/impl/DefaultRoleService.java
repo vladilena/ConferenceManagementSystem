@@ -21,25 +21,27 @@ public class DefaultRoleService implements RoleService {
     private DefaultRoleService() {
         roleDAO = DaoFactory.getInstance().getRoleDao();
     }
+
     /**
      * Always return same {@link DefaultRoleService} instance
      *
      * @return always return same {@link DefaultRoleService} instance
      */
-    public static RoleService getInstance(){
+    public static RoleService getInstance() {
         RoleService localInstance = roleService;
-        if(localInstance == null) {
+        if (localInstance == null) {
             synchronized (DefaultLoginService.class) {
                 localInstance = roleService;
-                if(localInstance == null) {
+                if (localInstance == null) {
                     roleService = new DefaultRoleService();
-                      LOGGER.debug("Create first DefaultRoleService instance");
+                    LOGGER.debug("Create first DefaultRoleService instance");
                 }
             }
         }
         LOGGER.debug("Return DefaultRoleService instance");
         return roleService;
     }
+
     /**
      * {@inheritDoc}
      */

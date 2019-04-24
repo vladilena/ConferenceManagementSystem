@@ -1,6 +1,9 @@
 package com.training.vladilena.model.validation;
+
 import com.training.vladilena.model.entity.Lecture;
+
 import java.time.LocalDateTime;
+
 /**
  * The {@code LectureValidation} is a interface which provide method to validate {@link Lecture}
  *

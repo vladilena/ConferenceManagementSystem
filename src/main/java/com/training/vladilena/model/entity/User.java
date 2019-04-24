@@ -4,6 +4,7 @@ package com.training.vladilena.model.entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 /**
  * The {@code User} class is a user of the system which can be a student, moderator or speaker
  *
@@ -129,7 +130,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", lastName_en='" + lastNameEn + '\'' +
                 ", role=" + role +
-               // ", conferences=" + conferences +
+                ", conferences=" + conferences +
                 '}';
     }
 }

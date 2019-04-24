@@ -1,6 +1,7 @@
 package com.training.vladilena.util;
 
 import java.util.ResourceBundle;
+
 /**
  * The {@code BusinessLogicManager} class used to obtain the properties
  * by key from {@code "business_logic.properties"} file which has information
@@ -8,9 +9,12 @@ import java.util.ResourceBundle;
  *
  * @author Vladlena Ushakova
  */
-public class BusinessLogicManager{
+public class BusinessLogicManager {
     private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("business_logic");
-    private BusinessLogicManager() {}
+
+    private BusinessLogicManager() {
+    }
+
     /**
      * Method which is used to get value of the property obtained by the key
      *

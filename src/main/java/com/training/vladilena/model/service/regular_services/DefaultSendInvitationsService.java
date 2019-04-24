@@ -1,7 +1,6 @@
 package com.training.vladilena.model.service.regular_services;
 
 import com.training.vladilena.model.entity.Conference;
-import com.training.vladilena.model.entity.Lecture;
 import com.training.vladilena.model.entity.User;
 import com.training.vladilena.model.service.ConferenceService;
 import com.training.vladilena.model.service.impl.DefaultConferenceService;
@@ -15,6 +14,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
 /**
  * The {@code DefaultSendInvitationsService} service is a class to send letters to subscribed users
  *
@@ -27,7 +27,6 @@ public class DefaultSendInvitationsService implements Runnable {
 
     public DefaultSendInvitationsService() {
         conferenceService = DefaultConferenceService.getInstance();
-
     }
 
     @Override
@@ -94,7 +93,7 @@ public class DefaultSendInvitationsService implements Runnable {
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
         message.setSubject(BusinessLogicManager.getProperty("subject"));
 
-        StringBuilder emailText = new StringBuilder()
+        String emailText = new StringBuilder()
                 .append(BusinessLogicManager.getProperty("text.hello.en"))
                 .append(BusinessLogicManager.getProperty("text.line"))
                 .append(conference.getTitleEn())
@@ -119,19 +118,10 @@ public class DefaultSendInvitationsService implements Runnable {
                 .append(BusinessLogicManager.getProperty("text.line"))
                 .append(conference.getPlace())
                 .append(BusinessLogicManager.getProperty("text.line"))
-                .append(BusinessLogicManager.getProperty("text.bye.ukr"));
+                .append(BusinessLogicManager.getProperty("text.bye.ukr"))
+                .toString();
 
-        LOGGER.debug("Starting to put lectures in email");
-        List<Lecture> lectures = conference.getConferenceLectures();
-        lectures.forEach(lecture -> emailText.append(lecture.getTitle())
-                .append(lecture.getTitleEn())
-                .append(lecture.getTitleEn())
-                .append(lecture.getDescription())
-                .append(lecture.getDescriptionEn())
-                .append(lecture.getStartTime())
-        );
-
-        message.setText(emailText.toString());
+        message.setText(emailText);
         return message;
     }
 }

@@ -1,6 +1,7 @@
 package com.training.vladilena.model.dao;
 
 import com.training.vladilena.model.dao.impl.MySQLDaoFactory;
+
 /**
  * The {@code DaoFactory} class is an Abstract class to get instances of DAO
  *

@@ -16,17 +16,18 @@ public class DefaultUserValidation implements UserValidation {
 
     private DefaultUserValidation() {
     }
+
     /**
      * Always return same {@link DefaultUserValidation} instance
      *
      * @return always return same {@link DefaultUserValidation} instance
      */
-    public static UserValidation getInstance(){
+    public static UserValidation getInstance() {
         UserValidation localInstance = userValidation;
-        if(localInstance == null) {
+        if (localInstance == null) {
             synchronized (DefaultUserValidation.class) {
                 localInstance = userValidation;
-                if(localInstance == null) {
+                if (localInstance == null) {
                     userValidation = new DefaultUserValidation();
                     LOGGER.debug("Create first DefaultUserValidation instance");
                 }
@@ -39,25 +40,33 @@ public class DefaultUserValidation implements UserValidation {
 
     @Override
     public boolean loginValid(String login) {
-        if (login == null){return false;}
+        if (login == null) {
+            return false;
+        }
         return Pattern.matches(RegexManager.getProperty("login"), login);
     }
 
     @Override
     public boolean emailValid(String email) {
-        if (email == null){return false;}
+        if (email == null) {
+            return false;
+        }
         return Pattern.matches(RegexManager.getProperty("email"), email);
     }
 
     @Override
     public boolean passwordValid(String password) {
-        if (password == null){return false;}
+        if (password == null) {
+            return false;
+        }
         return Pattern.matches(RegexManager.getProperty("password"), password);
     }
 
     @Override
     public boolean firstNameValid(String firstName) {
-        if (firstName == null){return false;}
+        if (firstName == null) {
+            return false;
+        }
         Pattern p = Pattern.compile(RegexManager.getProperty("name.ukr"), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
         Matcher m = p.matcher(firstName);
         return (m.matches());
@@ -65,7 +74,9 @@ public class DefaultUserValidation implements UserValidation {
 
     @Override
     public boolean lastNameValid(String lastName) {
-        if (lastName == null){return false;}
+        if (lastName == null) {
+            return false;
+        }
         Pattern p = Pattern.compile(RegexManager.getProperty("surname.ukr"), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
         Matcher m = p.matcher(lastName);
         return (m.matches());
@@ -73,13 +84,17 @@ public class DefaultUserValidation implements UserValidation {
 
     @Override
     public boolean firstNameEnValid(String firstNameEn) {
-        if (firstNameEn == null){return false;}
+        if (firstNameEn == null) {
+            return false;
+        }
         return Pattern.matches(RegexManager.getProperty("name.en"), firstNameEn);
     }
 
     @Override
     public boolean lastNameEnValid(String lastNameEn) {
-        if (lastNameEn == null){return false;}
+        if (lastNameEn == null) {
+            return false;
+        }
         return Pattern.matches(RegexManager.getProperty("surname.en"), lastNameEn);
     }
 }

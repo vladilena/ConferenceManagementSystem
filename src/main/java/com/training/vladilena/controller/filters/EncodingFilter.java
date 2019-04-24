@@ -5,6 +5,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 /**
  * The {@code EncodingFilter} class implements {@link Filter} and is used to set
  * {@code UTF-8} character encoding for all requests and responses
@@ -16,7 +17,7 @@ public class EncodingFilter implements Filter {
     private static final String CONTENT_TYPE = "text/html";
 
     @Override
-    public void init(FilterConfig filterConfig){
+    public void init(FilterConfig filterConfig) {
     }
 
     @Override

@@ -46,6 +46,7 @@ public class DefaultUserService implements UserService {
         LOGGER.debug("Return DefaultUserService instance");
         return userService;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -53,6 +54,7 @@ public class DefaultUserService implements UserService {
     public Set<String> getAllUsersLogins() {
         return userDao.getAllLogins();
     }
+
     /**
      * {@inheritDoc}
      */

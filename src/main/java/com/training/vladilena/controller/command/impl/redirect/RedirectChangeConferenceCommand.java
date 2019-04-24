@@ -9,6 +9,7 @@ import com.training.vladilena.util.PathManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  * The {@code RedirectChangeConferenceCommand} class implements {@link Command}
  * and is used for redirect to the conference page and fill it with data
@@ -21,6 +22,7 @@ public class RedirectChangeConferenceCommand implements Command {
     public RedirectChangeConferenceCommand() {
         conferenceService = DefaultConferenceService.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */

@@ -18,7 +18,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #5a6268">
     <a class="navbar-brand" href="${pageContext.request.contextPath}/conf?action=main"><i>Conference</i></a>
-    <!-- Collapse button -->
+    <%-- Collapse button --%>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
             aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -37,24 +37,27 @@
                                 key="text.logout"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/conf?action=change_language&language=en_US"><fmt:message
+                        <a class="nav-link"
+                           href="${pageContext.request.contextPath}/conf?action=change_language&language=en_US"><fmt:message
                                 key="text.lang.eng"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/conf?action=change_language&language=uk_UA"><fmt:message
+                        <a class="nav-link"
+                           href="${pageContext.request.contextPath}/conf?action=change_language&language=uk_UA"><fmt:message
                                 key="text.lang.ukr"/></a>
                     </li>
 
-
                     <c:if test="${'SPEAKER' == sessionScope.user.role}">
                         <li class="nav-item dropleft">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-555" data-toggle="dropdown" aria-haspopup="true"
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-555" data-toggle="dropdown"
+                               aria-haspopup="true"
                                aria-expanded="false"><fmt:message
                                     key="text.menu"/>
                             </a>
 
                             <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-555">
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/conf?action=redirect_profile">
+                                <a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/conf?action=redirect_profile">
                                     <fmt:message key="text.profile"/></a>
                             </div>
                         </li>
@@ -62,15 +65,18 @@
 
                     <c:if test="${'MODERATOR' == sessionScope.user.role}">
                         <li class="nav-item dropleft">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+                               aria-haspopup="true"
                                aria-expanded="false"><fmt:message
                                     key="text.menu"/>
                             </a>
 
                             <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-55">
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/conf?action=redirect_speakers">
+                                <a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/conf?action=redirect_speakers">
                                     <fmt:message key="text.speakers.list"/></a>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/conf?action=redirect_create_conference">
+                                <a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/conf?action=redirect_create_conference">
                                     <fmt:message key="text.create.conference"/></a>
                             </div>
                         </li>
@@ -86,17 +92,22 @@
                                 key="text.main"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/conf?action=redirect_registration"><fmt:message key="text.registration"/></a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/conf?action=redirect_registration"><fmt:message
+                                key="text.registration"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/conf?action=redirect_login"><fmt:message key="text.log.in"/></a>
+                        <a class="nav-link"
+                           href="${pageContext.request.contextPath}/conf?action=redirect_login"><fmt:message
+                                key="text.log.in"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/conf?action=change_language&language=en_US"><fmt:message
+                        <a class="nav-link"
+                           href="${pageContext.request.contextPath}/conf?action=change_language&language=en_US"><fmt:message
                                 key="text.lang.eng"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/conf?action=change_language&language=uk_UA"><fmt:message
+                        <a class="nav-link"
+                           href="${pageContext.request.contextPath}/conf?action=change_language&language=uk_UA"><fmt:message
                                 key="text.lang.ukr"/></a>
                     </li>
                 </ul>
@@ -106,7 +117,7 @@
 
 </nav>
 
-<!-- JS -->
+<%-- JS --%>
 <script src="/resources/vendor/jquery/jquery.min.js"></script>
 <script src="/resources/js/main.js"></script>
 <script src="/resources/js/bootstrap.js" type="text/javascript"></script>

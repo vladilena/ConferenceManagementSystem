@@ -1,9 +1,7 @@
 package com.training.vladilena.util;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.util.ResourceBundle;
+
 /**
  * The {@code SQLManager} class used to obtain the properties
  * by key from {@code "SQL_statements.properties"} file which has information
@@ -13,7 +11,10 @@ import java.util.ResourceBundle;
  */
 public class SQLManager {
     private final static ResourceBundle resourceBundle = ResourceBundle.getBundle("SQL_statements");
-    private SQLManager() {}
+
+    private SQLManager() {
+    }
+
     /**
      * Method which is used to get value of the property obtained by the key
      *

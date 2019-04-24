@@ -10,6 +10,7 @@ public class DefaultReportValidation implements ReportValidation {
 
     private DefaultReportValidation() {
     }
+
     /**
      * Always return same {@link DefaultReportValidation} instance
      *

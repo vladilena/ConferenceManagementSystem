@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.*;
+
 /**
  * The {@code MySQLUserDao} class implements {@link UserDao}
  * and specified for MySQL DB
@@ -47,6 +48,7 @@ public class MySQLUserDao implements UserDao {
         }
         return resultFlag;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -69,6 +71,7 @@ public class MySQLUserDao implements UserDao {
         }
         return result;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -90,6 +93,7 @@ public class MySQLUserDao implements UserDao {
         }
         return resultList;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -128,6 +132,7 @@ public class MySQLUserDao implements UserDao {
         }
         return resultFlag;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -141,6 +146,7 @@ public class MySQLUserDao implements UserDao {
             throw new RuntimeException(e);
         }
     }
+
     /**
      * {@inheritDoc}
      */
@@ -155,7 +161,7 @@ public class MySQLUserDao implements UserDao {
             while (rs.next()) {
                 User user = userMapper.parseFromResultSet(rs, false);
                 user = userMapper.makeUnique(users, user);
-                    result = user;
+                result = user;
             }
             LOGGER.debug("Successful find");
         } catch (SQLException e) {
@@ -163,6 +169,7 @@ public class MySQLUserDao implements UserDao {
         }
         return result;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -182,6 +189,7 @@ public class MySQLUserDao implements UserDao {
 
         return logins;
     }
+
     /**
      * {@inheritDoc}
      */

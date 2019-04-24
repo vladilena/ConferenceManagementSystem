@@ -11,17 +11,11 @@
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="text"/>
 
-
-<!-- Footer -->
+<%-- Footer --%>
 <footer class="page-footer font-small fixed-bottom" style="background-color: #5a6268; color: #c8cbcf">
-
-    <!-- Contact -->
     <div class="footer-copyright text-center py-3"><fmt:message
             key="text.footer"/>
         conference.system.info.training@gmail.com
-
     </div>
-    <!-- Contact -->
-
 </footer>
-<!-- Footer -->
+

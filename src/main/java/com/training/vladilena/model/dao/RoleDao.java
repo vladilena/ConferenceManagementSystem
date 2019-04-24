@@ -1,6 +1,7 @@
 package com.training.vladilena.model.dao;
 
 import com.training.vladilena.model.entity.Role;
+
 /**
  * The {@code RoleDao} implements {@link GenericDao}
  * interface for ORM database entity {@link Role}

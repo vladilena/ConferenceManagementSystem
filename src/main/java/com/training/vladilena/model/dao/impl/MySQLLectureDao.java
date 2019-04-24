@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 /**
  * The {@code MySQLLectureDao} class implements {@link LectureDao}
  * and specified for MySQL DB
@@ -29,6 +30,7 @@ public class MySQLLectureDao implements LectureDao {
         this.connection = connection;
         lectureMapper = new LectureMapper();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -47,6 +49,7 @@ public class MySQLLectureDao implements LectureDao {
         }
         return resultFlag;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -61,7 +64,7 @@ public class MySQLLectureDao implements LectureDao {
             while (rs.next()) {
                 Lecture lecture = lectureMapper.parseFromResultSet(rs, false);
                 lecture = lectureMapper.makeUnique(lectures, lecture);
-                    result = lecture;
+                result = lecture;
             }
             LOGGER.debug("Select was successful ");
         } catch (SQLException e) {
@@ -69,6 +72,7 @@ public class MySQLLectureDao implements LectureDao {
         }
         return result;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -82,7 +86,7 @@ public class MySQLLectureDao implements LectureDao {
             while (rs.next()) {
                 Lecture lecture = lectureMapper.parseFromResultSet(rs, true);
                 lecture = lectureMapper.makeUnique(lectures, lecture);
-                    resultList.add(lecture);
+                resultList.add(lecture);
             }
             LOGGER.debug("Found all lectures successful");
         } catch (SQLException e) {
@@ -90,6 +94,7 @@ public class MySQLLectureDao implements LectureDao {
         }
         return resultList;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -110,6 +115,7 @@ public class MySQLLectureDao implements LectureDao {
         }
         return resultFlag;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -128,6 +134,7 @@ public class MySQLLectureDao implements LectureDao {
         }
         return resultFlag;
     }
+
     /**
      * {@inheritDoc}
      */

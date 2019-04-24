@@ -10,7 +10,7 @@
 <%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="dt" uri="/WEB-INF/time_convertor.tld"%>
+<%@ taglib prefix="dt" uri="/WEB-INF/time_convertor.tld" %>
 
 <c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'uk_UA'}"
        scope="session"/>
@@ -22,11 +22,11 @@
 </head>
 <body>
 
-<!-- HEADER -->
+<%-- HEADER --%>
 <jsp:include page="/WEB-INF/view/template/header.jsp"/>
 <c:set var="speaker" value="${requestScope.speaker}" scope="request"/>
 
-<!-- ALARMS -->
+<%-- ALARMS --%>
 <jstl:if test="${not empty requestScope.bonus_transfered}">
     <div class="alert alert-success" role="alert"><fmt:message key="text.bonus.transfered"/></div>
 </jstl:if>
@@ -63,10 +63,12 @@
                             <fmt:message key="text.user.email"/>: ${speaker.email}
                             <br/>
                             <i class="glyphicon glyphicon-gift"></i>
-                            <fmt:message key="text.user.rating"/>: ${speaker.rating} <fmt:message key="text.user.rating.unit"/>
+                            <fmt:message key="text.user.rating"/>: ${speaker.rating} <fmt:message
+                                key="text.user.rating.unit"/>
                             <br/>
                             <i class="glyphicon glyphicon-gift"></i>
-                            <fmt:message key="text.user.bonus"/>: ${speaker.bonus} <fmt:message key="text.user.bonus.unit"/>
+                            <fmt:message key="text.user.bonus"/>: ${speaker.bonus} <fmt:message
+                                key="text.user.bonus.unit"/>
                         </p>
 
                         <jstl:if test="${speaker.bonus > 0}">
@@ -99,41 +101,46 @@
             </div>
         </div>
         <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
-            <jstl:if test="${not empty speaker.lectures}">
-                <p><div class="text-center" style="background-color: #c8cbcf; color:  #1b1e21"><fmt:message key="text.my.lectures"/></div></p>
-                <jstl:forEach items="${speaker.lectures}" var="lecture">
-                    <jstl:choose>
-                        <jstl:when test="${language.equals('uk_UA')}">
-                            <li><b><fmt:message
-                                    key="text.lecture.start.time"/></b>
-                                <dt:dateFrm date="${lecture.startTime}" local="${language}"/></li>
-                            <li><b><fmt:message key="text.lecture.title"/></b> ${lecture.title}</li>
-                            <li><b><fmt:message
-                                    key="text.lecture.description"/></b> ${lecture.description}</li>
-                        </jstl:when>
-                        <jstl:when test="${language.equals('en_US')}">
-                            <li><b><fmt:message
-                                    key="text.lecture.start.time"/></b>
-                                <dt:dateFrm date="${lecture.startTime}" local="${language}"/></li>
-                            <li><b><fmt:message key="text.lecture.title"/></b> ${lecture.titleEn}
-                            </li>
-                            <li><b><fmt:message
-                                    key="text.lecture.description"/></b> ${lecture.descriptionEn}
-                            </li>
-                        </jstl:when>
-                    </jstl:choose>
-                    <hr/>
-                </jstl:forEach>
-            </jstl:if>
+            <div class="col-1"></div>
+            <div class="col-10">
+                <jstl:if test="${not empty speaker.lectures}">
+                    <div class="cust3">
+                        <p>
+                        <div class="text-center" style="background-color: #c8cbcf; color:  #1b1e21"><fmt:message
+                                key="text.my.lectures"/></div>
+                        </p>
+                        <jstl:forEach items="${speaker.lectures}" var="lecture">
+                            <jstl:choose>
+                                <jstl:when test="${language.equals('uk_UA')}">
+                                    <li><b><fmt:message
+                                            key="text.lecture.start.time"/></b>
+                                        <dt:dateFrm date="${lecture.startTime}" local="${language}"/></li>
+                                    <li><b><fmt:message key="text.lecture.title"/></b> ${lecture.title}</li>
+                                    <li><b><fmt:message
+                                            key="text.lecture.description"/></b> ${lecture.description}</li>
+                                </jstl:when>
+                                <jstl:when test="${language.equals('en_US')}">
+                                    <li><b><fmt:message
+                                            key="text.lecture.start.time"/></b>
+                                        <dt:dateFrm date="${lecture.startTime}" local="${language}"/></li>
+                                    <li><b><fmt:message key="text.lecture.title"/></b> ${lecture.titleEn}
+                                    </li>
+                                    <li><b><fmt:message
+                                            key="text.lecture.description"/></b> ${lecture.descriptionEn}
+                                    </li>
+                                </jstl:when>
+                            </jstl:choose>
+                            <hr/>
+                        </jstl:forEach>
+                    </div>
+                </jstl:if>
+            </div>
+            <div class="col-1"></div>
         </div>
-            <div class="col-2"></div>
-    </div>
     </div>
 </div>
 
-<!--FOOTER-->
+<%--FOOTER--%>
 <jsp:include page="/WEB-INF/view/template/footer.jsp"/>
 </body>
 </html>

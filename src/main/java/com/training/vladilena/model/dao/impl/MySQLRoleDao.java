@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * The {@code MySQLRoleDao} class implements {@link RoleDao}
  * and specified for MySQL DB
@@ -36,6 +37,7 @@ public class MySQLRoleDao implements RoleDao {
         LOGGER.error("Throw an UnsupportedOperationException");
         throw new UnsupportedOperationException();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -57,6 +59,7 @@ public class MySQLRoleDao implements RoleDao {
         }
         return role;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -75,6 +78,7 @@ public class MySQLRoleDao implements RoleDao {
         }
         return result;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -83,6 +87,7 @@ public class MySQLRoleDao implements RoleDao {
         LOGGER.error("Throw an UnsupportedOperationException");
         throw new UnsupportedOperationException();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -91,6 +96,7 @@ public class MySQLRoleDao implements RoleDao {
         LOGGER.error("Throw an UnsupportedOperationException");
         throw new UnsupportedOperationException();
     }
+
     /**
      * {@inheritDoc}
      */

@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
+
 /**
  * The {@code CreateReportCommand} class implements {@link Command}
  * and is used for creating the new {@link Report} by Moderator
@@ -31,6 +32,7 @@ public class CreateReportCommand implements Command {
         validation = DefaultReportValidation.getInstance();
         reportService = DefaultReportService.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -63,7 +65,7 @@ public class CreateReportCommand implements Command {
         if (reportService.create(report)) {
             LOGGER.debug("Report was created");
             request.setAttribute(AttributesManager.getProperty("report.created"), true);
-        }else {
+        } else {
             LOGGER.debug("Report wasn't created");
             request.setAttribute(AttributesManager.getProperty("report.not.create"), true);
             request.setAttribute(AttributesManager.getProperty("report"), report);

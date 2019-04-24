@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 /**
  * The {@code MySQLSpeakerDao} class implements {@link SpeakerDao}
  * and specified for MySQL DB
@@ -51,6 +52,7 @@ public class MySQLSpeakerDao implements SpeakerDao {
         }
         return resultFlag;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -68,6 +70,7 @@ public class MySQLSpeakerDao implements SpeakerDao {
         }
         return result;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -89,6 +92,7 @@ public class MySQLSpeakerDao implements SpeakerDao {
         }
         return resultList;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -109,6 +113,7 @@ public class MySQLSpeakerDao implements SpeakerDao {
         }
         return resultFlag;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -118,6 +123,7 @@ public class MySQLSpeakerDao implements SpeakerDao {
         LOGGER.error("Throw new UnsupportedOperationException");
         throw new UnsupportedOperationException();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -131,6 +137,7 @@ public class MySQLSpeakerDao implements SpeakerDao {
             throw new RuntimeException(e);
         }
     }
+
     /**
      * {@inheritDoc}
      */

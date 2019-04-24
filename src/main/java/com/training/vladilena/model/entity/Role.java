@@ -1,4 +1,5 @@
 package com.training.vladilena.model.entity;
+
 /**
  * The {@code role} enum represent {@link User} role
  *
@@ -11,7 +12,8 @@ public enum Role {
 
     private long id;
 
-    Role() {}
+    Role() {
+    }
 
     public void setId(long id) {
         this.id = id;

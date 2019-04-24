@@ -1,7 +1,9 @@
 package com.training.vladilena.model.validation;
+
 import com.training.vladilena.model.entity.Conference;
 
 import java.time.LocalDateTime;
+
 /**
  * The {@code ConferenceValidation} is a interface which provide method to validate {@link Conference}
  *

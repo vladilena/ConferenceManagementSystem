@@ -2,7 +2,6 @@ package com.training.vladilena.controller.command;
 
 import com.training.vladilena.model.dto.InvalidData;
 import com.training.vladilena.model.entity.Lecture;
-import com.training.vladilena.model.entity.User;
 import com.training.vladilena.model.validation.LectureValidation;
 import com.training.vladilena.model.validation.impl.DefaultLectureValidation;
 import com.training.vladilena.util.AttributesManager;
@@ -10,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+
 /**
  * The {@code GenerateLecture} interface is used for get {@link Lecture}'s parameters
  * from request and validate them
@@ -19,8 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 public interface GenerateLecture {
     Logger LOGGER = LogManager.getLogger(GenerateLecture.class);
     LectureValidation validation = DefaultLectureValidation.getInstance();
+
     /**
      * The default method which get {@link Lecture} and validate it
+     *
      * @param lecture is a Lecture to validate
      * @return {@link InvalidData} instance if lecture is invalid, else return null
      */
@@ -47,18 +49,20 @@ public interface GenerateLecture {
             builder.setInvalidDescriptionEnAttr();
             invalidDataFlag = true;
         }
-        if (lecture.getStartTime()!=null){
-            if(!validation.startTimeValid(lecture.getStartTime(), lecture.getMainConference().getDateTime())){
-                LOGGER.debug("Invalid start time: "+lecture.getStartTime());
+        if (lecture.getStartTime() != null) {
+            if (!validation.startTimeValid(lecture.getStartTime(), lecture.getMainConference().getDateTime())) {
+                LOGGER.debug("Invalid start time: " + lecture.getStartTime());
                 builder.setInvalidLectureStartTimeAttr();
                 invalidDataFlag = true;
             }
         }
         return invalidDataFlag ? builder.build() : null;
     }
+
     /**
      * The default method which get parameters from request and
      * generate them into {@link Lecture}
+     *
      * @param request is an HttpServletRequest request
      * @return instance of {@link Lecture}
      */

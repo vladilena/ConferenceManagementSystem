@@ -1,8 +1,6 @@
 package com.training.vladilena.model.dao.data;
 
 import com.training.vladilena.model.entity.Conference;
-import com.training.vladilena.model.entity.Lecture;
-import com.training.vladilena.model.entity.User;
 
 import java.time.LocalDateTime;
 
@@ -14,7 +12,7 @@ public class ConferenceBuilder implements Builder<Conference> {
         conference = new Conference();
     }
 
-    public static ConferenceBuilder getBuilder(){
+    public static ConferenceBuilder getBuilder() {
         return new ConferenceBuilder();
     }
 
@@ -23,16 +21,16 @@ public class ConferenceBuilder implements Builder<Conference> {
         return conference;
     }
 
-    public ConferenceBuilder constructConference(Long template){
-        if(template!=null){
+    public ConferenceBuilder constructConference(Long template) {
+        if (template != null) {
             conference.setId(template);
-            conference.setTitle("text"+template);
-            conference.setTitleEn("text"+template);
-            conference.setDescription("text"+template);
-            conference.setDescriptionEn("text"+template);
+            conference.setTitle("text" + template);
+            conference.setTitleEn("text" + template);
+            conference.setDescription("text" + template);
+            conference.setDescriptionEn("text" + template);
             conference.setDateTime(LocalDateTime.of(2019, 2, 12, 15, 0));
-            conference.setPlace("text"+template);
-            conference.setPlaceEn("text"+template);
+            conference.setPlace("text" + template);
+            conference.setPlaceEn("text" + template);
             conference.setLecturesCapacity(10);
             conference.setPlaceCapacity(10);
         }

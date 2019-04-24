@@ -11,7 +11,7 @@
 <%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="dt" uri="/WEB-INF/time_convertor.tld"%>
+<%@ taglib prefix="dt" uri="/WEB-INF/time_convertor.tld" %>
 <c:set var="language" value="${not empty sessionScope.language ? sessionScope.language : 'uk_UA'}"
        scope="session"/>
 <fmt:setLocale value="${language}"/>
@@ -21,39 +21,36 @@
     <title><fmt:message key="text.title.main"/></title>
 </head>
 
-
-<!-- HEADER -->
+<body>
+<%-- HEADER --%>
 <jsp:include page="template/header.jsp"/>
 
 
-<!-- ALARMS -->
+<%-- ALARMS --%>
 <jstl:if test="${not empty requestScope.success_registration}">
     <div class="alert alert-success" role="alert"><fmt:message key="text.alert.success.registration"/></div>
 </jstl:if>
 
-<!-- CONTENT -->
-
+<%-- CONTENT --%>
 <div class="bg">
-
     <div class="row">
         <div class="col-2">
         </div>
         <div class="col-9">
             <jstl:choose>
                 <jstl:when test="${not empty sessionScope.user}">
-                    <%--<jstl:choose>--%>
                     <div id="accordion">
                         <div class="card">
                             <div class="card-header" id="headingOne">
                                 <h5 class="mb-0">
-                                    <button class="btn btn-link" style="color: #1b1e21" data-toggle="collapse" data-target="#collapseOne"
+                                    <button class="btn btn-link" style="color: #1b1e21" data-toggle="collapse"
+                                            data-target="#collapseOne"
                                             aria-expanded="false" aria-controls="collapseOne">
                                         <div class="text-justify"><h5><fmt:message
                                                 key="text.ongoing"/></h5></div>
                                     </button>
                                 </h5>
                             </div>
-
                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                                  data-parent="#accordion">
                                 <div class="card-body">
@@ -71,7 +68,8 @@
                                                             </li>
                                                             <li><b><fmt:message
                                                                     key="text.conference.dateTime"/></b>
-                                                                    <dt:dateFrm date="${conference.dateTime}" local="${language}"/>
+                                                                <dt:dateFrm date="${conference.dateTime}"
+                                                                            local="${language}"/>
                                                             </li>
                                                             <li><b><fmt:message
                                                                     key="text.conference.place"/></b> ${conference.place}
@@ -88,7 +86,8 @@
                                                             </li>
                                                             <li><b><fmt:message
                                                                     key="text.conference.dateTime"/></b>
-                                                                <dt:dateFrm date="${conference.dateTime}" local="${language}"/>
+                                                                <dt:dateFrm date="${conference.dateTime}"
+                                                                            local="${language}"/>
                                                             </li>
                                                             <li><b><fmt:message
                                                                     key="text.conference.place"/></b> ${conference.placeEn}
@@ -137,7 +136,8 @@
                                                             </li>
                                                             <li><b><fmt:message
                                                                     key="text.conference.dateTime"/></b>
-                                                                <dt:dateFrm date="${last_conference.dateTime}" local="${language}"/>
+                                                                <dt:dateFrm date="${last_conference.dateTime}"
+                                                                            local="${language}"/>
                                                             </li>
                                                             <li><b><fmt:message
                                                                     key="text.conference.place"/></b> ${last_conference.place}
@@ -154,7 +154,8 @@
                                                             </li>
                                                             <li><b><fmt:message
                                                                     key="text.conference.dateTime"/></b>
-                                                                <dt:dateFrm date="${last_conference.dateTime}" local="${language}"/>
+                                                                <dt:dateFrm date="${last_conference.dateTime}"
+                                                                            local="${language}"/>
                                                             </li>
                                                             <li><b><fmt:message
                                                                     key="text.conference.place"/></b> ${last_conference.placeEn}
@@ -176,7 +177,6 @@
                             </div>
                         </div>
                     </div>
-
                 </jstl:when>
                 <jstl:otherwise>
                     <div class="jumbotron bg-transparent">
@@ -190,15 +190,13 @@
         </div>
         <div class="col-1"></div>
     </div>
-
-<br/>
-<br/>
-<br/>
-<br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
 </div>
 
-
-<!--FOOTER-->
+<%--FOOTER--%>
 <jsp:include page="template/footer.jsp"/>
 </body>
 </html>

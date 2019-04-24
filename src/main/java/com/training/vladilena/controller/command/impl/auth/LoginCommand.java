@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  * The {@code LoginCommand} class implements {@link Command} and is used for authentication
  *
@@ -27,6 +28,7 @@ public class LoginCommand implements Command {
         loginService = DefaultLoginService.getInstance();
         validation = DefaultUserValidation.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -73,7 +75,6 @@ public class LoginCommand implements Command {
 
     private boolean setIfUserUnique(User user, HttpServletRequest request) {
         if (request.getSession().getServletContext().getAttribute(user.getLogin()) == null) {
-            user.setPassword("");
             request.getSession().setAttribute(AttributesManager.getProperty("user"), user);
             request.getSession().getServletContext().setAttribute(user.getLogin(), true);
             return true;

@@ -16,26 +16,26 @@ public class TransactionManager {
 
     public void begin() throws SQLException {
         connection = MySQLConnectionPoolHolder.getConnection();
-        if(connection != null)
+        if (connection != null)
             beginTransaction();
     }
 
     public boolean commit() {
-        if(connection != null)
+        if (connection != null)
             return commitTransaction();
 
         return false;
     }
 
     public boolean rollback() {
-        if(connection != null)
+        if (connection != null)
             return rollbackTransaction();
 
         return false;
     }
 
     public void close() {
-        if(connection != null)
+        if (connection != null)
             closeTransaction();
     }
 
@@ -43,7 +43,7 @@ public class TransactionManager {
         try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
-            LOGGER.error("Threw a SQLException, full stack trace follows:",e);
+            LOGGER.error("Threw a SQLException, full stack trace follows:", e);
             close();
         }
     }
@@ -75,7 +75,7 @@ public class TransactionManager {
         try {
             connection.close();
         } catch (SQLException e) {
-            LOGGER.error("Threw a SQLException, full stack trace follows:",e);
+            LOGGER.error("Threw a SQLException, full stack trace follows:", e);
         }
     }
 }

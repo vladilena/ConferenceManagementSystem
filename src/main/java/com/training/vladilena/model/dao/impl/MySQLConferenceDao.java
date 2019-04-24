@@ -1,7 +1,6 @@
 package com.training.vladilena.model.dao.impl;
 
 import com.training.vladilena.model.dao.ConferenceDao;
-import com.training.vladilena.model.dao.DaoFactory;
 import com.training.vladilena.model.dao.mapper.impl.ConferenceMapper;
 import com.training.vladilena.model.entity.Conference;
 import com.training.vladilena.util.SQLManager;
@@ -61,9 +60,7 @@ public class MySQLConferenceDao implements ConferenceDao {
         try (PreparedStatement stm = connection.prepareStatement(SQLManager.getProperty("find.conference.by.id"))) {
             stm.setLong(1, id);
             ResultSet rs = stm.executeQuery();
-                Conference conference = conferenceMapper.parseFromResultSet(rs, false);
-                result = conference;
-
+            result = conferenceMapper.parseFromResultSet(rs, false);
             LOGGER.debug("Select was successful");
         } catch (SQLException e) {
             LOGGER.error("Threw a SQLException, full stack trace follows: " + e);
@@ -161,6 +158,9 @@ public class MySQLConferenceDao implements ConferenceDao {
         stm.setInt(9, entity.getPlaceCapacity());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Conference> findAllSubscribed() {
         List<Conference> resultList = new ArrayList<>();
@@ -173,12 +173,6 @@ public class MySQLConferenceDao implements ConferenceDao {
             LOGGER.error("Threw a SQLException, full stack trace follows: " + e);
         }
         return resultList;
-    }
-
-
-    public static void main(String[] args) {
-        ConferenceDao dao = DaoFactory.getInstance().getConferenceDao();
-        System.out.println(dao.findAllSubscribed());
     }
 }
 

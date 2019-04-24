@@ -1,8 +1,10 @@
 package com.training.vladilena.model.service;
 
-import com.training.vladilena.model.entity.Role;
 import com.training.vladilena.model.dao.RoleDao;
+import com.training.vladilena.model.entity.Role;
+
 import java.util.List;
+
 /**
  * The {@code RoleService} service is a specified API for working with the {@link RoleDao}
  *

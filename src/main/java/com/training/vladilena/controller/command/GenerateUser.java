@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+
 /**
  * The {@code GenerateUser} interface is used for get {@link User}'s parameters
  * from request or session and validate them
@@ -19,9 +20,11 @@ import javax.servlet.http.HttpServletRequest;
 public interface GenerateUser {
     Logger LOGGER = LogManager.getLogger(GenerateUser.class);
     UserValidation validation = DefaultUserValidation.getInstance();
+
     /**
      * The default method which get parameters from session and
      * generate them into {@link User}
+     *
      * @param request is an HttpServletRequest request
      * @return instance of {@link User}
      */
@@ -32,9 +35,11 @@ public interface GenerateUser {
         }
         return user;
     }
+
     /**
      * The default method which get parameters from request and
      * generate them into {@link User}
+     *
      * @param request is an HttpServletRequest request
      * @return instance of {@link User}
      */
@@ -50,8 +55,10 @@ public interface GenerateUser {
         user.setRole(Role.valueOf(request.getParameter(AttributesManager.getProperty("role"))));
         return user;
     }
+
     /**
      * The default method which get {@link User} and validate it
+     *
      * @param user is a User to validate
      * @return {@link InvalidData} instance if conference is invalid, else return null
      */

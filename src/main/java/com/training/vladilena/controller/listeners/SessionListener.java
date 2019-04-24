@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+
 /**
  * The {@code SessionListener} class implements {@link HttpSessionListener}
  * and is used to remove user from session and context after session destroying

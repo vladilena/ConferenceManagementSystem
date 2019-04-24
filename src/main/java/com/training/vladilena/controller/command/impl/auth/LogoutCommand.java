@@ -9,6 +9,7 @@ import com.training.vladilena.util.PathManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 /**
  * The {@code LogoutCommand} class implements {@link Command}, {@link GenerateUser}
  * and is used for removing user from session and context and for session invalidation

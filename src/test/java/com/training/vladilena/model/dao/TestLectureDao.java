@@ -7,22 +7,20 @@ import com.training.vladilena.model.dao.impl.MySQLLectureDao;
 import com.training.vladilena.model.entity.Lecture;
 import com.training.vladilena.util.TestConnectionPoolHolder;
 import com.training.vladilena.util.TestDataBaseManager;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.TestCase.assertNull;
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class TestLectureDao {
+class TestLectureDao {
     private static LectureDao lectureDao;
 
-    @BeforeClass
-    public static void setUpClass() {
+    @BeforeAll
+    static void setUpClass() {
         TestDataBaseManager.setUpTestDDL();
         TestDataBaseManager.setUpTestDML();
         try {
@@ -33,7 +31,7 @@ public class TestLectureDao {
     }
 
     @Test
-    public void createTest() {
+    void createTest() {
         Lecture lecture = LectureBuilder.getBuilder().constructLecture(2L, false,
                 ConferenceBuilder.getBuilder().constructConference(1L),
                 SpeakerBuilder.getBuilder().constructSpeaker(2L)).build();
@@ -43,7 +41,7 @@ public class TestLectureDao {
     }
 
     @Test
-    public void updateTest() {
+    void updateTest() {
         Lecture lecture = LectureBuilder.getBuilder().constructLecture(1L, false,
                 ConferenceBuilder.getBuilder().constructConference(1L),
                 SpeakerBuilder.getBuilder().constructSpeaker(2L)).build();
@@ -54,7 +52,7 @@ public class TestLectureDao {
     }
 
     @Test
-    public void deleteTest() {
+    void deleteTest() {
         Lecture lecture = LectureBuilder.getBuilder().constructLecture(1L, false,
                 ConferenceBuilder.getBuilder().constructConference(1L),
                 SpeakerBuilder.getBuilder().constructSpeaker(2L)).build();
@@ -64,7 +62,7 @@ public class TestLectureDao {
     }
 
     @Test
-    public void findAllTest() {
+    void findAllTest() {
         List<Lecture> expectedLectures = new ArrayList<>();
         expectedLectures.add(LectureBuilder.getBuilder().constructLecture(1L, false,
                 ConferenceBuilder.getBuilder().constructConference(1L),
@@ -75,7 +73,7 @@ public class TestLectureDao {
     }
 
     @Test
-    public void findByIdTest() {
+    void findByIdTest() {
         Lecture expectedLecture = LectureBuilder.getBuilder().constructLecture(1L, false,
                 ConferenceBuilder.getBuilder().constructConference(1L),
                 SpeakerBuilder.getBuilder().constructSpeaker(2L)).build();
@@ -84,7 +82,7 @@ public class TestLectureDao {
     }
 
     @Test
-    public void approveTest() {
+    void approveTest() {
         Lecture lecture = LectureBuilder.getBuilder().constructLecture(1L, false,
                 ConferenceBuilder.getBuilder().constructConference(1L),
                 SpeakerBuilder.getBuilder().constructSpeaker(2L)).build();

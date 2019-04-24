@@ -12,6 +12,7 @@ import com.training.vladilena.util.PathManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+
 /**
  * The {@code MainCommand} class implements {@link Command}
  * and is used for filling the data on main page
@@ -24,6 +25,7 @@ public class MainCommand implements Command, GenerateUser {
     public MainCommand() {
         conferenceService = DefaultConferenceService.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */

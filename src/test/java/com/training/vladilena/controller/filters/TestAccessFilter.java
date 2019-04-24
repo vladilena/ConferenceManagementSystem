@@ -5,7 +5,7 @@ import com.training.vladilena.model.dao.data.UserBuilder;
 import com.training.vladilena.model.entity.Role;
 import com.training.vladilena.model.entity.User;
 import com.training.vladilena.model.exceptions.PermissionErrorException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -14,13 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class TestAccessFilter {
+ class TestAccessFilter {
 
-    @Test(expected = PermissionErrorException.class)
-    public void PermissionErrorWhenUserTryToCreateConference() throws IOException, ServletException {
+    @Test
+    void PermissionErrorWhenUserTryToCreateConference() throws IOException, ServletException {
         final AccessFilter filter = new AccessFilter();
         final FilterChain filterChain = mock(FilterChain.class);
 
@@ -37,11 +38,12 @@ public class TestAccessFilter {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("user")).thenReturn(user);
         when(request.getParameter("action")).thenReturn(command);
-        filter.doFilter(request, response, filterChain);
+
+        assertThrows(PermissionErrorException.class, () -> filter.doFilter(request, response, filterChain));
     }
 
-    @Test(expected = PermissionErrorException.class)
-    public void PermissionErrorWhenUserTrySeeRestrictedPage() throws IOException, ServletException {
+    @Test
+     void PermissionErrorWhenUserTrySeeRestrictedPage() throws IOException, ServletException {
         final AccessFilter filter = new AccessFilter();
         final FilterChain filterChain = mock(FilterChain.class);
 
@@ -56,7 +58,9 @@ public class TestAccessFilter {
         when(request.getRequestURI()).thenReturn(uri);
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("user")).thenReturn(user);
-        filter.doFilter(request, response, filterChain);
+
+        assertThrows(PermissionErrorException.class, ()->filter.doFilter(request, response, filterChain));
+
     }
 }
 

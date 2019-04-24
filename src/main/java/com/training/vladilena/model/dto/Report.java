@@ -1,6 +1,7 @@
 package com.training.vladilena.model.dto;
 
 import java.time.LocalDateTime;
+
 /**
  * The {@code Report} class is a data transfer object that is used to create a Report after {@link com.training.vladilena.model.entity.Conference}
  *
@@ -73,12 +74,12 @@ public class Report {
 
     @Override
     public String toString() {
-        return "Report: " + id+
+        return "Report: " + id +
                 ", \nConference title in Ukrainian '" + conferenceTitle + '\'' +
                 ", \nConference title in English '" + conferenceTitleEn + '\'' +
                 ", \nDate and time " + dateTime +
                 ", \nProvided lectures amount " + providedLecturesAmount +
-              //  ", \nRegistered participants amount " + registeredParticipantsAmount +
+                ", \nRegistered participants amount " + registeredParticipantsAmount +
                 ", \nActual participants amount " + actualParticipantsAmount
                 + "\n";
     }

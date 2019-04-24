@@ -21,10 +21,10 @@
     <title><fmt:message key="text.title.conference"/></title>
 </head>
 <body>
-<!-- HEADER -->
+<%-- HEADER --%>
 <jsp:include page="../../../template/header.jsp"/>
 
-<!--ALARMS-->
+<%--ALARMS--%>
 <jstl:if test="${not empty requestScope.success_subscribe}">
     <div class="alert alert-success" role="alert"><fmt:message key="text.alert.success.subscribe"/></div>
 </jstl:if>
@@ -45,7 +45,7 @@
 </jstl:if>
 
 
-<!--CONTENT-->
+<%--CONTENT--%>
 <div class="bg">
     <div class="row">
         <div class="col-2"></div>
@@ -91,7 +91,6 @@
                             </li>
                         </jstl:when>
                     </jstl:choose>
-
                     <jstl:choose>
                         <jstl:when test="${not empty sessionScope.future}">
 
@@ -161,7 +160,7 @@
                                                     </li>
                                                 </jstl:when>
                                             </jstl:choose>
-                                            <!-- Buttons for each lecture in ingoing  conference-->
+                                                <%-- Buttons for each lecture in ingoing  conference--%>
                                             <div class="btn-block" style="background-color: #c8cbcf">
                                                 <div align="center">
                                                     <jstl:if test="${'MODERATOR' == sessionScope.user.role.name()}">
@@ -187,7 +186,7 @@
 
                         </jstl:when>
                         <jstl:otherwise>
-                            <!-- Conference is past-->
+                            <%-- Conference is past--%>
                             <div class="btn-block" style="background-color: #c8cbcf">
                                 <div align="center">
                                     <jstl:if test="${'MODERATOR' == sessionScope.user.role.name()}">
@@ -204,7 +203,7 @@
                                         key="text.lectures"/></h5></div>
                                 <div class="cust2">
                                     <jstl:forEach items="${requestScope.conference.conferenceLectures}" var="lecture">
-                                        <!-- Lecture's parameters with locale-->
+                                        <%-- Lecture's parameters with locale--%>
                                         <ul class="menu">
                                             <jstl:choose>
                                                 <jstl:when test="${language.equals('uk_UA')}">
@@ -252,7 +251,7 @@
 </div>
 
 
-<!--FOOTER-->
+<%--FOOTER--%>
 <jsp:include page="/WEB-INF/view/template/footer.jsp"/>
 </body>
 </html>

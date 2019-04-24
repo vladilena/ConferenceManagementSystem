@@ -17,21 +17,20 @@ public class TestConnectionPoolHolder implements ConnectionPoolHolder {
     private static final int MAX_IDLE = 10;
     private static final int MAX_OPEN_PREPARE_STATEMENTS = 100;
 
-
     public Connection getConnection() throws SQLException {
-       try {
-           BasicDataSource ds = new BasicDataSource();
-           ds.setUrl(URL);
-           ds.setUsername(USER);
-           ds.setPassword(PASSWORD);
-           ds.setMinIdle(MIN_IDLE);
-           ds.setMaxIdle(MAX_IDLE);
-           ds.setMaxOpenPreparedStatements(MAX_OPEN_PREPARE_STATEMENTS);
-           return ds.getConnection();
-       }catch (SQLException e){
-           LOGGER.error("SQL Exception: "+e);
-       }
-    return null;
+        try {
+            BasicDataSource ds = new BasicDataSource();
+            ds.setUrl(URL);
+            ds.setUsername(USER);
+            ds.setPassword(PASSWORD);
+            ds.setMinIdle(MIN_IDLE);
+            ds.setMaxIdle(MAX_IDLE);
+            ds.setMaxOpenPreparedStatements(MAX_OPEN_PREPARE_STATEMENTS);
+            return ds.getConnection();
+        } catch (SQLException e) {
+            LOGGER.error("SQL Exception: " + e);
+        }
+        return null;
     }
 
     public void closeConnection(Connection con) {
@@ -39,7 +38,7 @@ public class TestConnectionPoolHolder implements ConnectionPoolHolder {
             if (con != null)
                 con.close();
         } catch (SQLException e) {
-            LOGGER.error("Threw a SQLException, full stack trace follows:",e);
+            LOGGER.error("Threw a SQLException, full stack trace follows:", e);
         }
     }
 }

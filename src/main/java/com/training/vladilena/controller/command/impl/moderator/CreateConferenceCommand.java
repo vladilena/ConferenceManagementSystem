@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  * The {@code CreateConferenceCommand} class implements {@link Command}
  * and is used for creating the new {@link Conference} by Moderator
@@ -26,6 +27,7 @@ public class CreateConferenceCommand implements Command, GenerateConference {
     public CreateConferenceCommand() {
         conferenceService = DefaultConferenceService.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */

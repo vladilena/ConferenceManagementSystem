@@ -13,9 +13,9 @@ import java.io.IOException;
 import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
-public class TestMainServlet {
+class TestMainServlet {
     @Test
-    public void UserNotExistsError() throws ServletException, IOException {
+    void UserNotExistsError() throws ServletException, IOException {
         final MainServlet servlet = new MainServlet();
 
         String login = "login";

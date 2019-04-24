@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  * The {@code DeleteLectureCommand} class implements {@link Command}
  * and is used for deleting the {@link Lecture} from the database by Moderator
@@ -24,6 +25,7 @@ public class DeleteLectureCommand implements Command {
     public DeleteLectureCommand() {
         lectureService = DefaultLectureService.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -33,9 +35,8 @@ public class DeleteLectureCommand implements Command {
         Lecture lecture = lectureService.getById(lectureId);
         if (lectureService.delete(lectureId)) {
             LOGGER.debug("Lecture was deleted succeed");
-            request.setAttribute(AttributesManager.getProperty("conference.id"),request.getSession().getAttribute(AttributesManager.getProperty("conference.id")));
-            return PathManager.getProperty("redirect.path.page.conference");
-        }else {
+            return PathManager.getProperty("redirect.page.main");
+        } else {
             LOGGER.debug("Delete wasn't succeed");
             request.setAttribute(AttributesManager.getProperty("lect.not.delete"), true);
             request.setAttribute(AttributesManager.getProperty("lecture"), lecture);

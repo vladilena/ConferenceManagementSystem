@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.util.List;
+
 /**
  * {@inheritDoc}
  */
@@ -26,6 +27,7 @@ public class DefaultSpeakerService implements SpeakerService {
     private DefaultSpeakerService() {
         speakerDao = DaoFactory.getInstance().getSpeakerDao();
     }
+
     /**
      * Always return same {@link DefaultSpeakerService} instance
      *
@@ -55,6 +57,7 @@ public class DefaultSpeakerService implements SpeakerService {
         speaker.setId(userId);
         return speakerDao.create(speaker);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -62,6 +65,7 @@ public class DefaultSpeakerService implements SpeakerService {
     public boolean changeRating(double newRating, long speakerId) {
         return speakerDao.changeRating(newRating, speakerId);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -71,6 +75,7 @@ public class DefaultSpeakerService implements SpeakerService {
         BigDecimal bonus = calculateBonus(speaker.getRating());
         return speakerDao.transferBonus(bonus, speakerId);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -91,6 +96,7 @@ public class DefaultSpeakerService implements SpeakerService {
         }
         return BigDecimal.valueOf(rating).multiply(coefficient);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -98,6 +104,7 @@ public class DefaultSpeakerService implements SpeakerService {
     public List<Speaker> getAll() {
         return speakerDao.findAll();
     }
+
     /**
      * {@inheritDoc}
      */

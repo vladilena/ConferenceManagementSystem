@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+
 /**
  * The {@code RedirectConferenceCommand} class implements {@link Command}
  * and is used for redirect to the conference page and fill it with data.
@@ -25,6 +26,7 @@ public class RedirectConferenceCommand implements Command {
     public RedirectConferenceCommand() {
         conferenceService = DefaultConferenceService.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */

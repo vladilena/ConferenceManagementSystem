@@ -4,9 +4,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ua.training.vladlena</groupId>
+    <groupId>com.training.vladlena</groupId>
     <artifactId>ConferenceManagementSystem</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <developers>
+        <developer>
+            <id>1</id>
+            <name>Vladlena Ushakova</name>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
 
     <parent>
         <groupId>net.wasdev.wlp.maven.parent</groupId>
@@ -24,14 +35,14 @@
         <packaging.type>minify,runnable</packaging.type>
     </properties>
 
-    <profiles>
-        <profile>
-            <id>usr-package</id>
-            <properties>
-                <packaging.type>usr</packaging.type>
-            </properties>
-        </profile>
-    </profiles>
+    <!--<profiles>-->
+        <!--<profile>-->
+            <!--<id>usr-package</id>-->
+            <!--<properties>-->
+                <!--<packaging.type>usr</packaging.type>-->
+            <!--</properties>-->
+        <!--</profile>-->
+    <!--</profiles>-->
 
 
     <build>
@@ -51,7 +62,7 @@
                 <version>2.2</version>
                 <configuration>
                     <port>8080</port>
-                    <path>/controller</path>
+                    <path>/conf</path>
                 </configuration>
             </plugin>
             <plugin>
@@ -60,33 +71,23 @@
                 <version>3.0.0</version>
                 <configuration>
                     <packagingExcludes>pom.xml</packagingExcludes>
+                    <warSourceDirectory>web</warSourceDirectory>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
                 <configuration>
                     <source>8</source>
                     <target>8</target>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 
-    <developers>
-        <developer>
-            <id>1</id>
-            <name>Vladlena Ushakova</name>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-    </developers>
 
     <dependencies>
-
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-catalina</artifactId>
@@ -181,14 +182,17 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.3.1</version>
             <scope>test</scope>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>2.23.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-
 </project>
 

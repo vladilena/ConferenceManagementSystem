@@ -15,6 +15,7 @@ public class DefaultConferenceValidation implements ConferenceValidation {
 
     private DefaultConferenceValidation() {
     }
+
     /**
      * Always return same {@link DefaultConferenceValidation} instance
      *

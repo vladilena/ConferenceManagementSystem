@@ -13,6 +13,7 @@ import com.training.vladilena.util.PathManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+
 /**
  * The {@code RedirectChangeLectureCommand} class implements {@link Command}
  * and is used for redirect to the lecture page and fill it with data
@@ -23,10 +24,11 @@ public class RedirectChangeLectureCommand implements Command {
     private static LectureService lectureService;
     private static SpeakerService speakerService;
 
-    public RedirectChangeLectureCommand(){
+    public RedirectChangeLectureCommand() {
         lectureService = DefaultLectureService.getInstance();
         speakerService = DefaultSpeakerService.getInstance();
     }
+
     /**
      * {@inheritDoc}
      */
