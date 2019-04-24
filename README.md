@@ -24,27 +24,18 @@ Must be implemented participants notifying of upcoming events.
 11. The application must respond correctly to all sorts of errors and exceptions. (User should never see stack trace on front-end side).
 12. The application must have an authorization and authentication systems.
 
-####Instructions
+#### Instructions
 Before building be sure that project structure is following:
 
 -out
-
 -src
-
 --main
-
 ---java (marked as Sources Root)
-
 ---resources (marked as Resources Root)
-
 --test
-
 ---java (marked as Test Sources Root)
-
 ---resources (marked as Test Resources Root)
-
 -target
-
 -web (marked as WEB Sources Root)
 
 To build the project execute the command: mvn package
