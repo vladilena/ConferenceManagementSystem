@@ -28,14 +28,23 @@ Must be implemented participants notifying of upcoming events.
 Before building be sure that project structure is following:
 
 -out
+
 -src
+
 --main
+
 ---java (marked as Sources Root)
+
 ---resources (marked as Resources Root)
+
 --test
+
 ---java (marked as Test Sources Root)
+
 ---resources (marked as Test Resources Root)
+
 -target
+
 -web (marked as WEB Sources Root)
 
 To build the project execute the command: mvn package
